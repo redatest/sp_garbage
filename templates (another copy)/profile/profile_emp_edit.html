@@ -1,0 +1,168 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+{% block middlecontent %}
+
+{% block extra_style %}
+   <link rel="stylesheet" type="text/css" href="/static/social_bis.css">
+{% endblock extra_style %} 
+
+<div class="col-sm-8">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Mon Profile
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-4">
+
+          
+          <div class="list-group">
+            <a class="list-group-item no-hover" href="#"><i class="fa fa-file-image-o gray "></i>&nbsp; Avatar</a>
+            <div id="people-you-may-know" class="social-nav-list" style="max-width: 340px; padding: 0;">
+            <ul class="nav nav-list dividers">
+              <li class="nav-header">&nbsp;</li>
+          
+              <li class="nav-header">
+                  <div class="avatar">
+                    <img src="/static/img/user2.png" alt="avatar" class="img-thumbnail" width='100' height='100'>
+                  </div>
+              </li>
+              <br>
+          
+            </ul>
+          </div> <!-- end avatar -->   
+          </div>
+
+          <hr/>
+
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-wrench gray "></i> Confidentialité</a>
+
+                <a class="list-group-item" href="/emp_profile">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-user fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Page du profile
+                </a>     
+
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-edit gray "></i> Changer</a>
+
+                <a class="list-group-item" href="/accounts/password/reset">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-key fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Mot de passe
+                </a>
+          </div>
+
+
+
+        </div>
+
+        <div class="col-sm-8">
+
+
+        <div class="social-box">
+
+          <div class="header">
+            <i class="fa fa-bullseye gray-ns"></i>
+              <strong>Informations générales :</strong>
+          </div>
+
+            <div class="body">
+              
+              <form action="." method='post'>
+                {% csrf_token %}
+                {{ form }}
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">Valider</button><br/>
+                </div>
+
+              </form>
+
+            </div>
+           </div>  
+
+            
+
+        </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style='padding-left: 0px;'>
+    <div class="col-sm-12" style='padding-left: 0px;'>
+      <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+
+{% block sidecontent %}
+  {% include "./parts/simple_sidecontent.html" %}
+{% endblock sidecontent %}
+
+{% block js %}
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script type="text/javascript" src="/static/js/custom.js"></script>
+
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+        <!-- vmap --> 
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>         
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>         
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js"></script>         
+
+        <script type='text/javascript'>
+          jQuery(document).ready(function($) {
+
+            $('#id_presentation').css('margin-top', '10px');
+
+            $('#id_presentation').wysihtml5({
+              // "font-styles": false,
+              "lists": false,
+              "color":false,
+              "link":false,
+              "image":false
+            });
+          });
+        </script>
+{% endblock js %}
+

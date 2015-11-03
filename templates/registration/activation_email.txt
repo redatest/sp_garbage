@@ -1,0 +1,22 @@
+Bonjour,
+
+Vous venez d'effectuer une demande d'inscription sur le site de Speedjob.
+
+Afin de confirmer la création de votre compte, veuillez cliquer sur le lien ci-dessus:
+
+http://{{ site.domain }}{% url registration_activate activation_key %}
+
+En l'abscence de confirmation de votre part dans un délai de {{ expiration_days }} jour{{ expiration_days|pluralize }}
+
+Votre compte sera définitivement supprimé.
+
+
+
+Merci de votre confiance.
+
+
+
+Speedjob
+
+
+

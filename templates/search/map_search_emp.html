@@ -1,0 +1,294 @@
+{% extends "sitebase.html" %}
+{% load seen_by_emp %}
+
+{% load i18n cache %}
+
+{% block title %} Résultats de la recherche {% endblock title %}
+
+{% block extra_style %}
+  <link rel="stylesheet" type="text/css" href="/static/social_bis.css"> 
+  <link href="/static/style/blog-style.css" rel="stylesheet">
+  <link href="/static/test.css" rel="stylesheet">
+
+  <style type="text/css">
+    ul.dropdown-menu{
+      left: 0px;
+    }
+
+    input.form-control.diff{
+       height:41px;
+    }
+
+    button.btn.slct{
+      color:#000 !important;
+    }
+
+    button.btn.slct span.caret{
+      border-top-color : #000 !important;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    button.btn.srch{
+      color:#09C !important;
+    }
+
+    label.mods{
+      color: gray;
+      
+    }
+
+  </style>
+
+{% endblock extra_style %}
+
+{% block bottom-header %}
+  
+{% endblock bottom-header %}
+
+{% block middlecontent %}
+
+<div class="col-sm-8">
+  <br/>
+    
+    <div id="respo">
+
+      <div class="panel panel-default">
+
+          <div class="panel-heading">
+
+            <span class="fa-stack ">
+                    <i class="fa fa-square-o fa-stack-2x "></i>
+                    <i class="fa fa-pencil fa-stack-1x "></i>
+            </span> 
+            {% trans "Recherche contextuelle" %} 
+
+          </div>
+
+      </div>
+
+      <div class="panel panel-default">
+
+        <div class="panel-body">
+
+          <form class="form-contextuelle" method="get" action="/text_search_emp/">
+                <div class="form-group">
+
+                <label class="col-sm-2 control-label mods" style="text-align:center"> {% trans "Recherchez dans: " %} </label>
+
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button 
+                              type="button" 
+                              data-toggle="dropdown" 
+                              class="btn slct dropdown-toggle" 
+                              value="title"
+                              >
+
+                                le titre du poste voulu
+                                <span class="caret"></span>
+
+                      </button>
+
+                      <ul class="dropdown-menu">
+
+                        <li>
+                          <a href="#" name="dropval" value="title">le titre du poste voulu</a>
+                        </li>
+                        
+                      </ul>
+                    </div>
+                     
+                    <input class="form-control diff" type="text" placeholder="Taper vos mots clé ici ...." name="keyword">
+
+                    <span class="input-group-btn">
+                      <button type="button" class="btn srch">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+
+              </div>  
+
+          </form> <!-- form contextuelle ends -->
+
+        </div>
+      </div>
+
+
+
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <span class="fa-stack ">
+                  <i class="fa fa-square-o fa-stack-2x "></i>
+                  <i class="fa fa-list-ul fa-stack-1x "></i>
+          </span> 
+          {% trans "Résultats de la recherche des candidats" %} &nbsp; {{ srch_res }} &nbsp; candida{{srch_res|pluralize:"t,ts"}} 
+          trouv{{srch_res|pluralize:"é,és"}}
+        </div>
+
+         {% if contacts %}
+
+         <br/>
+        
+            {% for i in contacts %}
+
+                 <div class="panel panel-default event effect2">
+                    <div class="panel-body">
+
+                      <div class="author col-xs-2 col-sm-5">
+                          <div class="profile-image">
+                              <img src="/static/img/user.jpg"/>
+                          </div>
+                          <div class="profile hidden-xs">
+                              <strong> {{i.get_full_name}} </strong>
+                              <article>{{i.get_salary_field|safe}} </article>
+                          </div>
+                          
+                      </div>
+                      
+                      <div class="info col-xs-7 col-sm-5">
+                        <article> {{ i.get_wanted_job }} </article>
+                        <br/>
+                        
+                          <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_study_level_field }} </span><br/>
+                          <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_city_display }} </span><br/>
+                          <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created_at|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                        
+                        <div class="visible-xs">&nbsp;</div>
+                        <div class="hidden-xs">
+                            
+                          </div>
+                      </div>
+
+                      <div class="rsvp col-xs-3 col-sm-2">
+
+                        <i> &nbsp; </i> <br/> 
+
+                        
+
+                        <div class="hidden-xs">
+                          <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x view-offer"></span></a>
+                            {% if i|args:empo|call:'has_been_watched' %}
+                                <a href="{{i.get_absolute_url}}"> <span class="fa fa-eye seen fa-2x"> </span> </a>
+                            {% else %}
+                                <a href="{{i.get_absolute_url}}"> <span class="fa fa-eye-slash fa-2x"> </span> </a>
+                            {% endif %}
+                          
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+           {% endfor %}
+      <br>
+
+      <div class="page-numbers" style='background:#fff; text-align:center'>
+
+        <br/>
+
+        <ul>
+
+          {% if contacts.has_previous %}
+          <li>
+            <a class="prev" href="?page={{ contacts.previous_page_number }}">
+              <i class="prev"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          <li>
+            <a href="javascript:void(0)"> {% trans "page" %} &nbsp;{{ contacts.number }} / {{ contacts.paginator.num_pages }} </a>
+          </li>
+          
+          {% if contacts.has_next %}
+          <li>
+            <a class="next" href="?page={{ contacts.next_page_number }} ">
+              <i class="next"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          <div class="clear"></div>
+
+
+        </ul>
+
+        <br/>
+
+      </div>
+
+      {% else %}
+
+      <br/>
+
+        <div class="well">
+          <p class="lead">
+            <br/>
+            Aucune offre correspondante à votre recherche
+            <br/>
+            
+          </p>
+        </div>
+
+      {% endif %} 
+        
+
+    </div>
+    </div>
+
+    
+    
+</div>
+
+<!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+{% block sidecontent %}
+        {% include "./parts/sidepage/search_sidecontent_emp.html" %}
+{% endblock sidecontent %}
+
+
+{% block extra_js %}
+
+    <script type="text/javascript">
+
+    // when user type something in the keyword search field
+    $('input[name="keyword"]').keypress(function(ev){
+      $(this).css('border', '1px solid #bdc7d8');
+    });
+
+    // selecting a key word search option
+    $("ul.dropdown-menu li a").click(function(ev) {
+
+        $(".btn.slct:first-child").html($(this).text()+' <span class="caret"></span>');
+        $(".btn.slct:first-child").val($(this).attr("value"));      
+
+     });
+
+    $('button.btn.srch').click(function(ev){
+
+        // if nothing input in the text box
+        if ( $('input[name="keyword"]').val().length == 0 ){
+          $('input[name="keyword"]').css("border", "1px solid rgba(187, 27, 27, 0.77)");
+          return false
+        }
+        
+        var selected_btn = $('button.btn.slct ').attr("value");
+        var ser = $('form.form-contextuelle').serialize();
+        ser = ser + '&type_search='+selected_btn;
+        /*alert(ser);*/
+
+        $('form.form-contextuelle').submit();
+
+    });
+    </script>
+
+{% endblock %}

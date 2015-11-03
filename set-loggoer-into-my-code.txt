@@ -1,0 +1,4 @@
+pour debuger certains variables ou les imprimer, ajoute ce code
+
+# log = logging.getLogger(__name__)
+# log.info(sendmail)

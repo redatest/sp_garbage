@@ -1,0 +1,33 @@
+{% if messages %}
+<div class='alerts row-fluid'>
+	<div class="span7 offset2">
+		{% for message in messages %}
+			<script type="text/javascript">
+			  $.gritter.add({
+
+			      image: '/static/images/logo-user.png',
+			      // (string | mandatory) the heading of the notification
+			      title: 'Notification',
+			      // (string | mandatory) the text inside the notification
+			      text: '{{ message }}',
+			      // get light colors
+			      class_name: 'gritter-light'
+			    });
+			  </script>
+		{% endfor %}
+	</div>
+</div>
+
+
+{% endif %}
+
+<script>
+	$('.alerts').on('click', '.close', function(event) {
+		event.preventDefault();
+
+		var $this = $(this),
+			$message = $this.closest('.alert');
+
+		$message.hide('slow', function(){ $message.remove(); });
+	});
+</script>

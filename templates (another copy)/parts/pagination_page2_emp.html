@@ -1,0 +1,105 @@
+{% load i18n seen_by_emp %}
+
+<!-- head of injected part --> 
+
+      <div class="panel panel-default">
+        <div class="panel-heading"> 
+          <span class="fa-stack ">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-list-ul fa-stack-1x "></i>
+          </span> 
+          {% trans "Resultats de la recherche" %} 
+        </div>
+        <div class="panel-body-mod"> 
+          <br/>
+
+          {% for i in items.object_list %}
+          
+              <div class="panel panel-default event">
+                <div class="panel-body">
+
+                  <div class="author col-xs-2 col-sm-5">
+                      <div class="profile-image">
+                          <img src="/static/img/user.jpg"/>
+                      </div>
+                      <div class="profile hidden-xs">
+                          <strong> {{i.get_full_name}} </strong>
+                          <article>{{i.get_salary_field|safe}} </article>
+                      </div>
+                      
+                  </div>
+                  
+                  <div class="info col-xs-7 col-sm-5">
+                    <article> {{ i.get_wanted_job }} </article>
+                    <br/>
+                    
+                      <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_study_level_field }} </span><br/>
+                      <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_city_display }} </span><br/>
+                      <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created_at|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                    
+                    <div class="visible-xs">&nbsp;</div>
+                    <div class="hidden-xs">
+                        
+                      </div>
+                  </div>
+
+                  <div class="rsvp col-xs-3 col-sm-2">
+
+                    <i> &nbsp; </i> <br/> 
+
+                    {{i|args:empo|call:'has_been_watched'|safe}} &nbsp; 
+
+                    <div class="hidden-xs">
+                      <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x view-offer"></span></a>
+                      
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+        {% endfor %}
+
+
+        <br>
+
+        <div class="page-numbers" style='background:#fff; text-align:center'> <br/>
+          <ul>
+              {% if items.has_previous %}
+
+              <li>
+                 <a class="prev"
+                    href="#respo"
+                    onclick="Dajaxice.car_shop.pagination2(Dajax.process,{'p':{{ items.previous_page_number }}, 'form': $('#search_form').serialize(true)});  ">
+                    <i class="prev"></i>
+                </a>
+              </li>
+
+              {% endif %}
+
+              <li>
+                <a href="javascript:void(0)"> {% trans "page" %} &nbsp;{{ items.number }}/ {{ items.paginator.num_pages }} </a>
+              </li>
+              
+              {% if items.has_next %}
+              
+              <li>
+                <a 
+                  class="next" 
+                  href="#respo"
+                  onclick="Dajaxice.car_shop.pagination2(Dajax.process,{'p':{{ items.next_page_number }}, 'form': $('#search_form').serialize(true)}); ">
+                  <i class="next"></i>
+                  
+                </a>
+              </li>
+              {% endif %}
+
+              <div class="clear"></div>
+          </ul> <br/>
+
+          </div>
+
+        </div>
+      </div>
+      
+<!-- end of the injected part -->    

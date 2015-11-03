@@ -1,0 +1,450 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="/static/sweetalert/dist/sweetalert.css">
+    <style type="text/css">
+    div.sweet-alert fieldset{
+      display: none !important;
+    }
+
+      
+    </style>
+
+{% endblock extra_css %}
+
+{% block js %}
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script> 
+        <script src="/static/sweetalert/dist/sweetalert.min.js"></script>
+{% endblock js %}
+
+
+{% block bottom-header %}
+  
+{% endblock bottom-header %}
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+        Profil du candidat 
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-4">
+
+          <div class="list-group">
+
+              <div class="body">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-list-alt gray "></i>&nbsp;&nbsp; {{userinfo.user.username}}</a>
+                 <br> 
+                <div class="col-sm-5">
+
+                  <img src="/static/img/user_avatar.jpg" class='img-polaroid avatar'>
+                </div>
+                <div class="col-sm-7">
+                  
+                  {% if userinfo.has_uploaded_cv %} 
+
+                      {% with request.user.customer.current_subscription as cur_sub %}  
+
+                          {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+                            <!--
+                            nothing
+                            -->
+                                  {% if already_downloaded  %}
+
+                                      <span class="label dark label-default"> 
+                                          <i class="fa fa-inbox blue "></i>&nbsp;
+                                          {% trans "CV déja téléchargé " %}
+                                      </span> 
+
+                                  {% else %}
+
+                                      <span class="label dark label-default"> 
+                                          <i class="fa fa-info-circle blue "></i>&nbsp;
+                                          {% trans "CV non téléchargé" %}
+                                      </span>
+                                    
+                                  {% endif %}
+
+                                    
+                          {% else %}
+
+                          <span class="label dark label-default">
+                            <a href="#">&nbsp; </a> 
+                          </span>
+
+                          {% endif %}     
+
+                      {% endwith %}
+
+                    <hr/>
+                    
+                  {% with request.user.customer.current_subscription as cur_sub %}  
+
+                      {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+
+                        <span class="label dark label-default"><i class="fa fa-download fa-lg blue"></i>
+                          <a href="/charge/candidate/{{userinfo.get_download_url}}/">&nbsp; Télécharger CV</a> 
+                        </span>
+
+                      {% else %}
+
+                        <span class="label dark label-default"><i class="fa fa-download fa-lg blue"></i>
+                          <a href="/charge/candidate/{{userinfo.get_download_url}}/">&nbsp; Télécharger CV</a> 
+                        </span>
+
+                      {% endif %}     
+
+                  {% endwith %}
+                      
+                    <br>
+
+                  {% else %} 
+
+                    <span class="label dark label-default"><i class="fa fa-close fa-lg gray"></i>
+                      <a href="#">&nbsp; Le candidat n'a pas de CV</a> 
+                    </span>
+
+                  {% endif %}
+
+                  
+                </div> <!-- end col-sm-7 -->
+
+                <div class="clearfix"></div>
+              </div>
+            
+          </div> <!-- end avatar -->
+
+          <hr>
+
+          <hr/>
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-male gray "></i> Coordonnées</a>
+                  <br/>
+                  <dl class="dl-horizontal">
+                  
+                  <dt>Nom d'utilisateur:</dt>
+                  <dd>{{userinfo.user.username}}</dd>
+                  <br>
+                  <dt> Prénom: </dt>
+                  <dd class="no_info" data-original-title="vous devez télécharger le CV pour voir le prenom"> ------------- </dd>
+                  <br>
+                  <dt> Nom de famille: </dt>
+                  <dd class="no_info" data-original-title="vous devez télécharger le CV pour voir le nom de famille"> ------------- </dd>
+                  <br>
+                  <dt> Numéro de téléphone: </dt>
+                  <dd class="no_info" data-original-title="vous devez télécharger le CV pour voir le numero de telephone"> ------------- </dd>
+                  <br>
+                  <dt> Adresse: </dt>
+                  <dd>{{userinfo.adress}}</dd>
+                  <br>
+                  <dt>Code postal</dt>
+                  <dd>{{userinfo.postal_code}}</dd>
+                  <br>
+                  <dt>Ville</dt>
+                  <dd>{{userinfo.town}}</dd>
+                  <br>
+                  <dt>Département</dt>
+                  <dd>{{userinfo.get_city_display}}</dd>
+                  <br>
+                  <dt>Région</dt>
+                  <dd>{{userinfo.get_region_display}}</dd>
+                  
+                  <br>
+                </dl>
+
+          </div>
+
+          <br>
+
+           <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-male gray "></i> Infos personnelles</a>
+                  <br/>
+                   <dl class="dl-horizontal">
+                      <dt>Poste recherché:</dt>
+                      <dd>{{userinfo.wanted_job}}</dd>
+                      <br>
+                      <dt>Disponibilité:</dt>
+                      <dd>{{userinfo.get_disponibility_display}}</dd>
+                      <br>
+                      <dt>Status:</dt>
+                      <dd>{{userinfo.get_status_display}}</dd>
+                      <br>
+                      <dt>Niveau d'etudes:</dt>
+                      <dd>{{userinfo.get_study_level_display}}</dd>
+                      <br>
+                      <dt>Experience:</dt>
+                      <dd>{{userinfo.get_experience_display}}</dd>
+                      <br>
+                      <dt>Type de Contrat voulu:</dt>
+                      <dd>{{userinfo.get_contract_display}}</dd>
+                      <br>
+                      <dt>Période:</dt>
+                      <dd>{{userinfo.get_period_display}}</dd>
+                      <br>
+                      <dt>salaire voulu:</dt>
+                      <dd>{{userinfo.get_salary_display}}</dd>
+                    </dl>
+
+          </div>
+
+        </div>
+
+        <div class="col-sm-8">
+
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-street-view gray "></i> Coordonnées</a>
+                <div class="social-box">
+                  <div class="body">
+                    <br>
+
+                    <div class="col-sm-7">
+
+                      <div class="col-sm-12">
+
+                       <dl class="dl-horizontal">
+                            
+                            <dt>Date d'enregistrement:</dt>
+                            <dd>{{ userinfo.user.date_joined|date:"SHORT_DATE_FORMAT" }}</dd>
+                            <br>
+                            <dt>Dernier accés:</dt>
+                            <dd>{{ userinfo.user.last_login|date:"SHORT_DATE_FORMAT" }}</dd>
+                            <br>
+                            <dt>Nombre de visites:</dt>
+                            <dd>{{ userinfo.views }}</dd>
+                            <br>
+                      </dl>      
+
+                    </div>
+
+                    </div>
+
+                    
+                    <div class="clearfix"></div>
+
+                    <div class="col-sm-11">
+                      <div class="social-box">
+                        <div class="header"> Mes CV: </div>
+                        <div class="body">
+
+                          <!-- CV en PDF -->
+
+                          {% if userinfo.document %}
+                            <span class="label dark label-default"> <i class="fa fa-file-pdf-o fa-2x"></i> 
+                              &nbsp;  
+                              <a href="#" class="download_file" data-original-title="allez à la page du téléchargement">
+                                CV en format PDF
+                              </a> 
+                            </span>
+                          {% else %}
+                            <span class="label dark label-default nope"> <i class="fa fa-file-pdf-o fa-2x"></i> 
+                                &nbsp;Pas de CV en format PDF 
+                            </span>
+                          {% endif %}
+
+                          
+                          <!-- CV en Word -->
+
+                         {% if userinfo.document_word %}
+
+                            <br>
+                            <br>
+
+                            <span class="label dark label-default"> <i class="fa fa-file-word-o fa-2x"></i> 
+                              <a href="#" class="download_file" data-original-title="allez à la page du téléchargement">
+                                CV en format Word
+                              </a> 
+                            </span>
+
+                          {% endif %}
+
+                          <!-- CV en OpenOffice -->
+
+                          {% if userinfo.document_office %}
+
+                            <br>
+                            <br>
+
+                            <span class="label dark label-default"> <i class="fa fa-file-text-o fa-2x"></i> 
+                              <a href="#" class="download_file" data-original-title="allez à la page du téléchargement">
+                                CV en format OpenOffice
+                              </a> 
+                            </span>
+
+                          {% endif %}
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>                    
+
+                  </div>
+                </div>
+            </div>    
+
+
+            
+
+        <div class="clearfix"></div>
+
+        <div class="list-group">
+          <a class="list-group-item no-hover" href="#"><i class="fa fa-mortar-board gray "></i>&nbsp; Autres infos</a>
+
+          <div class="social-box">
+          <div class="header">
+            
+          </div>
+          <div class="body">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#home" data-toggle="tab"><i class="icon-home"></i> Expérience</a></li>
+              <li><a href="#profile" data-toggle="tab"><i class="icon-user"></i> Formations</a></li>
+              <li><a href="#competence" data-toggle="tab"><i class="icon-user"></i> Compétences</a></li>
+              <li><a href="#motivation" data-toggle="tab"><i class="icon-user"></i> Motivations</a></li>
+              <li><a href="#language" data-toggle="tab"><i class="icon-user"></i> languages</a></li>
+              
+            </ul>
+            <div id="myTabContent" class="tab-content">
+
+              <div class="tab-pane active" id="home">
+                <p><strong>&nbsp;</strong></p>
+                <p> 
+                  {{ userinfo.profess_exp|safe|default:'<h3> pas encore déposé </h3>' }}
+                </p>
+              </div>
+
+              <div class="tab-pane fade" id="profile">
+                <p><strong>&nbsp;</strong></p>
+                <p> 
+                  {{ userinfo.other_skills|safe|default:'<h3> pas encore déposé </h3>' }}
+                </p>
+                </div>
+
+                <div class="tab-pane fade" id="competence">
+                <p><strong>&nbsp;</strong></p>
+                <p>
+                  {{ userinfo.certification|safe|default:'<h3> pas encore déposé </h3>' }}
+                </p>
+                </div>
+
+                <div class="tab-pane fade" id="motivation">
+                <p><strong>&nbsp;</strong></p>
+                <p>
+                  {{ userinfo.motivations|safe|default:'<h3> pas encore déposé </h3>' }}
+                </p>
+                </div>
+
+                <div class="tab-pane fade" id="motivation">
+                <p><strong>&nbsp;</strong></p>
+                <p>
+                  {{ userinfo.languages|safe|default:'<h3> pas encore déposé </h3>' }}
+                </p>
+                </div>
+                  
+                </div>
+              </div>  
+
+        </div>
+
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="list-group">
+              <a class="list-group-item no-hover" href="#"><i class="fa fa-map-marker gray "></i>&nbsp; Secteur de recherche</a>
+
+
+              <div class="social-box">
+                <div class="body">
+                  <dl class="dl-horizontal">
+                      <br>
+                      
+                      <dt>Secteur 1:</dt>
+                      <dd>{{userinfo.get_sector1_display}}</dd>
+                      <br>
+                      <dt>Secteur 2:</dt>
+                      <dd>{{userinfo.get_sector2_display}}</dd>
+                      <br>
+                      <dt>Secteur 3:</dt>
+                      <dd>{{userinfo.get_sector3_display}}</dd>
+                      <br>
+                      <dt>Mobilité 1:</dt>
+                      <dd>{{userinfo.get_mobility1_display}}</dd>
+                      <br>
+                      <dt>Mobilité 2:</dt>
+                      <dd>{{userinfo.get_mobility2_display}}</dd>
+                      <br>
+                      <dt>Mobilité 3:</dt>
+                      <dd>{{userinfo.get_mobility3_display}}</dd>
+                </dl>  
+                </div>
+              </div>  
+            </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.download_file').tooltip();
+    $('.no_info').tooltip();
+    //override defaults
+      // dialogs default title
+
+    $("#del_profile").click(function(e){
+       e.preventDefault();
+
+       swal({   title: "Etes vous sûr ?",   
+                text: "Votre compte ainsi que vos sauvegardes seront perdus !",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#08C",   
+                animation: "slide-from-top",   
+                confirmButtonText: "Qui",
+                cancelButtonText: "Non",   
+                closeOnConfirm: false }, function(){ 
+                  javascrpt:window.location.href="/delete_candid_page";
+                 });
+       
+         // return false;
+      }); // end clidk edit profile
+
+    });
+
+</script>
+
+
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}

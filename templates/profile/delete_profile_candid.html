@@ -1,0 +1,96 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+{% block extra_style %}
+    <link rel="stylesheet" href="/static/test.css">     
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block bottom-header %} {% endblock bottom-header %}
+
+{% block middlecontent %}
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-body" style='background:#fff'>
+
+                                    <br>
+                                      <!-- second form to hold -->  
+
+                                    
+
+                                      <div class="col-sm-11 transp">
+                                      <form class="form-horizontal niceform" action="{% url delete_profile_candid %}" method="post" enctype="multipart/form-data" role="form">
+                                      {% csrf_token %}
+
+                                      <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-home fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong>{% trans "Supprimer le profile" %}</strong>
+                                      </p>
+
+                                        <br/>
+                                        <hr/>
+
+                                        <p>
+                                            <label for="id_username">Etes vous sur de bien vouloir supprimer votre profile</label> 
+                                          <p>
+                                          <br/>
+
+                                          <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Valider</button><br/>
+                                            <button type="button" class="btn btn-danger" onclick='javascrpt:window.location.href="/candid_profile"'>Retour</button>
+                                          </div>
+                                      <hr/>
+
+                                        
+                                        <div class="clearfix"></div>
+
+                                      </form>
+                                    </div>
+                                      
+                                    
+
+                                </div>
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+{% block footer %} {% endblock footer %}

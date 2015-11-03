@@ -1,0 +1,373 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+  <link rel="stylesheet" type="text/css" href="/static/jqueryui/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="/static/social_bis.css">   
+{% endblock extra_style %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="/static/sweetalert/dist/sweetalert.css">
+
+    <style type="text/css">
+
+      input {
+            padding: 5px 8px;
+            width: 100%;
+            border: none;
+            box-shadow: none;
+            background-color: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            height: 30px;
+      }
+
+      .select-style select:focus {
+          outline: none;
+      }
+
+      input.hasDatepicker{
+        width: 75% !important;
+        font-size: 12;
+      }
+
+      ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color:    #555 !important;
+        opacity:  0.7;
+        font-size: 12;
+      }
+      :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+         color:    #555 !important;
+         opacity:  0.7;
+         font-size: 12;
+      }
+      ::-moz-placeholder { /* Mozilla Firefox 19+ */
+         color:    #555 !important;
+         opacity:  0.7;
+         font-size: 12;
+      }
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+         color:    #555 !important;
+         opacity:  0.7;
+         font-size: 12;
+      }
+
+    </style>
+    
+{% endblock extra_css %}
+
+
+{% block bottom-header %}
+  
+{% endblock bottom-header %}
+
+{% block middlecontent %}
+
+  <div class="col-sm-8">
+    <br/>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"> 
+        <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-plus fa-stack-1x "></i>
+          </span>
+        {% trans "Déposez une annonce gratuitement " %} 
+      </div>
+
+      <div class="panel-body big-content">
+        <br/>
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+          <i class="fa fa-pencil fa-stack-1x fa-inverse white-ns"></i>
+        </span>
+
+        <strong>{% trans "Veillez décrire correctement votre annonce :" %}</strong>
+
+        <br/>
+
+        <div class="col-sm-12">
+          <form method="post" enctype="multipart/form-data" class=" uploadform form-horizontal" id="offer_form">
+
+            {% csrf_token %}
+
+             {{ offer_form.non_field_errors }}
+            
+            <div class="wells">
+              <div class="form-group halfsize">
+                {{ offer_form.title.errors }}
+                <label class="col-sm-3 control-label" for="id_title">
+                  <strong>{% trans "Titre" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.title }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ offer_form.offer.errors }}
+                
+                <label class="col-sm-12 control-label" for="id_offer"> 
+                  <strong>{% trans "Type de contrat" %}</strong>:
+                </label>
+                <div class="col-sm-6">
+                  {{ offer_form.offer }}
+                </div>
+            </div> 
+            
+            <div class="form-group halfsize">
+                {{ offer_form.category.errors }}
+                <label class="col-sm-3 control-label" for="id_category">
+                  <strong>{% trans "secteur d'activité" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.category }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ offer_form.town.errors }}
+                <label class="col-sm-3 control-label" for="id_town">
+                  <strong>{% trans "Ville" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.town }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ offer_form.postal_code.errors }}
+                <label class="col-sm-3 control-label" for="id_postal_code">
+                  <strong>{% trans "Code postal" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.postal_code }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ offer_form.city.errors }}
+                <label class="col-sm-3 control-label" for="id_city">
+                  <strong>{% trans "Département" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.city }}
+                </div>
+                
+            </div> 
+            
+            <div class="form-group halfsize">
+
+                {{ offer_form.region.errors }}
+                <label class="col-sm-3 control-label" for="id_region">
+                  <strong>{% trans "Région" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.region }}
+                </div>
+                
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ offer_form.salary.errors }}
+                <label class="col-sm-3 control-label" for="id_salary">
+                  <strong>{% trans "Salaire" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.salary }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ offer_form.study_level.errors }}
+                <label class="col-sm-3 control-label" for="id_study_level">
+                  <strong>{% trans "Niveau d'études" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.study_level }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ offer_form.experience.errors }}
+                <label class="col-sm-3 control-label" for="id_experience">
+                  <strong>{% trans "Niveau d'expériences" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.experience }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ offer_form.work_time.errors }}
+                <label class="col-sm-3 control-label" for="id_work_time">
+                  <strong>{% trans "Temps de travail" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.work_time }}
+                </div>
+            </div> 
+
+            <div class="form-group">
+                {{ offer_form.hiring_date.errors }}
+                <label class="col-sm-3 control-label" for="id_hiring_date">
+                  <strong>{% trans "Date d'embauche" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.hiring_date }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ offer_form.immediate.errors }}
+                <label class="col-sm-3 control-label" for="id_immediate">
+                <strong>{% trans "immédiat" %}</strong>:
+                </label>
+
+                <div class="col-sm-6">
+                  {{ offer_form.immediate }}
+                </div>
+            </div>
+
+            <div class="form-group ">
+
+                {{ offer_form.expired.errors }}
+                <label class="col-sm-3 control-label" for="id_expired">
+                <strong>{% trans "Date d’expiration:" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.expired }}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-group ">
+
+                {{ offer_form.description.errors }}
+                <label class="col-sm-3 control-label" for="id_description">
+                  <strong>{% trans "Description" %}</strong>:
+                </label>
+
+                <div class="col-sm-8">
+                  {{ offer_form.description }}
+                </div>
+
+            </div>
+
+            
+
+            </div>
+  
+            <p style="text-align: center;"> <button id="submit_form" type="submit" class="btn btn-primary " value="Déposez l'offre">Valider</button><br/> </p>  
+
+          </form>
+
+          <br/>
+          <br/>
+
+        </div>
+        
+      </div>
+      <!-- end panel body --> 
+      
+    </div>
+
+    
+  </div> <!-- end span8 -->
+    
+  {% endblock middlecontent %}
+
+  <br/>
+
+  {% block sidecontent %}
+    {% include "./parts/sidepage/search_sidecontent_emp.html" %}
+  {% endblock sidecontent %}
+
+  
+
+{% block js %}
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script type="text/javascript" src="/static/js/custom.js"></script>
+        <script src="/static/jqueryui/jquery-ui.min.js"></script>
+
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+        <!-- vmap --> 
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>         
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+
+        <script type="text/javascript" src="/static/bootstrap3-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+        <script type="text/javascript" src="/static/bootstrap3-wysihtml5/src/bootstrap3-wysihtml5.js"></script>
+
+  <script type="text/javascript">
+
+          jQuery(document).ready(function($) {
+            $('#id_description').wysihtml5({
+              "font-styles": false,
+              "color":false,
+              "link":false,
+              "lists": false,
+              "image":false
+            });
+
+            // "lists": true,
+            // "emphasis": true,
+
+            $("#id_expired").datepicker({ 
+              closeText: 'Fermer',
+              prevText: 'Précédent',
+              nextText: 'Suivant',
+              currentText: 'Aujourd\'hui',
+              monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+              monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+              dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+              dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+              dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+              weekHeader: 'Sem.',
+              
+              dateFormat: 'dd-mm-yy' }).val();
+
+            $('#submit_form').click(function(){
+             $('#offer_form').submit();
+            });
+
+
+            $("#id_hiring_date").datepicker({ 
+              closeText: 'Fermer',
+              prevText: 'Précédent',
+              nextText: 'Suivant',
+              currentText: 'Aujourd\'hui',
+              monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+              monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+              dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+              dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+              dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+              weekHeader: 'Sem.',
+              dateFormat: 'dd-mm-yy' }).val();
+
+
+            });
+
+  </script>      
+{% endblock js %}

@@ -1,0 +1,191 @@
+{% extends "sitebase.html" %}
+
+
+{% block js %}
+
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+
+        <!-- jasny -->
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <!-- vmap -->
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+        <!-- notifications -->
+        <script type='text/javascript' src="/static/notifications/js/jquery.gritter.min.js" ></script>
+
+        <script src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+
+
+{% endblock js %}
+
+
+{% block bottom-header %}
+  
+{% endblock bottom-header %}
+
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+<br/>
+
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Conditions générales d'utilisation
+      </div>
+
+        <div class="panel-body">
+
+        
+
+        <div class="col-sm-12">
+
+    <!-- BEGIN TABLE BODY -->
+        <br>
+        <!--
+        <h2> Lorem ipsum dolore sit amet </h2>
+        -->
+        <br>
+
+        <div class="social-box">
+            
+            <div class="body">
+
+              <br>              
+
+              <!--
+              <dl>
+                <dt>Le site internet <span style="color:#08C">www.speedjob.fr</span> est édité par: </dt>
+                <dd>
+                  <br>
+                  SARL STREET PUB, au capital de 1 000€ immatriculée au Registre du Commerce et des Sociétés de Troyes, dont le siège social est situé <br> 14 rue Marcel Gromaire, 10000 Troyes. <br>
+
+                  Immatriculée au RCS de Troyes sous le numéro 528 114 879 00026 <br>
+
+                  N° TVA intra: FR96528114879 <br>
+
+                  CODE APE : 7311Z <br>
+
+                  STREET PUB est une marque déposée à l’INPI. <br> <br>
+
+                   
+
+                  Responsable de Publication et Gérant de Street PUB : <strong>Léon BENARD</strong> <br>
+
+                  Conception - Réalisation - Maintenance du site internet : <strong>Mohamed Reda BELDJOUDI</strong> <br>
+                </dd>
+
+                <br>
+
+                <dt>Nous contacter : </dt>
+                <br>
+
+                <dd> <a href="contact@speedjob.fr" style='color:#08C !important;'>contact@speedjob.fr</a> </dd>
+                <br>
+                <br>
+
+               <dt>Hébergeur du Site : </dt>
+               <br>
+
+                <dd> 1&1 Internet - 7 place de la Gare – 57200 Sarreguemines </dd>
+                <br>
+                <br>
+
+                <dt>confidentialite et protection des donnees :</dt>
+                <br>
+                <dd>
+
+                  Conformément à la loi informatique et libertés du 06 janvier 1978, vous pouvez à tout moment modifier ou supprimer les renseignements contenus dans votre Espace Perso. Ces informations vous concernant étant confidentielles, <span style="color:#08C">www.speedjob.fr</span> s'engage à les protéger. <br>
+
+                  Vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent (art. 34 de la loi "Informatique et Libertés"). Vous pouvez exercer ce droit directement sur le site, dans votre espace perso, ou en nous contactant : <br> <br>
+
+                  SpeedJob, marque de STREET PUB <br>
+                  14 rue Marcel Gromaire  <br>
+                  10000 Troyes <br>
+                  E-mail : <a href="contact@speedjob.fr" style='color:#08C !important'>contact@speedjob.fr</a> <br> <br>
+
+                  Les sites de la société Street Pub sont enregistrés auprès de la Commission Nationale de l'Informatique et des Libertés.Pour plus d'informations, vous pouvez consulter le site de la CNIL : <a href="http://www.cnil.fr" style='color:#08C !important;'>http://www.cnil.fr</a>
+
+                  <br>
+                  <br>
+
+                  Numéro de déclaration CNIL : <strong> 1631236 v 0 </strong>
+
+                </dd>
+
+              </dl>
+              -->
+
+              <br>
+
+
+              <!--
+              <dl class="dl-horizontal">
+                <dt>lorem ipsum</dt>
+                <dd>Lorem ipsum dolroe sit amet Lorem ipsum dolroe sit amet.</dd>
+                <dt>Lorem ipsmu</dt>
+                <dd>Lorem ipsum dolroe sit ametLorem ipsum dolroe sit ametLorem ipsum dolroe sit amet.</dd>
+                <dd>Lorem ipsum dolroe sit ametLorem ipsum dolroe sit amet.</dd>
+                <dd>Lorem ipsum dolroe sit ametLorem ipsum dolroe sit amet.</dd>
+                <dd>Lorem ipsum dolroe sit Lorem ipsum dolroe sit Lorem ipsum dolroe sit Lorem ipsum dolroe sit</dd>
+                <dd>Lorem ipsum dolroe sit Lorem ipsum dolroe sit Lorem ipsum dolroe sit Lorem ipsum dolroe sit</dd>
+                <dd>Lorem ipsum dolroe sit Lorem ipsum dolroe sit Lorem ipsum dolroe sit Lorem ipsum dolroe sit</dd>
+              </dl>
+              -->
+
+              
+            </div>
+        </div>
+
+        <br>
+    
+    <!-- END TABLE BODY -->
+
+          <br/>
+        </div>
+
+        
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}
+
+
+
+{% block extra_js %}
+
+<script>$(".mobile").click(function() {
+      $("nav").slideToggle();  
+    });
+
+    var menu = $("nav");
+    jQuery(window).on('resize', function(){     
+        if(!jQuery(".mobile").is(":visible") && !menu.is(':visible'))
+        {
+            menu.css({'display':''});   
+        }
+    });//@ sourceURL=pen.js
+    </script>
+
+
+{% endblock extra_js %}

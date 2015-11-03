@@ -1,0 +1,130 @@
+{% extends "app_base.html" %}
+
+{% block main_header %}
+	<h1>Change Plan</h1>
+{% endblock main_header %}
+
+{% block main_content %}
+	<p class="lead">Vous pouvez changer votre plan ici.</p>
+
+	<table class='table table-bordered table-striped table-hover' style="font-family:'Oswald'">
+		<thead>
+			<tr>
+				<th>Plan</th>
+				<th>Type</th>
+				<th>Prix</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for plan in plans %}
+			<tr style="font-family:'Oswald'">
+				<td style="font-family:'Oswald'">{{ plan.name }}</td>
+				<td style="font-family:'Oswald'"> {% if plan.interval_count %}{{ plan.interval_count}}{% else %}1{% endif %} {{ plan.interval }}</td>
+
+				<td style="font-family:'Oswald'">€ {{ plan.price }}</td>
+
+				<td style="font-family:'Oswald'">
+					{% if request.user.customer.current_subscription.plan == plan.stripe_plan_id %}
+					<b>Plan Actuel</b>
+
+					{% else %}
+					<a class="planBtn btn btn-primary" data-plan-name="{{ plan.name }}" data-plan-id="{{ plan.stripe_plan_id }}" href="#">Changer</a>
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div id="confirmModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-header text-center">
+			<h3>Changer de Plan</h3>
+		</div>
+		<div class="modal-body">
+			<br>
+			<div class="row-fluid">
+				<div class="span10 offset1 text-center">
+					<p>Voulez vous vraiment choisir le plan <b><span id="planName"></span></b> </p>
+					<p>Votre carte sera débitée pour le nouveau plan et votre ancien abonnement sera annulé automatiquement.</p>
+				</div>
+				<form id="changePlanForm" action="{% url change_plan_ajax %}" method="POST">
+					{% csrf_token %}
+					<input id="id_plan_id" name="plan_id" type="hidden" value="">
+				</form>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class='text-center'>
+				<a id="confirm-yes" class="btn btn-primary" href="#">Oui</a>
+				<a id="confirm-no" class="btn btn-default" href="#">Non</a>
+			</div>
+		</div>
+	</div>
+
+	{% include "main/modals/progress.html" with header="Changement de Plan" sub_header="Attent de la réponse de la passerelle du paiement" %}
+
+	{% include "main/modals/error.html" with sub_header="Veuillez contacter l'équipe technique." %}
+
+	{% include "main/modals/success.html" with success_message="Le changement de plan a été éffectué avec succée."%}
+
+	<br>
+
+{% endblock main_content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function(){
+
+	var redirectURL = '{% url home %}'
+	$form = $('#changePlanForm');
+
+	$confirmModal = $('#confirmModal');
+	$progressModal = $('#progressModal');
+	$errorModal = $('#errorModal');
+	$successModal = $('#successModal');
+
+	$('.planBtn').click(function(){
+		var planName = $(this).attr('data-plan-name');
+		var planId = $(this).attr('data-plan-id');
+
+		$('#planName').text(planName);
+		$('#id_plan_id').val(planId);
+		$confirmModal.modal('show');
+	});
+
+	$('#cancel').click(function(){
+		$confirmModal.modal('show');
+	});
+
+	$('#confirm-no').click(function(){
+		$confirmModal.modal('hide');
+		$('#id_plan_id').val("");
+	});
+
+	$('#confirm-yes').click(function(){
+		$confirmModal.modal('hide');
+		$progressModal.modal('show');
+
+		$.ajax({
+			type: "POST",
+			url: $form.attr('action'),
+			data: $form.serialize(),
+			success: function(data){
+				$progressModal.modal('hide');
+				$successModal.modal('show');
+				setTimeout(function(){
+					window.location = redirectURL;
+				}, 2000);
+			},
+			error:function(data){
+				var str = JSON.parse(data.responseText);
+				$progressModal.modal('hide');
+				$errorModal.modal('show');
+				$('#errorMsg').text(str);
+			}
+		});
+	});
+});
+</script>
+{% endblock extra_js %}

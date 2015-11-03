@@ -1,0 +1,116 @@
+{% load i18n group_check cache %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="fr" class="csstransforms no-csstransforms3d csstransitions">
+<!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="1G8HDDIdCVUWyU91BqoVlbmWmPJ4uhRuqDs4uyrRVks" />
+        <link rel="alternate" href="http://www.speedjob.fr" hreflang="fr-fr" />
+
+        <title> {% block title %} SpeedJob {% endblock %} </title>
+
+        <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <meta name="Description" content="speedjob est un site qui permet de faciliter la recherche d&#x27;emploi et le recrutement à la fois aux candidats et aux recruteurs, Permet de déposer une annonce et de consulter notre CV-thèque à prix très attractif - Possibilité de rechercher des offres et de déposer un CV gratuitement. www.speedjob.fr " />
+
+      <meta name="keywords" content="speedjob, Offres d'emploi, Offre d'emploi, emploi, offre d'emplois, emploi en France, pages France, emploi,  EMPLOI, emplois, EMPLOIS, espace emploi,info emploi, info-emploi, recrutement, RECRUTEMENT, recrutements, job, JOB, jobs, JOBS, poste,  postes, carrière, carrières, embauche, embauches, employment, entretien, ENTRETIEN, entretiens d'embauche, recherche d'emploi, chasseurs de tête, cabinets de recrutement, candidature, CANDIDATURE, cv, CV, curriculum vitae, CURRICULUM VITAE, déposer gratuitement offre emploi, offre stage, banque cv, job etudiant, depot CV, passer gratuitement offre emploi, job été, annonce stage, job étudiant, trouver stage, diffuser offre emploi, dépôt de CV, recherche emploi, espace recruteurs, espace candidats, travail, déposer offre emploi deposer des offres d'emploi, deposer des offres d'emplois, deposer des offres emploi, deposer des offres emplois, deposer offre d'emploi, deposer offre d'emplois,  deposer offre emploi, deposer offre emplois, mettre en ligne des offres d'emplo,publier des offres d'emploi, publier des offres d'emplois, publier des offres emploi, dépot annonce d'emploi, depot offre d'emploi, depot offre emploi&quot;">
+
+      <meta name="author" content="">
+      <!-- JS -->
+      <!-- HTML5 Support for IE -->
+      <!--[if lt IE 9]>
+      <script src="js/html5shim.js"></script>
+      <![endif]-->
+      <!-- JS -->
+    {% block style %}
+      <!-- Stylesheets -->
+        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Glegoo" type="text/css" />
+
+        <link rel="stylesheet" href="/static/header/header.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style/font-awesome-4.3.0/css/font-awesome.css">
+        <link rel="stylesheet" href="/static/style/style2.css" >
+        <link rel="stylesheet"  href="/static/style/responsive.css" type="text/css" media="all">
+        <link rel="stylesheet" href="/static/css/header_style.css">
+
+        <!-- jasny bootstrap -->
+        <link rel="stylesheet" href="/static/jasny-bootstrap/css/jasny-bootstrap.css">
+        <link rel="stylesheet" href="/static/css/aui-production.min.css" />
+        <link rel="stylesheet" href="/static/style/classy.css" />
+
+        <link rel="stylesheet" href="/static/test.css">
+        <!-- vmap -->
+        <link rel="stylesheet" href="/static/vmap/jqvmap.css">
+
+        <!-- notifications -->
+        <link rel="stylesheet" href="/static/notifications/css/jquery.gritter.css">
+        
+        <!-- payement -->
+        <link rel="stylesheet" href="/static/eldarion-ajax/js/eldarion-ajax.min.js">
+        <script src="//checkout.stripe.com/v2/checkout.js"></script>
+
+
+    {% endblock style %}
+
+    {% block extra_css %} {% endblock %}
+
+    {% block extra_style %}
+      <link rel="stylesheet" href="/static/social_bis.css">
+    {% endblock extra_style %}
+
+    {% block js %}
+
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+
+        <!-- modals --> 
+        <script src="/static/bootstrap/bootstrap-modal.js"></script>
+        <!-- jasny -->
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <!-- vmap -->
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+        <!-- notifications -->
+        <script type='text/javascript' src="/static/notifications/js/jquery.gritter.min.js" ></script>
+
+        
+        <script src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+
+
+    {% endblock js %}
+
+
+    {% block extra_head %}{% endblock %}
+      {% block extra_script %}{% endblock %}
+
+      
+
+    </head>
+
+    <body>
+  <br/>
+
+  {% block content %}
+    
+  {% endblock content %}
+
+
+    {% block extra_js %}
+
+    {% endblock extra_js %}
+
+
+
+    </body>
+</html>

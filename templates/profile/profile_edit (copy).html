@@ -1,0 +1,307 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+  <link rel="stylesheet" type="text/css" href="/static/jqueryui/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="/static/social_bis.css">   
+{% endblock extra_style %}
+
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+        Mon profile
+      </div>
+
+        <div class="panel-body">
+
+           <form action="." method='post' enctype="multipart/form-data"> {% csrf_token %}
+            <br/>
+
+              <div class="col-sm-12">
+
+                  <div class="col-sm-6">
+
+                    <div class="list-group">
+                    <a class="list-group-item no-hover" href="#"><i class="fa fa-map-marker gray "></i>&nbsp; Coordonnées</a>
+
+
+                    <div class="social-box">
+                      <div class="body">
+                        <dl class="dl-horizontal">
+                            <br>
+                            
+                            <dt>Prénom:</dt>
+                            <dd> {{ form.prenom }} </dd>
+                            <br>
+                            <dt>Nom de famille:</dt>
+                            <dd> {{ form.last_name }} </dd>
+                            <br>
+                            <dt>Poste voulu:</dt>
+                            <dd> {{ form.wanted_job }} </dd>
+                            <br>
+                            <dt>Numéro de téléphone:</dt>
+                            <dd> {{ form.telephone }} </dd>
+                            <br>
+                            <dt>Adresse:</dt>
+                            <dd> {{ form.adress }} </dd>
+                            <br>
+                            <dt>Code postal:</dt>
+                            <dd> {{ form.postal_code }} </dd>
+                            <br>
+                            <dt>Ville:</dt>
+                            <dd> {{ form.town }} </dd>
+                            <br>
+                            <dt>Région:</dt>
+                            <dd> {{ form.region }} </dd>
+                            <br>
+                            <dt>Département:</dt>
+                            <dd> {{ form.city }} </dd>
+                      </dl>  
+                      </div>
+                    </div>  
+                  </div>
+
+                  </div>
+
+                  <div class="col-sm-6">
+
+                    <div class="list-group">
+                    <a class="list-group-item no-hover" href="#"><i class="fa fa-male gray "></i>&nbsp; Infos personnelles</a>
+
+
+                    <div class="social-box">
+                      <div class="body">
+                        <dl class="dl-horizontal">
+                            <br>
+                            
+                            <dt>Diponibilité:</dt>
+                            <dd> {{ form.disponibility }} </dd>
+                            <br>
+                            <dt>Status:</dt>
+                            <dd> {{ form.status}} </dd>
+                            <br>
+                            <dt>Niveau d'études:</dt>
+                            <dd> {{ form.study_level }} </dd>
+                            <br>
+                            <dt>Expérience:</dt>
+                            <dd> {{ form.experience }} </dd>
+                            <br>
+                            <dt>Type de contrat voulu:</dt>
+                            <dd> {{ form.contract }} </dd>
+                            <br>
+                            <dt>Période:</dt>
+                            <dd> {{ form.period }} </dd>
+                            <br>
+                            <dt>Salaire voulu:</dt>
+                            <dd> {{ form.salary }} </dd>
+                            <br>
+                            <dt>Mes langues:</dt>
+                            <dd> {{ form.languages }} </dd>
+                      </dl>  
+                      </div>
+                    </div>  
+                  </div>
+
+                  </div>
+
+                  <div class="clearfix"></div>
+
+                  <div class="col-sm-12">
+
+                    <div class="list-group">
+                    <a class="list-group-item no-hover" href="#"><i class="fa fa-map-marker gray "></i>&nbsp; Secteur de recherche, mobilité et CV</a>
+
+                    <div class="social-box">
+                      <div class="body">
+
+                        <div class="col-sm-5">
+                          <br>
+                          <br>
+                          <h3> <strong>Secteur de recherche et mobilité:</strong> </h3>
+
+                          <dl class="dl-horizontal">
+
+                            <br>
+                            <br>
+                            <dt>Secteur 1:</dt>
+                            <dd> {{ form.sector1 }} </dd>
+                            <br>
+                            <dt>Secteur 2:</dt>
+                            <dd> {{ form.sector2 }} </dd>
+                            <br>
+                            <dt>Secteur 3:</dt>
+                            <dd> {{ form.sector3 }} </dd>
+                            <br>
+                            <dt>Mobilité 1:</dt>
+                            <dd> {{ form.mobility1 }} </dd>
+                            <br>
+                            <dt>Mobilité 2:</dt>
+                            <dd> {{ form.mobility2 }} </dd>
+                            <br>
+                            <dt>Mobilité 3:</dt>
+                            <dd> {{ form.mobility3 }} </dd>
+                          </dl>  
+
+                        </div>
+
+                        <div class="col-sm-7">
+                          <br/>
+                          <br/>
+                          <div class="social-box">
+                              <div class="header">
+                                  <h4><strong>Mes CV:</strong></h4>
+                              </div>
+                              <div class="body">
+
+                                  <p class="text-left"><h3> <strong>CV pdf:</strong> </h3></p>
+                                  <p class="text-left">{{ form.document }}</p>
+                                  <hr>
+                                  <p class="text-left"><h3> <strong>CV word:</strong> </h3></p>
+                                  <p class="text-left">{{ form.document_word }}</p>
+                                  <hr>
+                                  <p class="text-left"><h3> <strong>CV openoffice:</strong> </h3></p>
+                                  <p class="text-left">{{ form.document_odt }}</p>
+                                  
+                                  <div class="clearfix"></div>
+                              </div>
+                          </div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>  
+                  </div>
+
+                  </div>
+
+              <div class="clearfix"></div>
+
+              <div class="list-group">
+                  <a class="list-group-item no-hover" href="#"><i class="fa fa-mortar-board gray "></i>&nbsp; Autres infos</a>
+
+                  <div class="social-box">
+                  <div class="header">
+                    
+                  </div>
+                  <div class="body">
+                    <ul id="myTab" class="nav nav-tabs">
+                      <li class="active"><a href="#home" data-toggle="tab"><i class="icon-home"></i> Expérience professionnelles</a></li>
+                      <li><a href="#profile" data-toggle="tab"><i class="icon-user"></i> Formations</a></li>
+                      <li><a href="#competence" data-toggle="tab"><i class="icon-user"></i> Compétences</a></li>
+                      <li><a href="#motivation" data-toggle="tab"><i class="icon-user"></i> Motivations</a></li>
+                      
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+
+                      <div class="tab-pane active" id="home">
+                          <p><strong>&nbsp;</strong></p>
+                          {{ form.profess_exp|safe }}
+                      </div>
+
+                        <div class="tab-pane fade" id="competence">
+                          <p><strong>&nbsp;</strong></p>
+                          {{ form.certification|safe }}
+                          
+                        </div>
+
+                        <div class="tab-pane fade" id="profile">
+                          <p><strong>&nbsp;</strong></p>
+                          {{ form.other_skills|safe }}
+                          
+                        </div>
+
+                        <div class="tab-pane fade" id="motivation">
+                          <p><strong>&nbsp;</strong></p>
+                          {{ form.motivations|safe }}
+                          
+                        </div>
+                          
+                        </div>
+                      </div>  
+
+                 <button type="submit" class="btn btn-primary" id="validate_candidate" style="margin-left:12px;">
+                      <i class="fa fa-check-square-o white-ns"></i>
+                      Valider
+                  </button>
+                  <br/>
+                  <br/>
+                  <button type="button" class="btn btn-danger" onclick="javascrpt:window.location.href=&quot;/candid_profile&quot;"style="margin-left:12px;">
+                    <i class="fa fa-level-up white-ns"></i>
+                    Retour
+                  </button>
+
+                  <div class="clearfix"></div>      
+                  <br/>    
+                </div>
+
+              </div>
+
+            </div> <!-- end panel body -->  
+
+           </form>
+
+        </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style='padding-left: 0px;'> 
+    <div class="col-sm-12" style='padding-left: 0px;'>
+      <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+      
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script type="text/javascript" src="/static/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>         
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js"></script>         
+
+        <script type='text/javascript'>
+          jQuery(document).ready(function($) {
+            $('#id_description').wysihtml5({
+              "font-styles": false,
+              "color":false,
+              "link":false,
+              "lists": true,
+              "emphasis": true,
+              "image":false
+            });
+
+            
+
+          });
+        </script>
+
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}

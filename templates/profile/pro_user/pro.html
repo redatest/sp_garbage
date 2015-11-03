@@ -1,0 +1,16 @@
+{% if userinfo.document %}
+
+    {% with request.user.customer.current_subscription as cur_sub %}  
+
+        {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+
+        {% else %}
+
+
+        {% endif %}     
+
+    {% endwith %}  
+
+  {%else%}
+
+{% endif %}

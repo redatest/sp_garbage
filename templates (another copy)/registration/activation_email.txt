@@ -1,0 +1,13 @@
+Bonjour,
+
+Vous avez effectué une demande d'inscription sur le site {{ site.domain }}.
+
+Votre compte a bien été crée, cependant, une activation mail est nécessaire afin d'accéder à votre compte.
+Veuillez cliquer sur le lien ci-dessous afin d'activer votre compte:
+
+http://{{ site.domain }}{% url registration_activate activation_key %}
+
+Cette page sera expirée dans {{ expiration_days }} jour{{ expiration_days|pluralize }}.
+
+
+

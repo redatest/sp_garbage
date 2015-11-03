@@ -1,0 +1,112 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+{% block extra_style %}
+    <link rel="stylesheet" href="/static/test.css">     
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block bottom-header %} {% endblock bottom-header %}
+
+{% block middlecontent %}
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-body" style='background:#fff'>
+
+                                    <br>
+                                      <!-- second form to hold -->  
+
+                                    
+
+                                      <div class="col-sm-11 transp">
+                                      <form class="form-horizontal niceform" action="." method="post" enctype="multipart/form-data" role="form">
+                                      {% csrf_token %}
+
+                                      <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-home fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong>{% trans "Supprimer votree profile" %}</strong>
+                                      </p>
+                                      <hr/>
+
+                                        {{ form.non_field_errors }}
+                                        <div class="clearfix"></div>
+
+                                        <form action="{% url django.contrib.auth.views.login %}" method="post" class="login_form">{% csrf_token %}
+                                          <p>
+                                            <label for="id_username">Etes vous sur de vouloir supprimer votre profile</label> 
+                                          <p>
+                                          
+                                          <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Valider</button><br/>
+                                            <button type="button" class="btn btn-danger" onclick='javascrpt:window.location.href="/"'>Retour</button>
+                                          </div>
+                                          
+                                        </form>
+                                     
+                                      </form>
+                                    </div>
+                                      
+                                    
+
+                                </div>
+
+                                <div class="panel-footer">
+                                    <b>Vous ne possedez pas de compte ?</b> <br/>
+                                    <i class="fa fa-hand-o-right gray-ns"></i>&nbsp;
+                                    
+                                    <span> 
+                                      Devenez membre : &nbsp;
+                                      <a href="/accounts/register"  class="account-reg"> Candidat</a>  &nbsp; / &nbsp;
+                                      <a href="/accounts/register_emp"  class="account-reg"> Employeur</a>  
+                                    </span> <br/>    
+
+                                    <b>Vous avez oublié votre mot de passe ?</b> <br/>
+                                    <i class="fa fa-reply-all gray-ns"></i>&nbsp;
+                                    <a href="/accounts/password/reset/" class="account-log">Récupérez le .</a><br/>
+                                </div>
+
+                                
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+{% block footer %} {% endblock footer %}

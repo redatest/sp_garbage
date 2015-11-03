@@ -1,0 +1,106 @@
+{% extends "sitebase.html" %}
+
+{% load i18n %}
+
+
+{% block extra_style %}
+  <link rel="stylesheet" href="/static/test.css">     
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block middlecontent %}
+
+
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-body" style='background:#fff'>
+
+                                    <br>
+                                      <!-- second form to hold -->  
+                                    <div class="col-sm-11 transp">
+                                      <form class="form-horizontal niceform" action="/contact" method="post" enctype="multipart/form-data" role="form">
+                                      
+
+                                     <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-frown-o fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong>{% trans "Page introuvable" %}</strong>
+                                      </p>
+
+                                     <hr/>
+
+                                       <div class="control-group">
+                                          <label>Si vous voulez signaler un problème allez la page contact</label>
+                                       </div>
+
+                                       <br/>
+
+                                       <div class="control-group">
+                                          <label>Sinon revenez à la page d'acceuil</label>
+                                       </div>
+                                        
+                                       
+                                       <div class="clearfix"></div>
+
+                                       <br/>
+
+
+                                     <br/>
+                                     
+                                     <div class="col-sm-12">
+
+                                       <div class="form-actions">
+                                          <button type="submit" class="btn btn-primary" onclick='javascrpt:window.location.href="/contact"'>Allez a la page Contact</button><br/>
+                                          <button type="button" class="btn btn-danger" onclick='javascrpt:window.location.href="/"'>Page d'accueil</button>
+                                       </div>
+
+                                     </div>
+
+                                  </form>
+                                    </div>
+
+                                </div>
+
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+{% block footer %} {% endblock footer %}

@@ -1,0 +1,63 @@
+{% extends "sitebase.html" %}
+{% load i18n group_check cache %}
+
+
+
+    {% block middlecontent %}
+
+    <div class="col-sm-8">
+
+      
+      <br/>
+    
+    <div id="respo">
+
+      {% if request.user.is_authenticated %}
+
+          <!-- candidate user --> 
+          {% if user|in_group:"candidate" %}
+            {% include "index_candidate.html" %}
+
+          <!-- employer user --> 
+          {% else %}
+            {% include "index_employer.html" %}
+          {% endif %}
+
+      <!-- non authenticated user --> 
+      {% else %}
+        {% include "index_candidate.html" %}
+      {% endif %}
+      
+    </div> <!-- end respo --> 
+    
+    <div class="clearfix"></div>  
+   
+   
+    <!-- carousel events --> 
+
+   <div class="panel panel-default">
+     <div class="panel-body" style='padding-left: 0px;'>
+       <div class="col-sm-12" style='padding-left: 0px;'>
+         <!-- <img src="http://placehold.it/670x70&text=espace de publicite" alt="placeholder image" class='img-responsive'> -->
+         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <!-- footer_annonces -->
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:670px;height:90px"
+               data-ad-client="ca-pub-7389849661114491"
+               data-ad-slot="7527859765"></ins>
+          <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+       </div>
+     </div>
+   </div>
+      
+    </div> <!-- end span8 -->
+      
+    {% endblock middlecontent %}
+
+    <br/>
+
+
+
+

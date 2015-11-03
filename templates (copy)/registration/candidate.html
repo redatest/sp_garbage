@@ -1,0 +1,199 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block middlecontent %}
+
+<div class="col-sm-8">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Mon Profile
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-3">
+          <div class="avatar">
+            <h4>Photo:</h4>
+            <img src="/static/img/candidate_avatar.png"  alt="avatar" class="img-thumbnail" width='100' height='100'>
+
+          </div>
+          <br/>
+
+          <div class="subscription"> <h4>Confidentialité:</h4> </div>
+
+          
+          <hr/>
+          <a href="#" class="btn"><i class="icon-edit"></i> <strong>Acheter Profile</strong></a>
+
+        </div>
+
+        <div class="col-sm-9">
+
+        <div class="social-box">
+      <div class="header">
+        <h4>Informations générales</h4>
+      </div>
+      <div class="body">
+        <ul id="myTab" class="nav nav-tabs">
+          <li class="active"><a href="#profile" data-toggle="tab"><i class="icon-user"></i> Profile</a></li>
+          <li class=""><a href="#mot" data-toggle="tab"><i class="icon-cog"></i> Motivation</a></li>
+          <li class=""><a href="#home" data-toggle="tab"><i class="icon-list-alt"></i> CV</a></li>
+          
+        </ul>
+
+            <div id="myTabContent" class="tab-content">
+
+              <!-- motivation --> 
+              <div class="tab-pane fade active in" id="profile">
+                <p><strong>Profile</strong></p>
+                <p>
+                  <dl class="dl-horizontal">
+                <dt>Nom d'utilisateur</dt>
+                <dd>{{userinfo.user.username}}</dd>
+                <br>
+                <dt>Nom de famille</dt>
+                <dd>{{userinfo.user.last_name}}</dd>
+                <br>
+                <dt>Adresse</dt>
+                <dd>{{userinfo.adress}}</dd>
+                <br>
+                <dt>Secteur 1:</dt>
+                <dd>{{userinfo.get_sector1}}</dd>
+                <br>
+                <dt>Secteur 2:</dt>
+                <dd>{{userinfo.get_sector2}}</dd>
+                <br>
+                <dt>Secteur 3:</dt>
+                <dd>{{userinfo.get_sector3}}</dd>
+                <br>
+                <dt>Mobilité 1:</dt>
+                <dd>{{userinfo.get_mobility1}}</dd>
+                <br>
+                <dt>Mobilité 2:</dt>
+                <dd>{{userinfo.get_mobility2}}</dd>
+                <br>
+                <dt>Mobilité 3:</dt>
+                <dd>{{userinfo.get_mobility3}}</dd>
+                <br>
+                <dt>Disponibilité:</dt>
+                <dd>{{userinfo.get_disponibility}}</dd>
+                <br>
+                <dt>Status:</dt>
+                <dd>{{userinfo.get_status}}</dd>
+                <br>
+                <dt>Niveau d'etudes:</dt>
+                <dd>{{userinfo.get_study_level}}</dd>
+                <br>
+                <dt>Experience:</dt>
+                <dd>{{userinfo.get_experience}}</dd>
+                <br>
+                <dt>Contrat:</dt>
+                <dd>{{userinfo.get_contract}}</dd>
+                <br>
+                <dt>Période:</dt>
+                <dd>{{userinfo.get_period}}</dd>
+                <br>
+                <br>
+                <dt>Date d'enrregistrement:</dt>
+                <dd>{{ userinfo.user.date_joined }}</dd>
+                <br>
+                <br>
+                <dt>Dernier acces:</dt>
+                <dd>{{ userinfo.user.last_login }}</dd>
+                <br>
+              </dl>
+                </p>
+              </div>
+
+               <!-- motivation -->  
+
+              <div class="tab-pane fade" id="mot">
+                
+                  {% if userinfo.motivation %}
+                    <p><strong>Motivation</strong></p>
+                      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, accusamus, odio consequatur facere tempore rem sed sequi facilis quae doloremque voluptates non delectus quaerat error deleniti nam placeat ratione quisquam.
+                      </p>
+                  {% else %}
+
+                    <div class="alert">
+                      <p class="lead">
+
+                        Le candidat n'a pas encore décrit ses motivations
+                        
+                      </p>
+                    </div>
+
+                  {% endif %}
+
+              </div>
+
+              <!-- CV --> 
+
+              <div class="tab-pane fade" id="home">
+
+                <br>
+
+                {% if userinfo.document %} 
+                    <p><strong>&nbsp;achetez profile pour pouvoir consulter le CV</strong></p>  <br>
+
+                    <p class='login-helptext'> <img class='img-thumbnail' src="{{ userinfo.get_pdf_image }}" width='300px' height='auto'> </p>
+
+                  {%else%} 
+
+                  <div class="alert">
+                    <br/>
+                    <!-- <button type="button" class="close" data-dismiss="alert">×</button> --> 
+                    <!-- <strong>Le CV n'est pas encore déposé </strong> -->  
+
+                    <p class="lead">
+                      Le candidat n'a pas encore déposé sont CV.
+                    </p>
+                    &nbsp;
+
+                    <br/>
+                  </div>
+
+                  {% endif %}
+                
+              </div>
+
+              
+
+             </div>
+
+            </div>
+          </div>  
+
+        </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="col-sm-12">
+      <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'></div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+{% block sidecontent %}
+  {% include "./parts/simple_sidecontent.html" %}
+{% endblock sidecontent %}
+

@@ -1,0 +1,81 @@
+{% extends "sitebase.html" %}
+s
+{% load i18n %}
+
+{% block extra_style %}
+  <link rel="stylesheet" href="/static/test.css">     
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block middlecontent %}
+
+
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <br/>
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-body" style='background:#fff; box-shadow:none'>
+
+                                    <br>
+                                      <!-- second form to hold -->  
+
+                                    <div class="col-sm-11">
+
+                                    	<p class="register-helptext">Activation de votre compte</p> <br/><br/>
+                                      
+                                      <blockquote>
+                                        <p>Félicitations. Votre compte est active maintenant </p><br>
+                                      </blockquote>
+
+                                      <br/>
+
+                                      <div class="form-actions">
+                                          <button type="button" class="btn btn-primary" onclick='javascrpt:window.location.href="/accounts/login"'>Connexion</button>
+                                      </div>
+                                        
+
+                                      <br/> <br/> <br/>
+
+                                    </div>
+
+                                </div>
+
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+{% block footer %} {% endblock footer %}

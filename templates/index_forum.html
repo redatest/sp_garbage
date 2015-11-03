@@ -1,0 +1,60 @@
+{% extends "sitebase.html" %}
+
+{% load i18n %}
+
+{% block middlecontent %}
+
+  <div class="col-sm-8">
+
+    
+  <br/>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Our Forum</div>
+    <div class="panel-body">
+
+      <!-- messages and breadcrumb block --> 
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+            {% if request.path != '/' %}
+        <div id="breadcrumb">
+            {% block breadcrumb %}
+            <a href="/">Main</a>
+            {% endblock breadcrumb %}
+        </div>
+    {% endif %}
+
+    {% if request.path == '/' %}
+        <div class='forum-headline alert alert-block'>PyBBModified.</div>
+    {% endif %}
+    <!-- messages and breadcrumb block ends -->   
+      
+    {% block content %}
+
+    {% endblock content %}
+      
+    </div><!-- /main --> 
+
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-sm-12">
+        <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'></div>
+    </div>
+  </div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+

@@ -1,0 +1,336 @@
+{% load i18n group_check cache %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="fr" class="csstransforms no-csstransforms3d csstransitions" ng-app="Aplic">
+<!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-site-verification" content="1G8HDDIdCVUWyU91BqoVlbmWmPJ4uhRuqDs4uyrRVks" />
+        <link rel="alternate" href="http://www.speedjob.fr" hreflang="fr-fr" />
+
+        <title> {% block title %} SpeedJob {% endblock %} </title>
+
+        <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <meta name="Description" content="speedjob est un site qui permet de faciliter la recherche d&#x27;emploi et le recrutement à la fois aux candidats et aux recruteurs, Permet de déposer une annonce et de consulter notre CV-thèque à prix très attractif - Possibilité de rechercher des offres et de déposer un CV gratuitement. www.speedjob.fr " />
+
+      <meta name="keywords" content="speedjob, Offres d'emploi, Offre d'emploi, emploi, offre d'emplois, emploi en France, pages France, emploi,  EMPLOI, emplois, EMPLOIS, espace emploi,info emploi, info-emploi, recrutement, RECRUTEMENT, recrutements, job, JOB, jobs, JOBS, poste,  postes, carrière, carrières, embauche, embauches, employment, entretien, ENTRETIEN, entretiens d'embauche, recherche d'emploi, chasseurs de tête, cabinets de recrutement, candidature, CANDIDATURE, cv, CV, curriculum vitae, CURRICULUM VITAE, déposer gratuitement offre emploi, offre stage, banque cv, job etudiant, depot CV, passer gratuitement offre emploi, job été, annonce stage, job étudiant, trouver stage, diffuser offre emploi, dépôt de CV, recherche emploi, espace recruteurs, espace candidats, travail, déposer offre emploi deposer des offres d'emploi, deposer des offres d'emplois, deposer des offres emploi, deposer des offres emplois, deposer offre d'emploi, deposer offre d'emplois,  deposer offre emploi, deposer offre emplois, mettre en ligne des offres d'emplo,publier des offres d'emploi, publier des offres d'emplois, publier des offres emploi, dépot annonce d'emploi, depot offre d'emploi, depot offre emploi&quot;">
+
+      <meta name="author" content="">
+      <!-- JS -->
+      <!-- HTML5 Support for IE -->
+      <!--[if lt IE 9]>
+      <script src="js/html5shim.js"></script>
+      <![endif]-->
+      <!-- JS -->
+    {% block style %}
+      <!-- Stylesheets -->
+        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Glegoo" type="text/css" />
+
+        <link rel="stylesheet" href="/static/header/header.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style/font-awesome-4.3.0/css/font-awesome.css">
+        <link rel="stylesheet" href="/static/style/style2.css" >
+        <link rel="stylesheet"  href="/static/style/responsive.css" type="text/css" media="all">
+        <link rel="stylesheet" href="/static/css/header_style.css">
+
+        <!-- jasny bootstrap -->
+        <link rel="stylesheet" href="/static/jasny-bootstrap/css/jasny-bootstrap.css">
+        <link rel="stylesheet" href="/static/css/aui-production.min.css" />
+        <link rel="stylesheet" href="/static/style/classy.css" />
+
+        <link rel="stylesheet" href="/static/test.css">
+        <!-- vmap -->
+        <link rel="stylesheet" href="/static/vmap/jqvmap.css">
+
+        <!-- notifications -->
+        <link rel="stylesheet" href="/static/notifications/css/jquery.gritter.css">
+        
+        <!-- payement -->
+        <link rel="stylesheet" href="/static/eldarion-ajax/js/eldarion-ajax.min.js">
+        <script src="/static/js/checkout.js"></script>
+
+
+    {% endblock style %}
+
+    {% block extra_css %} {% endblock %}
+
+    {% block extra_style %}
+      <link rel="stylesheet" href="/static/social.css">
+    {% endblock extra_style %}
+
+    {% block js %}
+
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+
+        <!-- modals --> 
+        <script src="/static/bootstrap/bootstrap-modal.js"></script>
+        <!-- jasny -->
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <!-- vmap -->
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+        <!-- notifications -->
+        <script type='text/javascript' src="/static/notifications/js/jquery.gritter.min.js" ></script>
+
+        <!-- sharethis webservice -->
+        <script type="text/javascript">var switchTo5x=true;</script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+        <script type="text/javascript">stLight.options({publisher: "fc960723-2a1c-4123-bacd-9e76284af85e", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+
+        <script src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+
+
+    {% endblock js %}
+
+    {% block extra_head %}{% endblock %}
+      {% block extra_script %}{% endblock %}
+
+
+    </head>
+
+    <body>
+  <br/>
+
+{% block topheader %}
+    <!-- upper menu -->
+      
+      
+      <header id="mainHeader" class="navbar navbar-default box13" role="banner">
+        <div class="containera">
+          <nav class="navbar navbar-default scrollMenu" role="navigation">
+
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> 
+                <span class="sr-only">Toggle navigation</span> 
+                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span> 
+              </button>
+
+              <a class="navbar-brand" href="/">
+                <div class="logo-wrapper">
+                  <img src="/static/img/log.png" alt="Speedjob logo"> <span style="font-size:8px; text-transform:uppercase">Site en développement</span>
+                </div>
+              </a> 
+              </div>
+
+
+              <div class="collapse navbar-collapse navbar-ex1-collapse" id="scrollTarget">
+
+                <ul class="nav navbar-nav pull-right">
+
+                  <li> <p class="navbar-text">&nbsp;</p> </li>
+
+                  <li> 
+
+                    <a href="/"> <i class="fa fa-home"></i> {% trans "Principale" %} </a> 
+                  </li>
+
+                  {% if not request.user.is_authenticated %}
+
+                  <li> <a href="/news"> <i class="fa fa-newspaper-o"></i> {% trans "Informations" %} </a> </li>
+
+                  <li> <a href="/contact"> <i class="fa fa-pencil"></i> {% trans "Contactez nous" %} </a> </li>
+                    
+                  {% endif %}
+
+                  
+
+
+                    {% if request.user.is_authenticated %}
+
+                      {% if user|in_group:"employer" %}
+                          <li> <a href="/deposer_offre"> <i class="fa fa-list-alt"></i> {% trans "Deposer Offre" %} </a> </li>
+                      {% endif %}
+
+                    {% endif %}
+
+                    
+
+                    {% if request.user.is_authenticated %}
+
+                          {% if user|in_group:"candidate" %}  
+                               <li> <a href="/search"> <i class="fa fa-search"></i> {% trans "Recherche" %} </a> </li>
+                          {% else %}
+                              <li> <a href="/search_emp"> <i class="fa fa-search"></i> {% trans "Recherche" %} </a> </li>
+                          {% endif %}     
+
+                    {% endif %}     
+
+                    
+                  {% if request.user.is_authenticated %}
+
+                      {% if user|in_group:"candidate" %}
+                          <li> 
+                            <a href="/candid_profile_marks">
+                              <i class="fa fa-list-alt"></i> {% trans "Annonces favorites" %} 
+                              <p style="text-align:center">
+                                <!-- <span class="badge" style="position:absolute; top:31%; right:3% ; background-color:tomato;">4</span>      -->
+                                <!-- <span class="badge" style="background-color:tomato; position:absolute;">4</span>      -->
+                              </p>
+                            </a> 
+                            
+                          </li>
+
+                          <li> 
+                            <a href="/candid_profile"><i class="fa fa-user"></i> {% trans "Profile" %} </a> 
+                          </li>
+
+                      {% else %}
+
+                          
+
+                            <!-- notification -->
+
+                            {% if is_there_emplyer_notif %}
+
+                           <li> <a href="/applications"> <i class="fa fa-envelope" style='color:orange !important;'></i> {% trans "Infos" %} </a>  </li>
+
+                            {% endif %}
+
+                            <!-- notification ends -->
+
+                          {% with request.user.customer.current_subscription as cur_sub %}
+
+                              {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+                                <li>
+                                  <a href="/pay"><i class='fa fa-credit-card'></i>&nbsp;{% trans "Compte Pro" %}</a>
+                                </li>
+
+                                <li>  <a href="#"> 
+                                  <i class="fa fa-download"></i> {{request.user.profile_emp.down_counter}}&nbsp;{% trans "CV" %} </a> 
+                                </li>
+                              {% endif %}
+
+                          {% endwith %}
+
+                          <li>  <a href="/emp_profile"><i class="fa fa-user"></i> {% trans "Profile" %}</a> </li>
+
+                      {% endif %}
+
+                      <li> <a href="/accounts/logout/"> <i class="fa fa-sign-out"></i> {% trans "Deconnexion" %}</a> </li>
+
+                      {% if request.user.is_superuser %}
+                          <li> <a href="/admin/"> <i class="fa fa-dashboard"></i> {% trans "Admin" %}</a> </li>
+                      {% endif %}
+
+                {% else %}
+                         <li> <a href="/accounts/register/"> <i class="fa fa-user"></i> {% trans "inscription candidat" %}</a> </li>
+                         <li> <a href="/accounts/register_emp/"> <i class="fa fa-briefcase"></i> {% trans "inscription recruteur" %}</a> </li>
+                         <li> <a href="/accounts/login/"> <i class="fa fa-sign-in"></i> {% trans "connectez vous" %}</a> </li>
+                {% endif %}
+
+
+                </ul>
+              </div>
+
+            </nav>
+          </div>
+        </header>
+  
+  <!-- upper menu ends -->
+
+<div class="main2 desktop chrome right-sidebar">
+  <div class="container">
+      <div class="row">
+
+{% endblock topheader %}
+
+  {% block middlecontent %}
+
+  {% endblock middlecontent %}
+
+
+  <br/>
+
+  {% block sidecontent %}
+      {% include "./parts/base_sidecontent.html" %}
+  {% endblock sidecontent %}
+
+      </div> <!-- end row -->
+
+        <div class="clear"></div>
+      </div> <!-- end container -->
+    </div>  <!-- end main2 -->
+  <br/>
+
+
+{% block footer %}
+
+   <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+
+
+            <div class="padd">
+
+              <ul class="horizontal full four ruled padded center margin-top-big">
+                <li><h6>{% trans "Home" %}</h6></li>
+                <li><h6>{% trans "Deposer annonce" %}</h6></li>
+                <li><h6>{% trans "Recherche" %}</h6></li>
+                <li><h6>{% trans "Contact" %}</h6></li>
+              </ul>
+
+              <hr/>
+              Copyright &copy; 2014 - <a href="#">Speed Job</a> | Designed by <a href="#">Med Reda</a>
+            </div>
+
+            {% if msg %}
+              <script type="text/javascript">
+              $.gritter.add({
+
+                  image: '/static/images/logo_speedjob.png',
+                  // (string | mandatory) the heading of the notification
+                  title: '{{ msg }}',
+                  // (string | mandatory) the text inside the notification
+                  text: 'Veillez editer votre profile s\'il vous plait, cela augmente votre visibilité par les employeurs',
+                  // get light colors
+                  class_name: 'gritter-light',
+                  // time
+                  time: 9000
+                });
+              </script>
+            {% endif %}
+
+          </div>
+
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+
+    </footer>
+
+    {% endblock footer %}
+
+    {% block extra_js %}
+
+    {% endblock extra_js %}
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57491824-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    </body>
+</html>

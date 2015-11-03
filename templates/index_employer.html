@@ -1,0 +1,256 @@
+
+{% load seen_by_emp %}
+
+<!-- interactive map -->
+  <script type="text/javascript">
+      $(document).ready(function() {
+
+        $('#myModal').modal();
+
+        $('#francemap').vectorMap({
+
+          map: 'france_fr',
+          hoverOpacity: 0.5,
+          hoverColor: "#EC0000",
+          backgroundColor: "#ffffff",
+          color: "rgba(18, 127, 182, 0.4)",
+          borderColor: "#000000",
+          selectedColor: "#08C",
+          enableZoom: false,
+          showTooltip: true,
+
+            onRegionClick: function(element, code, region)
+            {
+                // var message = 'Région : "'+ region + '" || Id : "'+ code + '"';
+              var dict = {
+                    region:        code,
+                    category:     'all',
+                    offer:        'all',
+                    low_salary:   'all',
+                    high_salary:  'all',
+                    csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                    };
+                    var query_string = $.param( dict, true );
+                    window.location.href = '/map_search_emp/?'+query_string;
+            }
+        });
+
+        $('a.list-group-item.reg_search').on('click', function(e){
+            e.preventDefault();
+            var region = $(this).data('reg');
+            var dict = {
+                      region:        region,
+                      category:     'all',
+                      offer:        'all',
+                      low_salary:   'all',
+                      high_salary:  'all',
+                      csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                      };
+                      var query_string = $.param( dict, true );
+            window.location.href = '/map_search_emp/?'+query_string;
+            // alert(query_string);
+        });
+
+      });
+
+  </script>
+
+      <!-- last candidates -->
+
+ <div class="panel panel-default">
+     <div class="panel-heading">
+
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-list-ul fa-stack-1x"></i>
+      </span>
+
+      Les Derniers candidats inscrits </div>
+     <div class="panel-body-mod">
+
+        {% if last_users %}
+
+        <br/>
+
+            {% for i in last_users %}
+
+               <div class="panel panel-default event effect2">
+
+                <div class="panel panel-default event">
+                  <div class="panel-body">
+
+                    <div class="author col-xs-2 col-sm-5">
+                        <div class="profile-image">
+                            <img src="/static/img/user.jpg"/>
+                        </div>
+                        <div class="profile hidden-xs">
+                            <strong> {{i.get_full_name}} </strong>
+                            <article>{{i.get_salary_field|safe}} </article>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="info col-xs-7 col-sm-5">
+                      <article> {{ i.get_wanted_job }} </article>
+                      <br/>
+                      
+                        <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_study_level_field }} </span><br/>
+                        <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_city_display }} </span><br/>
+                        <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created_at|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                      
+                      <div class="visible-xs">&nbsp;</div>
+                      <div class="hidden-xs">
+                          
+                        </div>
+                    </div>
+
+                    <div class="rsvp col-xs-3 col-sm-2">
+
+                      <i> &nbsp; </i> <br/> 
+
+                      <div class="hidden-xs">
+                        <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x view-offer"></span></a>
+
+                        {% if i|args:empo|call:'has_been_watched' %}
+                            <a href="{{i.get_absolute_url}}"> <span class="fa fa-eye seen fa-2x"> </span> </a>
+                        {% else %}
+                            <a href="{{i.get_absolute_url}}"> <span class="fa fa-eye-slash fa-2x"> </span> </a>
+                        {% endif %}
+                          
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+              </div>
+             {% endfor %}
+
+        {% else %}
+
+            <p> Pas de candidats inscrits pour le moment </p>
+
+        {% endif %}
+
+
+     </div>
+   </div>
+
+   <!-- last candidates ends -->
+
+   <!-- find more last candidates  -->
+<div class="panel panel-default">
+  <nav>
+
+    <ul class="pager">
+      <li>
+          <a href="/map_search_emp/?region=all&category=all&offer=all&low_salary=all&high_salary=all&csrfToken=no_token">
+            <i class="fa fa-search-plus"></i>
+          Trouvez tout les candidats
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+</div>
+<!-- find more last candidates ends  -->
+
+
+<!-- last nearby candidates  -->
+<div class="panel panel-default">
+     <div class="panel-heading">
+
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-list-ul fa-stack-1x"></i>
+      </span>
+
+      Les Candidats près de chez vous </div>
+     <div class="panel-body-mod">
+
+        {% if nearby_candids %}
+
+        <br/>
+
+            {% for i in nearby_candids %}
+
+               <div class="panel panel-default event effect2">
+                  <div class="panel-body">
+
+                    <div class="author col-xs-2 col-sm-5">
+                        <div class="profile-image">
+                            <img src="/static/img/user.jpg"/>
+                        </div>
+                        <div class="profile hidden-xs">
+                            <strong> {{i.get_full_name}} </strong>
+                            <article>{{i.get_salary_field|safe}} </article>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="info col-xs-7 col-sm-5">
+                      <article> {{ i.get_wanted_job }} </article>
+                      <br/>
+                      
+                        <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_study_level_field }} </span><br/>
+                        <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_city_display }} </span><br/>
+                        <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created_at|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                      
+                      <div class="visible-xs">&nbsp;</div>
+                      <div class="hidden-xs">
+                          
+                        </div>
+                    </div>
+
+                    <div class="rsvp col-xs-3 col-sm-2">
+
+                      <i> &nbsp; </i> <br/> 
+
+                      
+
+                      <div class="hidden-xs">
+                        <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x view-offer"></span></a>
+                        {% if i|args:empo|call:'has_been_watched' %}
+                            <a href="{{i.get_absolute_url}}"> <span class="fa fa-eye seen fa-2x"> </span> </a>
+                        {% else %}
+                            <a href="{{i.get_absolute_url}}"> <span class="fa fa-eye-slash fa-2x"> </span> </a>
+                        {% endif %}
+                        
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+             {% endfor %}
+
+        {% else %}
+
+            <p> Pas de candidats près de chez vous pour le moment </p>
+
+        {% endif %}
+
+
+     </div>
+   </div>
+<!-- last nearby candidates ends -->
+
+{% if nearby_candids %}
+
+<!-- find more last nearby candidates  -->
+<div class="panel panel-default">
+  <nav>
+
+    <ul class="pager">
+      <li>
+          <a href="/map_search_emp/?region={{employer_region}}&category=all&offer=all&low_salary=all&high_salary=all&csrfToken=no_token">
+            <i class="fa fa-search-plus"></i>
+          Trouvez tout les candidats près de chez vous
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+</div>
+<!-- find more last nearby candidates ends  -->
+
+{% endif %}

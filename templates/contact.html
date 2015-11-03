@@ -1,0 +1,159 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+    <link rel="stylesheet" type="text/css" href="/static/social_bis.css">      
+{% endblock extra_style %}  
+
+
+{% block js %}
+
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+
+        <!-- jasny -->
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <!-- vmap -->
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+        <!-- notifications -->
+        <script type='text/javascript' src="/static/notifications/js/jquery.gritter.min.js" ></script>
+
+        <script src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+
+
+{% endblock js %}
+
+
+{% block bottom-header %}
+  
+{% endblock bottom-header %}
+
+
+{% block middlecontent %}
+
+  <div class="col-sm-8">
+  <br/>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+
+      <span class="fa-stack ">
+        <i class="fa fa-square-o fa-stack-2x "></i>
+        <i class="fa fa-pencil fa-stack-1x "></i>
+      </span>
+
+      {% trans "Contactez nous" %}
+    </div>
+    <div class="panel-body big-content">
+      <div class="container">
+        <script type="text/javascript">
+              
+          // alert('{{ message.tags }}');
+              toastr.options = {
+              
+              "debug": false,
+              "positionClass": "toast-top-full-width",
+              "onclick": null,
+              "fadeIn": 300,
+              "fadeOut": 1000,
+              "timeOut": 5000,
+              "extendedTimeOut": 1000
+            };
+            // toastr.info('simple message', 'Info');
+          </script>
+        
+        <br>
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+          <i class="fa fa-exclamation fa-stack-1x fa-inverse white-ns"></i>
+        </span>
+        <strong>{% trans "Vous avez besoin d'aide ?" %}</strong>
+        <br>
+        <br>
+        <p>N'hésitez pas a nous contacter.
+        </p>
+
+        <br/>
+
+        <form class="well" method='post' action="/contact/" style="direction:{{direction}}">
+          {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-6">
+
+              {% if messages %}
+                  {% for message in messages %}
+                      <script type="text/javascript">
+              
+                      // alert('{{ message.tags }}');
+                          toastr.info('{{message}}', 'Info');
+                      </script>
+                  {% endfor %}
+              {% endif %}
+
+
+                <div class="form-group">
+                    <label for="name">
+                        {% trans "Nom" %}</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name" required="required" name="name" />
+                </div>
+                <div class="form-group">
+                    <label for="email">
+                        {% trans "Adress email" %}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-envelope"></span>
+                        </span>
+
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" name="email" /></div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">
+                        {% trans "Sujet" %}</label>
+                    <select id="subject" name="subject" class="form-control" required="required" name="subject">
+                        <option value="na" selected="">{% trans "Choisissez:" %}</option>
+                        <option value="service">{% trans "Service des clients " %}</option>
+                        <option value="suggestions">{% trans "Suggestions" %}</option>
+                        <option value="product">{% trans "Rapport d'erreur" %}</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="clear"></div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="name">
+                        {% trans "Message" %}</label>
+                    <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
+                        placeholder="Message"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+                    {% trans "Envoyez" %}</button>
+            </div>
+        </div>
+        </form>
+      </div>
+      
+    </div><!-- /main --> 
+
+  </div>
+
+  <div class="clear"></div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+{% block sidecontent %}
+  {% include "./parts/sidepage/simple_sidecontent.html" %}
+{% endblock sidecontent %}
+
+
+

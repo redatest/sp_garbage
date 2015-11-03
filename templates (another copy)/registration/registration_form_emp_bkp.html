@@ -1,0 +1,292 @@
+{% extends "sitebase.html" %}
+s
+{% load i18n %}
+
+
+{% block extra_style %}
+
+  <link rel="stylesheet" href="/static/test.css">     
+  <link rel="stylesheet" href="/static/social_bis.css">
+
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block middlecontent %}
+
+
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-2">&nbsp;</div>
+                        <div class="col-sm-8" id='loginform'>
+                            <div class="panel panel-default">
+                                
+                                <div class="panel-body" style='background:#fff'>
+
+                                    <br>
+                                      <!-- second form to hold -->  
+                                    <div class="col-sm-11 transp">
+                                      <form class="form-horizontal niceform" action="." method="post" enctype="multipart/form-data" role="form">
+                                      {% csrf_token %}
+
+                                     <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-briefcase fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong>{% trans "S'enregistrer" %}</strong>
+                                      </p>
+
+                                     <hr/>
+                                        
+                                        <!-- start of first half -->  
+                                        <div class="first-half">
+
+                                          <div class="social-box">
+                                          <div class="header"> Vos informations </div>
+                                        </div>
+
+                                            <div class="control-group">
+                                              <label for="username" class="control-label mod">Nom d'entreprise</label>
+                                              <div class="controls">
+                                                 <input type="text" id='id_username' name="username" class="span6">
+                                                 {% if form.username.errors %}  <span class="help-inline">{{ form.username.errors }}</span> {% endif %}
+                                              </div>
+                                           </div>
+                                           <div class="clearfix"></div>
+
+                                           <div class="control-group">
+                                              <label class="control-label mod">adresse email</label>
+                                              <div class="controls">
+                                                 <input type="text" id='id_email' name='email' class="span6">
+                                                 {% if form.email.errors %}  <span class="help-inline">{{ form.email.errors }}</span> {% endif %}
+                                              </div>
+                                           </div>
+                                           <div class="clearfix"></div>
+
+                                           <div class="control-group">
+                                              <label class="control-label mod">mot de passe</label>
+                                              <div class="controls">
+                                                 <input type="password" id='id_password1' name="password1" class="span6">
+                                                 {% if form.password1.errors %}  <span class="help-inline">{{ form.password1.errors }}</span> {% endif %}
+                                              </div>
+                                           </div>
+                                           <div class="clearfix"></div>
+
+                                           <div class="control-group">
+                                              <label class="control-label mod">verifier mot de passe</label>
+                                              <div class="controls">
+                                                 <input type="password" id='id_password2' name="password2" class="span6">
+                                                 {% if form.password2.errors %}  <span class="help-inline">{{ form.password2.errors }}</span> {% endif %}
+                                              </div>
+                                           </div>
+                                            
+                                      
+                                       <div class="clearfix"></div>
+
+
+                                       <div class="control-group">
+                                          <label for="representant" class="control-label mod">Représentant</label>
+                                          <div class="controls">
+                                             <input type="text" id='id_representant' name="representant" class="span6">
+                                             {% if form.representant.errors %}  <span class="help-inline">{{ form.representant.errors }}</span> {% endif %}
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+
+
+                                       <div class="control-group">
+                                          <label for="siret" class="control-label mod">N° Siret</label>
+                                          <div class="controls">
+                                             <input type="text" id='id_siret' name="siret" class="span6">
+                                             {% if form.siret.errors %}  <span class="help-inline">{{ form.siret.errors }}</span> {% endif %}
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+
+
+                                       <div class="control-group">
+                                          <label for="phone" class="control-label mod">N° Téléphone</label>
+                                          <div class="controls">
+                                             <input type="text" id='id_phone' name="phone" class="span6">
+                                             {% if form.phone.errors %}  <span class="help-inline">{{ form.phone.errors }}</span> {% endif %}
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+
+                                          
+                                        </div>
+                                        <!-- end of first half -->  
+                                                    
+                                        <hr/>                                                        
+
+                                       <div class='form-pager'>
+
+                                        <nav>
+                                          <ul class="pager">
+                                            <li class="previous"><a href="#" style="border-radius: 2px;"><span aria-hidden="true">&larr;</span> Précédant</a></li>
+                                            <li class="next"><a href="#" style="border-radius: 2px;">Suivant <span aria-hidden="true">&rarr;</span></a></li>
+                                          </ul>
+                                        </nav>
+                                         
+                                       </div> 
+
+                                       <hr/>                                                        
+
+                                        
+                                       <!-- start of first half -->  
+                                       <div class="second-half">
+
+
+                                     <div class="social-box">
+                                          <div class="header"> Localisation </div>
+                                     </div>  
+
+                                      <div class="control-group">
+                                          <label for="postal_code" class="control-label mod">Code postal</label>
+                                          <div class="controls">
+                                             <input type="text" id='id_postal_code' name="postal_code" class="span6">
+                                             {% if form.postal_code.errors %}  <span class="help-inline">{{ form.postal_code.errors }}</span> {% endif %}
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+
+
+                                       <div class="control-group">
+                                          <label for="town" class="control-label mod">Ville</label>
+                                          <div class="controls">
+                                             <input type="text" id='id_town' name="town" class="span6">
+                                             {% if form.town.errors %}  <span class="help-inline">{{ form.town.errors }}</span> {% endif %}
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+
+
+                                       <div class="control-group">
+
+                                        <label class="control-label mod" for="region">Région:</label>
+
+                                        <div class="controls">
+
+                                          <select id="id_region" class="span6" name="region">
+
+                                          <option value="">---------</option>
+                                          <option value="all">Tous</option>
+                                          <option value="0" selected="selected"></option>
+                                          <option value="1">Nord Pas de Calais</option>
+                                          <option value="2">Picardie</option>
+                                          <option value="3">Haute Normandie</option>
+                                          <option value="4">Basse Normandie</option>
+                                          <option value="5">Ile de France</option>
+                                          <option value="6">Bretagne</option>
+                                          <option value="7">Champagne Ardenne</option>
+                                          <option value="8">Alsace</option>
+                                          <option value="9">Pays de la Loire</option>
+                                          <option value="10">Centre</option>
+                                          <option value="11">Bourgogne</option>
+                                          <option value="12">Rhone Alpes</option>
+                                          <option value="13">Aquitaine</option>
+                                          <option value="14">PACA</option>
+                                          <option value="15">Corse</option>
+                                          <option value="16">Midi Pyrenees</option>
+                                          <option value="17">Languedoc Roussillon</option>
+                                          <option value="18">Lorraine</option>
+                                          <option value="19">Poitou Charentes</option>
+                                          <option value="20">Limousin</option>
+                                          <option value="21">Auvergne</option>
+                                          <option value="22">Franche Comte</option>
+                                        </select>
+                                          
+                                        </div>
+                                         
+                                       </div>
+
+
+                                       <div class="control-group">
+                                          <label for="website" class="control-label mod">Siteweb</label>
+                                          <div class="controls">
+                                             <input type="text" id='id_website' name="website" class="span6">
+                                             {% if form.website.errors %}  <span class="help-inline">{{ form.website.errors }}</span> {% endif %}
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+
+                                       <div style='display:none;'>
+
+                                        <p class="required"><label for="id_is_candid_0">Vous êtes :</label> </p>
+
+                                         <ul>
+                                          <li><label for="id_is_candid_0">
+                                            <input type="radio" id="id_is_candid_0" value="1" name="is_candid" disabled> Candidat</label>
+                                          </li>
+
+                                          <li>
+                                            <label for="id_is_candid_1"><input type="radio" id="id_is_candid_1" value="0" name="is_candid" checked> Recruteur</label>
+                                          </li>
+
+                                       </ul>
+
+                                         
+                                       </div>
+                                         
+                                       </div> 
+                                       <!-- end of the second half --> 
+
+                                     <div class="col-sm-12">
+
+                                       <div class="form-actions">
+                                          <button type="submit" class="btn btn-primary">Valider</button><br/>
+                                          <button type="button" class="btn btn-danger" onclick='javascrpt:window.location.href="/"'>Page d'accueil</button>
+                                       </div>
+
+                                     </div>
+
+                                  </form>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="panel-footer">
+                                    <b>Vous possedez un compte ?</b> 
+                                    <i class="fa fa-home gray-ns"></i>&nbsp;
+                                    <a href="/accounts/login/" class="account-log">S'authentifier.</a><br/>
+                                </div>
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-2">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+{% block footer %} {% endblock footer %}
+

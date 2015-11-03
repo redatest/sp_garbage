@@ -1,0 +1,583 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+{% block middlecontent %}
+
+{% block extra-style %}
+  <style>
+  .stripe-button-el {
+
+    overflow: hidden;
+    display: inline-block;
+    visibility: visible !important;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    /*background-color: #e1e4ea;*/
+    background-color: #fff;
+    border: 1px solid #ddd;
+    background-image: none !important;
+    width: 83%
+
+}
+
+.stripe-button-el span{
+
+    background-color: #fff;
+    background-image: none !important;
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+}
+
+.stripe-button-el span:link{
+
+    background-color: #fff;
+    background-image: none !important;
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+}
+
+.stripe-button-el span:active{
+
+    background-color: #fff;
+    background-image: none !important;
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+}
+
+  </style>
+{% endblock extra-style %}
+
+
+<div class="col-sm-8">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-user fa-stack-1x "></i>
+          </span>
+        Candidat {{userinfo.user.username}} {{userinfo.user.last_name}}
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-4">
+
+
+          <div class="list-group">
+            <a class="list-group-item no-hover" href="#"><i class="fa fa-file-image-o gray "></i>&nbsp; Avatar</a>
+            <div id="people-you-may-know" class="social-nav-list" style="max-width: 340px; padding: 0;">
+            <ul class="nav nav-list dividers">
+              <li class="nav-header">&nbsp;</li>
+
+              <li class="nav-header">
+                  <div class="avatar">
+                    <img src="/static/img/user2.png" alt="avatar" class="img-thumbnail" width='100' height='100'>
+                  </div>
+              </li>
+              <br>
+
+            </ul>
+          </div> <!-- end avatar -->
+          </div>
+
+          <hr/>
+
+        <div class="list-group">
+          <a class="list-group-item no-hover" href="#"><i class="fa fa-wrench gray "></i> Opérations</a>
+
+
+          <!-- test if pdf cv exists --> 
+          {% if userinfo.document  %}
+
+          {% with request.user.customer.current_subscription as cur_sub %}
+
+              {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+
+                <!-- <a class="list-group-item" href="javascript:alert('en cours de dev')"> -->
+                <a class="list-group-item" href="/charge/candidate/{{userinfo.get_download_url}}/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-cloud-download fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Telecharger CV
+                </a>
+
+              {%else%}
+
+                <a class="list-group-item" href="/pay/home">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-cc-visa fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Devenir Pro pour voir le CV
+                </a>
+
+                <hr/>
+
+                <a class="list-group-item" href="{{ userinfo.document.url }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-eur fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Achat Direct
+                </a>
+
+                <form action="/charge/candidate/{{userinfo.get_download_url}}/" method="POST">
+                  {% csrf_token %}
+                  <script
+                    src="https://checkout.stripe.com/checkout.js"
+                    data-image="/static/images/stripe_log.png" 
+                    class="stripe-button"
+                    data-key="pk_test_v9t1PMYuYgsUM5Zsoj3uFn2b"
+                    data-name="Achat Simple"
+                    data-description="1 CV (50 centimes)"
+                    data-label="Acheter le CV"
+                    data-panelLabel="Payez"
+                    data-allow-remember-me='false'
+                    data-currency="EUR"
+                    data-amount="50">
+                  </script>
+                </form>
+
+
+              {% endif %}
+
+          {% endwith %}
+
+           <!-- test if word cv exists --> 
+          {% elif userinfo.document_word  %}
+
+          {% with request.user.customer.current_subscription as cur_sub %}
+
+              {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+
+                <!-- <a class="list-group-item" href="javascript:alert('en cours de dev')"> -->
+                <a class="list-group-item" href="/charge/candidate/{{userinfo.get_download_url}}/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-cloud-download fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Telecharger CV
+                </a>
+
+              {%else%}
+
+                <a class="list-group-item" href="/pay/home">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-cc-visa fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Devenir Pro pour voir le CV
+                </a>
+
+                <hr/>
+
+                <a class="list-group-item" href="{{ userinfo.document_word.url }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-eur fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Achat Direct
+                </a>
+
+                <form action="/charge/candidate/{{userinfo.get_download_url}}/" method="POST">
+                  {% csrf_token %}
+                  <script
+                    src="https://checkout.stripe.com/checkout.js"
+                    data-image="/static/images/stripe_log.png" 
+                    class="stripe-button"
+                    data-key="pk_test_v9t1PMYuYgsUM5Zsoj3uFn2b"
+                    data-name="Achat Simple"
+                    data-description="1 CV (50 centimes)"
+                    data-label="Acheter le CV"
+                    data-panelLabel="Payez"
+                    data-allow-remember-me='false'
+                    data-currency="EUR"
+                    data-amount="50">
+                  </script>
+                </form>
+
+
+              {% endif %}
+
+          {% endwith %}
+
+           <!-- test if odt cv exists --> 
+          {% elif userinfo.document_odt  %}
+
+          {% with request.user.customer.current_subscription as cur_sub %}
+
+              {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+
+                <!-- <a class="list-group-item" href="javascript:alert('en cours de dev')"> -->
+                <a class="list-group-item" href="/charge/candidate/{{userinfo.get_download_url}}/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-cloud-download fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Telecharger CV
+                </a>
+
+              {%else%}
+
+                <a class="list-group-item" href="/pay/home">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-cc-visa fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Devenir Pro pour voir le CV
+                </a>
+
+                <hr/>
+
+                <a class="list-group-item" href="{{ userinfo.document_odt.url }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-eur fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Achat Direct
+                </a>
+
+                <form action="/charge/candidate/{{userinfo.get_download_url}}/" method="POST">
+                  {% csrf_token %}
+                  <script
+                    src="https://checkout.stripe.com/checkout.js"
+                    data-image="/static/images/stripe_log.png" 
+                    class="stripe-button"
+                    data-key="pk_test_v9t1PMYuYgsUM5Zsoj3uFn2b"
+                    data-name="Achat Simple"
+                    data-description="1 CV (50 centimes)"
+                    data-label="Acheter le CV"
+                    data-panelLabel="Payez"
+                    data-allow-remember-me='false'
+                    data-currency="EUR"
+                    data-amount="50">
+                  </script>
+                </form>
+
+
+              {% endif %}
+
+          {% endwith %}
+
+          {%else%}
+
+          <a class="list-group-item" href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                <i class="fa fa-file fa-stack-1x fa-inverse white-ns"></i>
+              </span>
+              &nbsp; CV non déposé
+            </a>
+
+
+          {% endif %}
+
+        </div>
+        </div>
+
+        <div class="col-sm-8">
+
+        <div class="social-box">
+      <div class="header">
+              <i class="fa fa-bullseye gray-ns"></i>
+              <strong>Informations générales :</strong>
+      </div>
+      <div class="body">
+        <ul id="myTab" class="nav nav-tabs">
+          <li class="active"><a href="#profile" data-toggle="tab"><i class="fa fa-user"></i> Infos</a></li>
+          <li class=""><a href="#home" data-toggle="tab"><i class="fa fa-file-pdf-o"></i> CV</a></li>
+          <li class=""><a href="#cv_word" data-toggle="tab"><i class="fa fa-file-word-o"></i> CV Word</a></li>
+          <li class=""><a href="#cv_odt" data-toggle="tab"><i class="fa fa-file-text-o"></i> CV Open Office</a></li>
+
+        </ul>
+
+            <div id="myTabContent" class="tab-content">
+
+              <!-- motivation -->
+              <div class="tab-pane fade active in" id="profile">
+                <p><strong>&nbsp;</strong></p>
+                <p>
+                  <dl class="dl-horizontal">
+                <dt>Nom d'utilisateur </dt>
+                <dd>{{userinfo.user.username}}</dd>
+                <br>
+                <dt>Poste recherché</dt>
+                <dd>{{userinfo.wanted_job}}</dd>
+                <br>
+                <dt>Nom de famille</dt>
+                <dd>{{userinfo.last_name}}</dd>
+                <br>
+                <dt>Adresse</dt>
+                <dd>{{userinfo.adress}}</dd>
+                <br>
+                <dt>Ville</dt>
+                <dd>{{userinfo.get_city_display}}</dd>
+                <br>
+                <dt>Région</dt>
+                <dd>{{userinfo.get_region_display}}</dd>
+                <br>
+                <dt>Téléphone:</dt>
+                <dd>
+
+                  {% if userinfo.telephone %}
+
+                    {% with request.user.customer.current_subscription as cur_sub %}  
+
+                        {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+                            
+                            {{ userinfo.telephone }}
+                          
+                        {% else %}
+
+                            <p><strong>&nbsp;Le n° du téléphone est disponible que pour les comptes Professionnels</strong></p>  <br>
+
+                        {% endif %}     
+
+                    {% endwith %}  
+
+                  {%else%}
+
+                        Le numéro de téléphone n'est pas disponible
+
+                {% endif %}
+                  
+                </dd>
+                <br>
+                <dt>Secteur 1:</dt>
+                <dd>{{userinfo.get_sector1_display}}</dd>
+                <br>
+                <dt>Secteur 2:</dt>
+                <dd>{{userinfo.get_sector2_display}}</dd>
+                <br>
+                <dt>Secteur 3:</dt>
+                <dd>{{userinfo.get_sector3_display}}</dd>
+                <br>
+                <dt>Mobilité 1:</dt>
+                <dd>{{userinfo.get_mobility1_display}}</dd>
+                <br>
+                <dt>Mobilité 2:</dt>
+                <dd>{{userinfo.get_mobility2_display}}</dd>
+                <br>
+                <dt>Mobilité 3:</dt>
+                <dd>{{userinfo.get_mobility3_display}}</dd>
+                <br>
+                <dt>Disponibilité:</dt>
+                <dd>{{userinfo.get_disponibility_display}}</dd>
+                <br>
+                <dt>Status:</dt>
+                <dd>{{userinfo.get_status_display}}</dd>
+                <br>
+                <dt>Niveau d'etudes:</dt>
+                <dd>{{userinfo.get_study_level_display}}</dd>
+                <br>
+                <dt>Experience:</dt>
+                <dd>{{userinfo.get_experience_display}}</dd>
+                <br>
+                <dt>Contrat:</dt>
+                <dd>{{userinfo.get_contract_display}}</dd>
+                <br>
+                <dt>Période:</dt>
+                <dd>{{userinfo.get_period_display}}</dd>
+                <br>
+                <br>
+                <dt>Date d'enrregistrement:</dt>
+                <dd>{{ userinfo.user.date_joined }}</dd>
+                <br>
+                <br>
+                <dt>Dernier acces:</dt>
+                <dd>{{ userinfo.user.last_login }}</dd>
+                <br>
+              </dl>
+                </p>
+
+                <hr>
+
+                <div class="socialbox">
+                  <div class="header">
+                    Motivations
+                  </div>
+                  <div class="body">
+                    {% if userinfo.motivations %}
+                    <!-- <p><strong>Motivation</strong></p> -->
+                    <p>&nbsp;</p>
+
+                    {% autoescape off %}
+                      {{ userinfo.motivations }}
+                    {% endautoescape %}
+
+                  {% else %}
+
+                    <div class="alert">
+                      <p class="lead">
+
+                        Le candidat n'a pas encore décrit ses motivations
+
+                      </p>
+                    </div>
+
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- CV -->
+
+              <div class="tab-pane fade" id="home">
+
+                <br>
+
+                {% if userinfo.document %}
+
+                  {% with request.user.customer.current_subscription as cur_sub %}  
+
+                      {% if cur_sub.status == "active" or cur_sub.status == "canceled" and cur_sub.is_period_current %}
+
+                        <p><strong>&nbsp;Vous pouvez télécharger le CV du candidat</strong></p>  <br>
+                        <p class='login-helptext'> <img class='img-thumbnail' src="{{ userinfo.get_pdf_image }}" width='300px' height='auto'> </p>
+
+                      {% else %}
+
+                          <p><strong>&nbsp;La consultation des CV n'est pas autorisée pour les comptes non Professionnels</strong></p>  <br>
+                          <p class='login-helptext'> <img class='img-thumbnail' src="{{ userinfo.get_pdf_image }}" width='300px' height='auto'> </p>
+
+                      {% endif %}     
+
+                  {% endwith %}  
+
+                {%else%}
+
+                  <div class="alert">
+                    <br/>
+
+                    <p class="lead">
+                      Le candidat n'a pas encore déposé sont CV.
+                    </p>
+                    &nbsp;
+
+                    <br/>
+                  </div>
+
+
+              {% endif %}
+
+              </div>
+
+            <!-- CV word -->
+
+              <div class="tab-pane fade" id="cv_word">
+
+                  {% if userinfo.document_word %}
+
+                  <br/>
+
+                      <div class="alert-success">
+                        <p class="lead">
+
+                          Le candidat possède un CV au format Word, Veuillez aller à la page de téléchargement pour le voir
+                          
+                        </p>
+                      </div>
+                      
+                    {% else %}
+
+                <br/>    
+
+                      <div class="alert">
+                        <p class="lead">
+
+                          Le candidat n'a pas de CV au format Word
+                          
+                        </p>
+                      </div>
+
+                    {% endif %}
+
+              </div>
+
+               <!-- CV Odt -->
+
+              <div class="tab-pane fade" id="cv_odt">
+
+                  {% if userinfo.document_odt %}
+
+                      <br/>
+
+                      <div class="alert-success">
+                        <p class="lead">
+
+                          Le candidat possède un CV au format Open Office, Veuillez aller à la page de téléchargement pour le voir
+                          
+                        </p>
+                      </div>
+                       
+                    {% else %}
+
+                    <br/>
+
+                      <div class="alert">
+                        <p class="lead">
+
+                          Le candidat n'a pas de CV au format Open Office
+                          
+                        </p>
+                      </div>
+
+                    {% endif %}
+
+              </div>
+
+             </div>
+
+            </div>
+          </div>
+
+        </div>
+
+    </div> <!-- end panel body -->
+
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style='padding-left: 0px;'>
+    <div class="col-sm-12" style='padding-left: 0px;'>
+      <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+{% block sidecontent %}
+  {% include "./parts/sidepage/simple_sidecontent.html" %}
+{% endblock sidecontent %}

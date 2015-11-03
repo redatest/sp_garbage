@@ -1,0 +1,550 @@
+{% load i18n group_check %}
+
+    <div class="col-sm-4">
+      <div class="sidebar">
+
+        <div class="pane panel-default">
+          <div class="panel-body">
+
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- sidebar_annonces -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:234px;height:60px"
+                 data-ad-client="ca-pub-7389849661114491"
+                 data-ad-slot="2771099360"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+          </div>
+        </div>
+
+        <br/>
+
+        {% if request.user.is_authenticated %}
+
+              {% if user|in_group:"candidate" %} 
+
+              <div class="panel panel-default">
+
+                 <div class="panel-heading"> 
+                   <span class="fa-stack ">
+                    <i class="fa fa-square-o fa-stack-2x "></i>
+                    <i class="fa fa-share-alt fa-stack-1x "></i>
+                  </span>
+
+                  Partager cette page  
+                </div>
+              </div>
+              
+              <div class="panel panel-default">
+                <div class="panel-body"> 
+
+                  <!-- <i class="fa fa-med fa fa-search"></i> --> 
+
+                  <!-- social buttons --> 
+                  <span class='st_sharethis_large' displayText='ShareThis'></span>
+                  <span class='st_googleplus_large' displayText='Google +'></span>
+                  <span class='st_facebook_large' displayText='Facebook'></span>
+                  <span class='st_twitter_large' displayText='Tweet'></span>
+                  <span class='st_email_large' displayText='Email'></span>
+                  <!-- social buttons ends --> 
+                </div>
+              </div>
+
+              {% elif user|in_group:'employer' %}
+
+                <div class="panel panel-default">
+                   <div class="panel-heading"> 
+                    <span class="fa-stack ">
+                    <i class="fa fa-square-o fa-stack-2x "></i>
+                    <i class="fa fa-search-plus fa-stack-1x "></i>
+                  </span>
+                    Recherche candidat 
+                  </div>
+                </div>
+                
+                <div class="panel panel-default">
+                  <div class="panel-body"> 
+                    <i class="fa fa-search fa-2x blue"></i>
+                    &nbsp; <a href="/search_candidates" class="reg">Trouver un candidat </a>
+                  </div>
+                </div>
+
+              {% else %}  
+
+              <div class="panel panel-default">
+                   <div class="panel-heading"> &nbsp;  </div>
+                </div>
+                
+                <div class="panel panel-default">
+                  <div class="panel-body"> 
+                    <i class="fa fa-med fa fa-search"></i>
+                    &nbsp; 
+                  </div>
+                </div>
+
+              {% endif %}
+
+        {% else %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading"> 
+              <span class="fa-stack ">
+                  <i class="fa fa-square-o fa-stack-2x "></i>
+                  <i class="fa fa-group fa-stack-1x "></i>
+              </span>  
+              Devenez membre 
+            </div>
+          </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body"> 
+            <i class="fa fa-user blue mid-size"></i>
+             <a href="/accounts/register/" class="reg">vous etes candidat</a>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-briefcase blue mid-size"></i> 
+             <a href="/accounts/register_emp/" class="reg">Vous etes recruteur</a>
+          </div>
+        </div>
+
+        {% endif %}
+
+        <div class="panel panel-default">
+          
+        
+          <div class="panel-heading"> 
+                <span class="fa-stack ">
+                  <i class="fa fa-square-o fa-stack-2x "></i>
+                  <i class="fa fa-sliders fa-stack-1x "></i>
+                </span>
+
+            {% trans "Combiner votre recherche" %} 
+          </div>
+          <div class="panel-body">
+            <!-- injected form --> 
+
+            {% if request.user.is_authenticated %}
+
+                {% if user|in_group:"candidate" %} 
+                    <form action="/map_search" method="GET" id="search_form" accept-charset="utf-8">
+
+                      {% csrf_token %}
+
+                       {{ form.non_field_errors }}
+
+                      <div class="form-group">
+                          {{ form.region.errors }}
+                          <label for="id_region">{% trans "Région" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.region }}
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          {{ form.city.errors }}
+                          <label for="id_city">{% trans "Département" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.city }}
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          {{ form.offer.errors }}
+                          <label for="id_offer">{% trans "Type de contrat" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.offer }}
+                          </div>
+                      </div>
+
+                      <div class="form-group" style="clear:both;">
+                          {{ form.category.errors }}
+                          <label for="id_category">{% trans "Secteur d'activité" %}:</label>
+                          <div class="form-input">
+                            {{ form.category }}
+                          </div>
+                      </div>
+
+                      
+                      <br/>
+
+                        <p style="text-align: center;"> <input type="submit" class="btn btn-primary" value="Valider" > </p>
+
+                    </form>
+
+                    {% elif user|in_group:"employer" %}
+
+                    <form action="/map_search_emp" method="GET" id="search_form" accept-charset="utf-8">
+
+                      {% csrf_token %}
+
+                       {{ form.non_field_errors }}
+
+                      <div class="form-group">
+                          {{ form.offer.errors }}
+                          <label for="id_offer">{% trans "Type de contrat" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.offer }}
+                          </div>
+                      </div>
+
+                      <div class="form-group" style="clear:both;">
+                          {{ form.category.errors }}
+                          <label for="id_category">{% trans "Secteur d'activité" %}:</label>
+                          <div class="form-input">
+                            {{ form.category }}
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          {{ form.region.errors }}
+                          <label for="id_region">{% trans "Région" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.region }}
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          {{ form.city.errors }}
+                          <label for="id_city">{% trans "Département" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.city }}
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          {{ form.experience.errors }}
+                          <label for="id_experience">{% trans "Niveau d'experience souhaité" %}:</label>
+
+                          <div class="form-input">
+                            {{ form.experience }}
+                          </div>
+                      </div>
+
+                      <div class="form-group" style="clear:both;">
+                          {{ form.study_level.errors }}
+                          <label for="id_study_level">{% trans "Niveau d'études souhaité" %}:</label>
+                          <div class="form-input">
+                            {{ form.study_level }}
+                          </div>
+                      </div>
+
+
+                      
+                        <br/>
+
+                        <p style="text-align: center;"> <input type="submit" class="btn btn-primary" value="Valider" > </p>
+
+                    </form>
+
+                    {% endif %} 
+
+            {% else %}
+
+            <form action="/map_search" method="GET" id="search_form" accept-charset="utf-8">
+
+              {% csrf_token %}
+
+               {{ form.non_field_errors }}
+
+              
+
+              <div class="form-group">
+                  {{ form.region.errors }}
+                  <label for="id_region">{% trans "Région" %}:</label>
+
+                  <div class="form-input">
+                    {{ form.region }}
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  {{ form.city.errors }}
+                  <label for="id_city">{% trans "Département" %}:</label>
+
+                  <div class="form-input">
+                    {{ form.city }}
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  {{ form.offer.errors }}
+                  <label for="id_offer">{% trans "Type de contrat" %}:</label>
+
+                  <div class="form-input">
+                    {{ form.offer }}
+                  </div>
+              </div>
+
+              <div class="form-group" style="clear:both;">
+                  {{ form.category.errors }}
+                  <label for="id_category">{% trans "Secteur d'activité" %}:</label>
+                  <div class="form-input">
+                    {{ form.category }}
+                  </div>
+              </div>
+
+              
+              <br/>
+
+                <p style="text-align: center;"> <input type="submit" class="btn btn-primary" value="Valider" > </p>
+
+            </form>
+              
+            {% endif %}
+          
+            <!-- injected form ends --> 
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end div sidebar -->
+
+      <!--  tabbed posts and comments -->
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading"> 
+          <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-shield fa-stack-1x "></i>
+          </span>
+
+          {% trans "Posts populaires" %} 
+        </div>
+        <div class="panel-body">
+
+          <br/>
+          <div id="secondary" class="widget-area span3" role="complementary">
+        <aside id="dw_focus_tabs-6" class="widget dw_focus_tabs news-tab">
+
+          <div class="nav-tab-select-wrap">
+            <select name="nav-tabs-dw_focus_tabs-6" class="nav-tabs-by-select hidden-desktop">
+              <option data-target="#dw_focus_popular_news-3" value="#dw_focus_popular_news-3">POSTS</option>
+              <option data-target="#dw-recent-comments-dw-widget-1" value="#dw-recent-comments-dw-widget-1">COMMENTAIRES</option>
+
+            </select>
+          </div>
+
+          <ul class="nav nav-tabs visible-desktop" id="nav-tabs-dw_focus_tabs-6">
+            <li class="active">
+
+              <!-- be careful to the urls it is used to navigate -->
+
+              <a href="www.speedjob.fr/#dw_focus_popular_news-3">POSTS</a>
+            </li>
+            <li class="">
+              <a href="www.speedjob.fr/#dw-recent-comments-dw-widget-1">COMMENTAIRES</a>
+            </li>
+
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="dw_focus_popular_news-3">
+              <h3 class="widget-title">{% trans "Postes" %}</h3>
+
+              {% if infos %}
+
+              {% for i in infos %}
+
+                  <article class="hentry item has-thumbnail content-print">
+
+                  <div class="entry-thumbnail">
+                    <a href="#">
+                      <img width="110" height="110" src="{{ i.img.url }}" class="attachment-thumbnail wp-post-image" alt="article image"></a>
+                  </div>
+
+                  <div class="entry-meta">{{i.created|date:"SHORT_DATE_FORMAT"}}</div>
+
+                  <h3 class="entry-title">
+                    <a href="{{ i.get_absolute_url }}"> {{ i.title|slice:":55" }}.... </a>
+                  </h3>
+
+                </article>
+
+              {% endfor %}
+
+              {% else %}  
+
+              <article class="hentry item active has-thumbnail content-print">
+
+                <div class="entry-thumbnail">
+                  <a href="#">
+                    <img width="110" height="110" src="http://placehold.it/80x80" class="attachment-thumbnail wp-post-image" alt="Bloomberg tops $1B in gifts to alma mater Johns Hopkins University"></a>
+                </div>
+
+                <div class="entry-meta">July 9, 2012</div>
+
+                <h3 class="entry-title">
+                  <a href="#">
+                    Bloomberg tops $1B in gifts to alma mater Johns Hopkins University
+                  </a>
+                </h3>
+
+              </article>
+
+              <article class="hentry item has-thumbnail content-print">
+
+                <div class="entry-thumbnail">
+                  <a href="#">
+                    <img width="110" height="110" src="http://placehold.it/80x80" class="attachment-thumbnail wp-post-image" alt="Hackers take over sentencing commission website"></a>
+                </div>
+
+                <div class="entry-meta">December 30, 2012</div>
+
+                <h3 class="entry-title">
+                  <a href="#">
+                    Article Demo Showcase: What markup you can use in your News Article
+                  </a>
+                </h3>
+
+              </article>
+
+              <article class="hentry item has-thumbnail content-print">
+
+                <div class="entry-thumbnail">
+                  <a href="#">
+                    <img width="110" height="110" src="http://placehold.it/80x80" class="attachment-thumbnail wp-post-image" alt="Tennessee lawmaker wants to tie welfare benefits to good grades"></a>
+                </div>
+
+                <div class="entry-meta">January 20, 2013</div>
+
+                <h3 class="entry-title">
+                  <a href="#">Barack Obama’s Complete 2013 Inauguration Speech</a>
+                </h3>
+
+              </article>
+
+              <article class="hentry item has-thumbnail content-print">
+
+                <div class="entry-thumbnail">
+                  <a href="#">
+                    <img width="110" height="110" src="http://placehold.it/80x80" class="attachment-thumbnail wp-post-image" alt="Tennessee lawmaker wants to tie welfare benefits to good grades"></a>
+                </div>
+
+                <div class="entry-meta">January 20, 2013</div>
+
+                <h3 class="entry-title">
+                  <a href="#">Barack Obama’s Complete 2013 Inauguration Speech</a>
+                </h3>
+
+              </article>
+              {% endif %}
+
+            </div>
+            <div class="tab-pane" id="dw-recent-comments-dw-widget-1">
+              <h3 class="widget-title">{% trans "Commentaires" %}</h3>
+              <ul id="dw_recentcomments">
+                <li class="dw_recentcomments">
+                  <img alt="" src="/static/img/user.jpg" class="avatar avatar-60 photo" height="60" width="60">
+                  <div class="comment-info">
+
+                    <span class="comment-date">January 8, 2013</span>
+                    <span class="comment-title">
+                      on
+                      <a href="#">The Man Who Sold The World</a>
+                    </span>
+                    <span class="comment-author">by ass</span>
+                  </div>
+                </li>
+                <li class="dw_recentcomments">
+                  <img alt="" src="/static/img/user.jpg" class="avatar avatar-60 photo avatar-default" height="60" width="60">
+                  <div class="comment-info">
+
+                    <span class="comment-date">January 7, 2013</span>
+                    <span class="comment-title">
+                      on
+                      <a href="#">Umbrella Beach</a>
+                    </span>
+                    <span class="comment-author">
+                      by
+                      <a href="http://twitter.com/honglt" rel="external nofollow" class="url">Le Hong</a>
+                    </span>
+                  </div>
+                </li>
+                <li class="dw_recentcomments">
+                  <img alt="" src="/static/img/user.jpg" class="avatar avatar-60 photo avatar-default" height="60" width="60">
+                  <div class="comment-info">
+
+                    <span class="comment-date">January 7, 2013</span>
+                    <span class="comment-title">
+                      on
+                      <a href="#">Umbrella Beach</a>
+                    </span>
+                    <span class="comment-author">
+                      by
+                      <a href="http://twitter.com/honglt" rel="external nofollow" class="url">Le Hong</a>
+                    </span>
+                  </div>
+                </li>
+                <li class="dw_recentcomments">
+                  <img alt="" src="/static/img/user.jpg" class="avatar avatar-60 photo" height="60" width="60">
+                  <div class="comment-info">
+
+                    <span class="comment-date">January 7, 2013</span>
+                    <span class="comment-title">
+                      on
+                      <a href="#">Umbrella Beach</a>
+                    </span>
+                    <span class="comment-author">by admin</span>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+          <!-- end div tab-content --> </aside>
+
+      </div>
+        </div>
+      </div>
+      <!-- end div secodary  -->
+
+      <!--  end tabbed posts and comments -->
+
+      <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-rss fa-stack-1x "></i>
+        </span>
+
+        {% trans "Restez informés" %}
+      </div>
+      
+      <div class="panel-body">
+        <div class="row">
+      <div class="col-sm-12">
+        <div class="content_btm">
+
+            <div class="content_btm_grid" align="center">
+              <h3>{% trans "Abonnez vous à notre newsletter" %}</h3>
+              <p>{% trans "Entrez votre adresse mail et vous recevrez une notification à chaque nouvel article" %}</p>
+            </div>
+
+             
+              <div class="search1">
+                <form class="form_center">
+                  <input type="text" value=""><br>
+                  <input type="submit" value="Allez y">
+                </form>
+             </div>
+
+          </div>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    </div> <!-- end col-sm-4 --> 

@@ -1,0 +1,267 @@
+{% load seen_by_emp %}
+
+<!-- interactive map -->
+
+<link rel="stylesheet" type="text/css" href="/static/sweetalert/dist/sweetalert.css">
+
+<style type="text/css">
+  div.sweet-alert fieldset{
+    display: none !important;
+  }
+</style>
+
+  <script src="/static/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+
+        $('#myModal').modal();
+
+        $('#francemap').vectorMap({
+
+          map: 'france_fr',
+          hoverOpacity: 0.5,
+          hoverColor: "#EC0000",
+          backgroundColor: "#ffffff",
+          color: "rgba(18, 127, 182, 0.4)",
+          borderColor: "#000000",
+          selectedColor: "#08C",
+          enableZoom: false,
+          showTooltip: true,
+
+            onRegionClick: function(element, code, region)
+            {
+                // var message = 'Région : "'+ region + '" || Id : "'+ code + '"';
+              var dict = {
+                    region:        code,
+                    category:     'all',
+                    offer:        'all',
+                    low_salary:   'all',
+                    high_salary:  'all',
+                    csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                    };
+                    var query_string = $.param( dict, true );
+                    window.location.href = '/map_search/?'+query_string;
+            }
+        });
+
+        $('a.list-group-item.reg_search').on('click', function(e){
+            e.preventDefault();
+            var region = $(this).data('reg');
+            var dict = {
+                      region:        region,
+                      category:     'all',
+                      offer:        'all',
+                      low_salary:   'all',
+                      high_salary:  'all',
+                      csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                      };
+                      var query_string = $.param( dict, true );
+            window.location.href = '/map_search/?'+query_string;
+            // alert(query_string);
+        });
+
+        // search by offer type  
+        $('ul.carted_result li a').on('click', function(e){
+            e.preventDefault();
+            var offer = $(this).data('offer');
+            var dict = {
+                      region:       'all',
+                      category:     'all',
+                      offer:        offer,
+                      low_salary:   'all',
+                      high_salary:  'all',
+                      csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                      };
+                      var query_string = $.param( dict, true );
+            window.location.href = '/map_search/?'+query_string;
+            // alert(query_string);
+        });
+
+      });
+
+  </script>
+
+  <!-- last im offers -->
+
+ {% if last_im_offers %}
+        <div class="panel panel-default">
+     <div class="panel-heading">
+
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-list-ul fa-stack-1x"></i>
+      </span>
+
+      Les offres immédiates </div>
+     <div class="panel-body-mod">
+
+        {% if last_im_offers %}
+            <br>
+
+            {% for i in last_im_offers %}
+
+               <div class="panel panel-default event effect2">
+                  <div class="panel-body">
+
+                    <div class="author col-xs-2 col-sm-5">
+                        <div class="profile-image">
+                            <a href="/{{ i.user.profile_emp.get_absolute_url }}">
+                              
+                              <img src="{{i.get_company.get_thumbnail_picture_url}}" class='img-thumbnail' width='100' height='100'>
+                            </a>
+                        </div>
+                        <div class="profile hidden-xs">
+                            <strong>{{ i.get_company }} </strong>
+                            <article><i class="fa fa-eye min-size"></i> {{i.views}} </article>
+                        </div>
+                        
+                    </div>
+
+                    <div class="info col-xs-7 col-sm-5">
+                      <article> {{ i.title }} </article>
+                      <br/>
+                      
+                        <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_category_display }} </span><br/>
+                        <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_region_display }} </span><br/>
+                        <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                      
+                      <div class="visible-xs">&nbsp;</div>
+                      <div class="hidden-xs">
+                          
+                        </div>
+                    </div>
+
+                    <div class="rsvp col-xs-3 col-sm-2">
+
+                      <i> {{i.get_offerType_display}} </i> <br/> 
+
+                      
+
+                      <div class="hidden-xs">
+                        <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x"></span></a>
+                        <a href="/offer/{{i.id}}/mark/">
+                          <span class="fa fa-heart fa-2x {% if i|args:empo|args:i.get_company|call:'is_marked' %}marked{% endif %} ">
+                        </a>  
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              {% endfor %}
+
+        {% else %}
+
+            <p> Pas d'offres disponibles pour le moment </p>
+
+        {% endif %}
+
+     </div>
+   </div>
+      {% endif %}
+
+<!-- last offers -->
+
+ <div class="panel panel-default">
+     <div class="panel-heading">
+
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-list-ul fa-stack-1x"></i>
+      </span>
+
+      Les Dernieres offres </div>
+     <div class="panel-body-mod">
+
+        {% if offers %}
+
+        <br/>
+
+          {% for i in offers %}
+
+           <div class="panel panel-default event effect2">
+              <div class="panel-body">
+
+                <div class="author col-xs-2 col-sm-5">
+                    <div class="profile-image">
+                          <a href="/{{ i.user.profile_emp.get_absolute_url }}">
+
+                            {% if i.get_company.logo %}
+                                <img src="{{i.get_company.get_thumbnail_picture_url}}" class='img-thumbnail' width='100' height='100'>
+                            {% else %}  
+                                <img src="/static/img/pro_avatar.jpg" alt="avatar" class="img-thumbnail" > 
+                            {% endif %}
+                            
+                          </a>
+                    </div>
+                    <div class="profile hidden-xs">
+                        <strong>{{ i.get_company }} </strong>
+                        <article><i class="fa fa-eye min-size"></i> {{i.views}} </article>
+                    </div>
+                    
+                </div>
+                
+                <div class="info col-xs-7 col-sm-5">
+                  <article> {{ i.title }} </article>
+                  <br/>
+                  
+                    <i class="fa fa-tag sml-size dark-green"></i> &nbsp;            <span class='result-icon'> {{ i.get_category_display }} </span><br/>
+                    <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_region_display }} </span><br/>
+                    <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                  
+                  <div class="visible-xs">&nbsp;</div>
+                  <div class="hidden-xs">
+                      
+                    </div>
+                </div>
+
+                <div class="rsvp col-xs-3 col-sm-2">
+
+                  <i> {{i.get_offerType_display}} </i> <br/> 
+
+                  
+
+                  <div class="hidden-xs">
+                    <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x"></span></a>
+                    <a href="/offer/{{i.id}}/mark/">
+                      <span class="fa fa-heart fa-2x {% if i|args:empo|args:i.get_company|call:'is_marked' %}marked{% endif %} ">
+                    </span></a>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+          {% endfor %}
+
+        {% else %}
+
+            <p> Pas d'offres disponibles pour le moment </p>
+
+        {% endif %}
+
+     </div>
+   </div>
+
+<!-- last offers ends -->
+
+{% if offers %}
+
+<!-- find more last nearby candidates  -->
+<div class="panel panel-default">
+  <nav>
+
+    <ul class="pager">
+      <li>
+          <a href="/map_search/?region=all&category=all&offer=all&low_salary=all&high_salary=all&csrfToken=no_token">
+            <i class="fa fa-search-plus"></i>
+            Trouvez toutes les offres
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+</div>
+<!-- find more last nearby candidates ends  -->
+
+{% endif %}

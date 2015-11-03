@@ -1,0 +1,110 @@
+{% extends "sitebase.html" %}
+{% load i18n  %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/header/header.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}payment/css/bootstrap.css">
+	<!-- <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.css" rel="stylesheet"> --> 
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}payment/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}payment/css/base.css">
+
+	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Glegoo" type="text/css" />
+    
+    <!-- <link rel="stylesheet" href="/static/style/bootstrap/css/bootstrap.css" rel="stylesheet"> --> 
+
+    <link rel="stylesheet" href="/static/style/font-awesome-4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}style/style2.css" >
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/header_style.css">
+
+
+    
+    <link rel="stylesheet" href="/static/test_pay.css">
+	
+
+    <!-- notifications --> 
+    <link rel="stylesheet" href="/static/notifications/css/jquery.gritter.css">
+
+{% endblock style %}
+
+{% block extra_css %} {% endblock %}
+{% block extra_style %} {% endblock extra_style %}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+{% block bottom-header %}
+  
+{% endblock bottom-header %}
+
+
+{% block middlecontent %}
+
+<div class="container">
+	<div class="repo">
+		<div class="panel panel-default">
+
+			<div class="panel-heading"> 
+				<span class="fa-stack ">
+		          <i class="fa fa-square-o fa-stack-2x "></i>
+		          <i class="fa fa-cc-mastercard fa-stack-1x "></i>
+		        </span>Paiement 
+		    </div>
+
+			<div class="panel-body">
+
+				{% block body %} {% endblock body %}
+				
+			</div>
+
+			<div class="panel-footer">
+				Tous les paiements sont sécurisés pas <a href="http://www.stripe.com">Stripe</a>.
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock middlecontent %}
+
+{% block sidecontent %}
+	
+{% endblock sidecontent %}
+
+
+	
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+{% block extra_js %}
+<script src="/static/js/jquery.js"></script>
+<script type='text/javascript' src="/static/notifications/js/jquery.gritter.min.js" ></script>
+{# Need this bit for django-stripe-payments to work with built-in templates #}
+<script src="//checkout.stripe.com/v2/checkout.js"></script>
+<script src="{{ STATIC_URL }}/payment/js/eldarion-ajax.min.js"></script>
+<script>
+    $(function() {
+        $('body').on("click", '.change-card, .subscribe-form button[type=submit]', function(e) {
+          e.preventDefault();
+          var $form = $(this).closest("form"),
+              token = function(res) {
+                $form.find("input[name=stripe_token]").val(res.id);
+                $form.trigger("submit");
+              };
+
+          StripeCheckout.open({
+            key:         $form.data("stripe-key"),
+            name:        'Payment Method',
+            panelLabel:  'Add Payment Method',
+            token:       token
+          });
+
+          return false;
+        });
+    });
+</script>
+
+
+{% endblock %}
+

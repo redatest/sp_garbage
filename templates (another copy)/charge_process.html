@@ -1,0 +1,139 @@
+
+{% extends "registration/base_registration.html" %}
+
+
+{% block title %}Merci pour votre achat{% endblock %}
+
+
+
+{% block content_title %}
+  <h2>Registration closed</h2>
+{% endblock %}
+
+
+{% block content %}
+  <div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <br/>
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+
+                          <br/>
+                            <div class="panel panel-default" style="border:1px solid #eee">
+
+                                <div class="panel-heading"> Speedjob </div>
+                                
+                                <div class="panel-body" style='background:#fff; box-shadow:none'>
+
+                                    <div class="col-sm-12 transp">
+                                      
+                                      <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-info-circle fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong> Merci pour votre achat  </strong>
+                                      </p>
+
+                                      <br>
+
+                                      <span>vous venez d'acheter le CV du profile</span> : <br>
+                                      <span><strong>{{userinfo.get_full_name}}</strong></span>
+                                      <br>
+                                      <br>
+
+                                      {% if remaining_downloads == 0 %}
+                                        <div class="lead">
+                                          <div class="alert alert-info" style='font-weight: bolder;font-size: 14px;'>
+                                             <span>Votre pack est épuisé, votre abonnonement sera automatiquement annulé</span> : <br>  
+                                          </div>
+                                        </div>
+                                      {% endif %}
+
+                                      <blockquote>
+
+                                        <hr>
+                                        {% if userinfo.document %}
+                                        <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-cloud-download fa-3x pull-left blue mid-size"></i> 
+                                          <a href="{{userinfo.document.url}}" style="font-family: Oswald;">Télécharger CV Word</a>
+                                        </a>
+                                        {% else %}
+                                        <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-ban fa-3x pull-left red mid-size"></i> 
+                                          <a href="#" style="font-family: Oswald;">Le candidat n'a pas de CV en format PDF</a>
+                                        </a>
+                                        {% endif %}
+                                        <hr>
+
+                                        {% if userinfo.document_word %}
+                                        <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-cloud-download fa-3x pull-left blue mid-size"></i> 
+                                          <a href="{{userinfo.document_word.url}}" style="font-family: Oswald;">Télécharger CV Word</a>
+                                        </a>
+                                        {% else %}
+                                        <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-ban fa-3x pull-left red mid-size"></i> 
+                                          <a href="#" style="font-family: Oswald;">Le candidat n'a pas de CV en format Word</a>
+                                        </a>
+                                        {% endif %}
+
+                                        <hr/>
+                                        {% if userinfo.document_odt %}
+                                        <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-cloud-download fa-3x pull-left blue mid-size"></i> 
+                                          <a href="{{userinfo.document_odt.url}}" style="font-family: Oswald;">Télécharger CV Open Office</a>
+                                        </a>
+                                        {% else %}
+                                          <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-ban fa-3x pull-left red mid-size"></i> 
+                                          <a href="#" style="font-family: Oswald;">Le candidat n'a pas de CV en format Open Office</a>
+                                        </a>
+                                        {% endif %}
+                                        <hr/>
+
+                                        <a class="btn btn-lg " href="/">
+                                          <i class="fa fa-home fa-2x pull-left red"></i> &nbsp; 
+                                          <span style="font-family: 'Oswald'; font-size: 14px;"> Retour à la page pricipale </span>
+                                        </a>
+
+                                      </blockquote>
+                                        
+                                      <br/> <br/> <br/>
+
+                                    </div>
+
+                                </div>
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock %}
+

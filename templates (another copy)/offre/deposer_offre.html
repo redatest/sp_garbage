@@ -1,0 +1,215 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+  <link rel="stylesheet" type="text/css" href="/static/jqueryui/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="/static/social_bis.css">   
+{% endblock extra_style %}
+
+{% block middlecontent %}
+
+  <div class="col-sm-8">
+    <br/>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"> 
+        <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-plus fa-stack-1x "></i>
+          </span>
+        {% trans "Deposez une offre gratuitement " %} 
+      </div>
+
+      <div class="panel-body big-content">
+        <br/>
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+          <i class="fa fa-pencil fa-stack-1x fa-inverse white-ns"></i>
+        </span>
+
+        <strong>{% trans "Veillez bien décrire votre offre :" %}</strong>
+
+        <br/>
+
+        <div class="col-sm-12">
+          <form method="post" enctype="multipart/form-data" class=" uploadform form-horizontal" >
+
+            {% csrf_token %}
+
+             {{ form.non_field_errors }}
+            
+            <div class="wells">
+              <div class="form-group halfsize">
+                {{ form.title.errors }}
+                <label class="col-sm-3 control-label" for="id_title">{% trans "Titre" %}:</label>
+
+                <div class="col-sm-8">
+                  {{ form.title }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ form.offer.errors }}
+                
+                <label class="col-sm-3 control-label" for="id_offer">{% trans "Type de l'offre" %} :</label>
+                <div class="col-sm-4">
+                  {{ form.offer }}
+                </div>
+            </div> 
+            
+            <div class="form-group halfsize">
+                {{ form.category.errors }}
+                <label class="col-sm-3 control-label" for="id_category">{% trans "Category" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.category }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ form.city.errors }}
+                <label class="col-sm-3 control-label" for="id_city">{% trans "Département" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.city }}
+                </div>
+                
+            </div> 
+            
+            <div class="form-group halfsize">
+
+                {{ form.region.errors }}
+                <label class="col-sm-3 control-label" for="id_region">{% trans "Region" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.region }}
+                </div>
+                
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ form.salary.errors }}
+                <label class="col-sm-3 control-label" for="id_salary">{% trans "Salaire" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.salary }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ form.immediate.errors }}
+                <label class="col-sm-3 control-label" for="id_immediate">{% trans "immédiat" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.immediate }}
+                </div>
+            </div>
+
+            <div class="form-group halfsize">
+
+                {{ form.expired.errors }}
+                <label class="col-sm-3 control-label" for="id_expired">{% trans "date d'expiration" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.expired }}
+                </div>
+            </div>
+
+            <div class="form-group halfsize">
+
+                {{ form.description.errors }}
+                <label class="col-sm-3 control-label" for="id_description">{% trans "description" %}:</label>
+
+                <div class="col-sm-8">
+                  {{ form.description }}
+                </div>
+
+                <!-- <textarea rows="10" name="description" id="id_description" placeholder="Decrivez votre annonce " cols="40" class="form-control "></textarea> --> 
+
+            </div>
+
+            
+
+            </div>
+  
+            <p style="text-align: center;"> <button type="submit" class="btn btn-primary " value="Déposez l'offre">Valider</button><br/> </p>  
+
+          </form>
+
+          <br/>
+          <br/>
+
+        </div>
+        
+      </div>
+      <!-- end panel body --> 
+      
+    </div>
+
+<!-- google ads -->       
+ <div class="panel panel-default">
+   <div class="panel-body" style='padding-left: 0px;'>
+     <div class="col-sm-12" style='padding-left: 0px;'>
+       <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- footer_annonces -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:670px;height:90px"
+             data-ad-client="ca-pub-7389849661114491"
+             data-ad-slot="7527859765"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+     </div>
+   </div>
+ </div>
+    
+  </div> <!-- end span8 -->
+    
+  {% endblock middlecontent %}
+
+  <br/>
+
+  {% block sidecontent %}
+    {% include "./parts/simple_sidecontent.html" %}
+  {% endblock sidecontent %}
+
+  
+
+{% block js %}
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script type="text/javascript" src="/static/js/custom.js"></script>
+        <script src="/static/jqueryui/jquery-ui.min.js"></script>
+
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+        <!-- vmap --> 
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>         
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>         
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js"></script>         
+
+        <script type='text/javascript'>
+          jQuery(document).ready(function($) {
+            $('#id_description').wysihtml5({
+              "font-styles": false,
+              "color":false,
+              "link":false,
+              "lists": false,
+              "image":false
+            });
+
+            // "lists": true,
+            // "emphasis": true,
+
+            $("#id_expired").datepicker({ dateFormat: "dd-mm-yy" }).val();
+
+          });
+        </script>
+{% endblock js %}

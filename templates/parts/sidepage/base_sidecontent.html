@@ -1,0 +1,112 @@
+{% load i18n group_check %}
+
+
+{% block extra_css %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/jssocials.css">
+<link rel="stylesheet" type="text/css" href="/static/css/jssocials-theme-minima.css">
+
+<style type="text/css">
+
+  .jssocials{
+    font-size: 16px;
+  }
+
+</style>
+    
+{% endblock %}
+
+    <div class="col-sm-4">
+      <div class="sidebar">
+
+        
+
+        {% if request.user.is_authenticated %}
+
+              <div class="panel panel-default">
+
+               <div class="panel-heading"> 
+                  <span class="fa-stack ">
+                    <i class="fa fa-square-o fa-stack-2x "></i>
+                    <i class="fa fa-share-alt fa-stack-1x "></i>
+                  </span>
+
+                  Partager cette page  
+                  
+                </div>
+              </div>
+              
+              <div class="panel panel-default">
+                
+                <div class="panel-body"> 
+                  <!-- social buttons --> 
+                  <div id="share"></div>
+                  <!-- social buttons ends --> 
+                </div>
+
+              </div>
+
+        {% else %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading"> 
+              <span class="fa-stack ">
+                  <i class="fa fa-square-o fa-stack-2x "></i>
+                  <i class="fa fa-group fa-stack-1x "></i>
+              </span>  
+              Devenez membre 
+            </div>
+          </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body"> 
+            <i class="fa fa-user blue mid-size"></i>
+             <a href="/accounts/register/" class="reg">vous etes candidat</a>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <i class="fa fa-briefcase blue mid-size"></i> 
+             <a href="/accounts/register_emp/" class="reg">Vous etes recruteur</a>
+          </div>
+        </div>
+
+        {% endif %}
+
+      </div>
+      <!-- end div sidebar -->
+
+      <!--  tabbed posts and comments -->
+
+      {% include "./parts/tabbed_posts.html" %}
+
+      <!--  tabbed posts and comments ends -->
+
+
+      <!--  tabbed stay in touch  -->
+      {% include "./parts/stayintouch.html" %}
+      <!--  tabbed stay in touch ends  -->
+      
+    </div> <!-- end col-sm-4 --> 
+
+
+{% block extra_js %}
+    
+    <script src="/static/js/jssocials.js"></script>
+    <script src="/static/js/dependant_regions.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+          $("#share").jsSocials({
+              shares: ["email", "twitter", "facebook", "googleplus"],
+              text: "Faites le tour du web ...",
+              showLabel: true,
+              showCount: true
+          });
+
+        });
+    </script>
+
+{% endblock extra_js %}

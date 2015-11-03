@@ -1,0 +1,37 @@
+{% with request.user.customer.current_subscription as subscription %}
+    {% if subscription %}
+        {% if subscription.status == "active" %}
+            <div class="alert alert-info">
+                Votre abonnement sera automatiquement renouvelé dans <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+            </div>
+        {% else %}
+            {% if subscription.status == "trialing" %}
+                {% if subscription.plan and request.user.customer.card_kind %}
+                    <div class="alert alert-info">
+                        votre periode d'ssai se termine dans <strong>{{ subscription.current_period_end|timeuntil }}</strong> après quoi vous commencez un plan <strong>{{ subscription.plan_display }}</strong> .
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning lead">
+                        votre periode d'essai se termine dans <strong>{{ subscription.current_period_end|timeuntil }}</strong> après quoi vous aurez besoin d'obtenir un abonnement pour continuer à utiliser le site.
+                    </div>
+                {% endif %}
+            {% else %}
+                {% if subscription.status == "canceled" %}
+                    {% if subscription.is_period_current %}
+                        <div class="alert alert-warning lead">
+                            Votre abonnement a été <strong>annulé</strong> mais vous pouvez continuer à utiliser le site pendant  <strong>{{ subscription.current_period_end|timeuntil }}</strong>.
+                        </div>
+                    {% else %}
+                        <div class="alert alert-danger lead">
+                            Votre abonnement a été <strong>annulé</strong>.
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="alert alert-danger lead">
+                        Votre abonnement est <strong>{{ subscription.status }}</strong>.
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endwith %}

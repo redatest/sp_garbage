@@ -1,0 +1,317 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+
+{% block middlecontent %}
+
+<div class="col-sm-8">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+        Mon profile
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-4">
+
+          <div class="list-group">
+            <a class="list-group-item no-hover" href="#"><i class="fa fa-file-image-o gray "></i>&nbsp; Avatar</a>
+            <div id="people-you-may-know" class="social-nav-list" style="max-width: 340px; padding: 0;">
+            <ul class="nav nav-list dividers">
+              <li class="nav-header">&nbsp;</li>
+          
+              <li class="nav-header">
+                  <div class="avatar">
+                    <img src="/static/img/user2.png" alt="avatar" class="img-thumbnail" width='100' height='100'>
+                  </div>
+              </li>
+              <br>
+          
+            </ul>
+          </div> <!-- end avatar -->   
+          </div>
+
+          <hr/>
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-eye gray "></i> Nombre de vues</a>
+
+                <a class="list-group-item" href="/candid_profile_edit/{{ userinfo.user_id }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-check-square fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; {{ userinfo.views }} visite{{ userinfo.views|pluralize }}
+                </a>     
+
+          </div>
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-wrench gray "></i> Edition</a>
+
+                <a class="list-group-item" href="/candid_profile_edit/{{ userinfo.user_id }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-user fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Profile
+                </a>     
+
+                <a class="list-group-item" href="/accounts/password/reset">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-key fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Mot de passe
+                </a>
+          </div>
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-cogs gray "></i> Gestion</a>
+
+                <a class="list-group-item" href="/candid_profile_application_status/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-tasks fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Candidatures <span class="badge badge-info">{{application_count}}</span>
+                </a>     
+
+                <a class="list-group-item" href="/candid_profile_marks/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-heart fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Offres favories <span class="badge badge-info">{{appreciation_count}}</span>
+                </a>    
+
+                 <a class="list-group-item" href="/candid_profile_alerts/">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Alertes <span class="badge badge-info">{{alerts_count}}</span>
+                </a>
+
+          </div>
+
+          <br>
+
+          <a class="list-group-item no-hover light-orange" href="/delete_candid_page"><i class="fa fa-eraser gray-ns "></i> Supprimer le compte</a>
+
+        </div>
+
+        <div class="col-sm-8">
+
+            <div class="social-box span6">
+            <div class="header">
+
+              <div class="tools">
+                <ul id="myTab2" class="nav nav-tabs">
+                  <li class="active"><a class="active" href="#dropdown14" data-toggle="tab"><i class="fa fa-cog"></i> infos</a></li>
+                  <li class=""><a href="#dropdown12" data-toggle="tab"><i class="fa fa-cog"></i> CV</a></li>
+                  <li class=""><a href="#dropdown13" data-toggle="tab"><i class="fa fa-cog"></i> CV Word</a></li>
+                  <li class=""><a href="#dropdown15" data-toggle="tab"><i class="fa fa-cog"></i> CV Open Office</a></li>
+                </ul>
+              </div>
+
+            </div>
+            <div class="body">
+              <div id="myTabContent2" class="tab-content" style="min-height: 280px;">
+
+                <div class="tab-pane fade active in" id="dropdown14">
+                  <p><strong>Données:</strong></p>
+                    
+                    <dl class="dl-horizontal">
+                      <dt>Poste recherché:</dt>
+                      <dd>{{userinfo.wanted_job}}</dd>
+                      <br>
+                      <dt>Nom d'utilisateur:</dt>
+                      <dd>{{userinfo.user.username}}</dd>
+                      <br>
+                      <dt>Prénom:</dt>
+                      <dd>{{userinfo.prenom}}</dd>
+                      <br>
+                      <dt>Nom de famille:</dt>
+                      <dd>{{userinfo.last_name}}</dd>
+                      <br>
+                      <dt>Adresse</dt>
+                      <dd>{{userinfo.adress}}</dd>
+                      <br>
+                      <br>
+                      <dt>Code postal</dt>
+                      <dd>{{userinfo.postal_code}}</dd>
+                      <br>
+                      <dt>Ville</dt>
+                      <dd>{{userinfo.town}}</dd>
+                      <br>
+                      <dt>Département</dt>
+                      <dd>{{userinfo.get_city_display}}</dd>
+                      <br>
+                      <dt>Région</dt>
+                      <dd>{{userinfo.get_region_display}}</dd>
+                      <br>
+                      <dt>Secteur 1:</dt>
+                      <dd>{{userinfo.get_sector1_display}}</dd>
+                      <br>
+                      <dt>Secteur 2:</dt>
+                      <dd>{{userinfo.get_sector2_display}}</dd>
+                      <br>
+                      <dt>Secteur 3:</dt>
+                      <dd>{{userinfo.get_sector3_display}}</dd>
+                      <br>
+                      <dt>Mobilité 1:</dt>
+                      <dd>{{userinfo.get_mobility1_display}}</dd>
+                      <br>
+                      <dt>Mobilité 2:</dt>
+                      <dd>{{userinfo.get_mobility2_display}}</dd>
+                      <br>
+                      <dt>Mobilité 3:</dt>
+                      <dd>{{userinfo.get_mobility3_display}}</dd>
+                      <br>
+                      <dt>Disponibilité:</dt>
+                      <dd>{{userinfo.get_disponibility_display}}</dd>
+                      <br>
+                      <dt>Status:</dt>
+                      <dd>{{userinfo.get_status_display}}</dd>
+                      <br>
+                      <dt>Niveau d'etudes:</dt>
+                      <dd>{{userinfo.get_study_level_display}}</dd>
+                      <br>
+                      <dt>Experience:</dt>
+                      <dd>{{userinfo.get_experience_display}}</dd>
+                      <br>
+                      <dt>Contrat:</dt>
+                      <dd>{{userinfo.get_contract_display}}</dd>
+                      <br>
+                      <dt>Période:</dt>
+                      <dd>{{userinfo.get_period_display}}</dd>
+                      <br>
+                      <br>
+                      <dt>Date d'enrregistrement:</dt>
+                      <dd>{{ userinfo.user.date_joined }}</dd>
+                      <br>
+                      <br>
+                      <dt>Dernier acces:</dt>
+                      <dd>{{ userinfo.user.last_login }}</dd>
+                      <br>
+                    </dl>
+                    
+                </div>
+
+                
+                <div class="tab-pane fade" id="dropdown12">
+                  <p><strong>CV</strong></p>
+
+
+                  
+                    {% if userinfo.document %}
+                      <p class='login-helptext'> <img class='img-thumbnail' src="{{ userinfo.get_pdf_image }}" width='300px' height='auto'> </p>
+                    {% else %}
+
+                      <div class="alert">
+                        <p class="lead">
+
+                          Vous n'avez pas de CV au format PDF
+                          
+                        </p>
+                      </div>
+
+                    {% endif %}
+
+                    
+                </div>
+
+                <div class="tab-pane fade" id="dropdown13">
+                  <p><strong>CV au format Word:</strong></p>
+                    
+                    {% if userinfo.document_word %}
+                      <a href="{{ userinfo.document_word.url }}">Télécharger</a> 
+                    {% else %}
+
+                      <div class="alert">
+                        <p class="lead">
+
+                          Vous n'avez pas de CV au format Word
+                          
+                        </p>
+                      </div>
+
+                    {% endif %}
+                    
+                  </p>
+                </div>
+
+                <div class="tab-pane fade" id="dropdown15">
+                  <p><strong>CV au format OpenOffice:</strong></p>
+                    
+                    {% if userinfo.document_odt %}
+                      <a href="{{ userinfo.document_odt.url }}">Télécharger</a> 
+                    {% else %}
+
+                      <div class="alert">
+                        <p class="lead">
+
+                          Vous n'avez pas de CV au format OpenOffice
+                          
+                        </p>
+                      </div>
+
+                    {% endif %}
+                    
+                  </p>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style='padding-left: 0px;'> 
+    <div class="col-sm-12" style='padding-left: 0px;'>
+      <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+      
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+{% block sidecontent %}
+  {% include "./parts/simple_sidecontent_candid.html" %}
+{% endblock sidecontent %}

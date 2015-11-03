@@ -1,0 +1,61 @@
+{% extends "app_base.html" %}
+
+{% block main_content %}
+
+	<div class='offset2' style='padding-top:20px'>
+		<div class='row-fluid'>
+			{% with subscription=request.user.customer.current_subscription %}
+				{% if subscription %}
+				<div class='span10'>
+
+					<div class="lead">
+						{% include 'payments/_subscription_status.html' %}
+					</div>
+
+					<div class='well'>
+						<p class='lead'>&nbsp; &nbsp; Plan actuel : &nbsp;  
+							<span style="color:#000; text-transform:capitalize;">
+								{{ subscription.plan_display }}
+							</span> 
+						</p>
+
+						{% if subscription.status == 'active' %}
+						<p class='lead'>
+							&nbsp;
+							<a href="{% url change_subscription %}" class='btn btn-primary'>Changer de Plan</a>
+							<a href="{% url change_card %}" class='btn btn-warning'>Changer de Carte</a>
+							<a href="{% url cancel_subscription %}" class='btn btn-danger'>Annuler Abonnement</a>
+						</p>
+						{% endif %}
+					</div>
+				</div>
+				{% else %}
+					<div class="span10">
+						<div class="row-fluid">
+							<div class="well">
+								
+									<p class="lead">
+										&nbsp; Vous n'étes pas inscrit à aucun plan, veulliez clicker ici pour en choisir.
+									</p>
+
+									<div class="span6 offset4">
+										<a class="btn btn-primary btn-success pay-btn" href="{% url subscribe_modal %}"><i class="fa fa-calendar-plus-o"></i>&nbsp;Plans disponibles</a>
+									</div>
+
+									<div class="clearfix"></div>
+									
+								
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endwith %}
+		</div>
+		
+		
+
+	</div>
+	<br>
+	<br>
+
+{% endblock main_content %}

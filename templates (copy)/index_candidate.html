@@ -1,0 +1,422 @@
+{% load seen_by_emp %}
+
+<!-- interactive map -->
+  <script type="text/javascript">
+      $(document).ready(function() {
+
+        $('#myModal').modal();
+
+        $('#francemap').vectorMap({
+
+          map: 'france_fr',
+          hoverOpacity: 0.5,
+          hoverColor: "#EC0000",
+          backgroundColor: "#ffffff",
+          color: "rgba(18, 127, 182, 0.4)",
+          borderColor: "#000000",
+          selectedColor: "#08C",
+          enableZoom: false,
+          showTooltip: true,
+
+            onRegionClick: function(element, code, region)
+            {
+                // var message = 'Région : "'+ region + '" || Id : "'+ code + '"';
+              var dict = {
+                    region:        code,
+                    category:     'all',
+                    offer:        'all',
+                    low_salary:   'all',
+                    high_salary:  'all',
+                    csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                    };
+                    var query_string = $.param( dict, true );
+                    window.location.href = '/map_search/?'+query_string;
+            }
+        });
+
+        $('a.list-group-item.reg_search').on('click', function(e){
+            e.preventDefault();
+            var region = $(this).data('reg');
+            var dict = {
+                      region:        region,
+                      category:     'all',
+                      offer:        'all',
+                      low_salary:   'all',
+                      high_salary:  'all',
+                      csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                      };
+                      var query_string = $.param( dict, true );
+            window.location.href = '/map_search/?'+query_string;
+            // alert(query_string);
+        });
+
+        // search by offer type  
+        $('ul.carted_result li a').on('click', function(e){
+            e.preventDefault();
+            var offer = $(this).data('offer');
+            var dict = {
+                      region:       'all',
+                      category:     'all',
+                      offer:        offer,
+                      low_salary:   'all',
+                      high_salary:  'all',
+                      csrfToken :   $('input[name="csrfmiddlewaretoken"]').val()
+                      };
+                      var query_string = $.param( dict, true );
+            window.location.href = '/map_search/?'+query_string;
+            // alert(query_string);
+        });
+
+      });
+
+  </script>
+
+ <!-- test ineractive map -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+
+          <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-binoculars fa-stack-1x "></i>
+          </span>
+          Recherche par région &nbsp;<span style='font-size:.7em !important'> Clickez sur une région pour Chercher </span>
+
+        </div>
+
+        {% if request.user.is_authenticated %}
+
+        <div class="panel-body">
+
+            <div class="col-sm-6">
+
+              <div id="francemap" style="width: 240px; height: 300px; "></div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+              <div class="list-group">
+
+                <a href="#" class="list-group-item reg_search" data-reg="5">
+                  <h4 class="list-group-item-heading">Ile de France</h4>
+                  <p class="list-group-item-text " >
+                    Nbre d'offres : {{IDF_offers_count}}.  &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                  </p>
+                </a>
+
+                <a href="#" class="list-group-item reg_search" data-reg='16'>
+                  <h4 class="list-group-item-heading">Midi-Pyrénées</h4>
+                  <p class="list-group-item-text ">
+                    Nbre d'offres : {{MIDI_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                  </p>
+                </a>
+
+                <a href="#" class="list-group-item reg_search" data-reg="14">
+                  <h4 class="list-group-item-heading">PACA</h4>
+                  <p class="list-group-item-text ">
+                    Nbre d'offres : {{PACA_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                  </p>
+                </a>
+
+                <a href="#" class="list-group-item reg_search" data-reg='1'>
+                  <h4 class="list-group-item-heading">Nord-Pas-de-Calais.</h4>
+                  <p class="list-group-item-text ">
+                    Nbre d'offres : {{CALAIS_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                  </p>
+                </a>
+
+                <a href="#" class="list-group-item reg_search" data-reg="6">
+                  <h4 class="list-group-item-heading">Bretagne.</h4>
+                  <p class="list-group-item-text ">
+                    Nbre d'offres : {{BRETAGNE_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                  </p>
+                </a>
+
+              </div>
+
+            </div>
+
+
+        </div>
+
+        {% else %}
+
+        <div class="panel-body">
+
+                  <div class="col-sm-5">
+                    <div id="francemap" style="width: 240px; height: 300px; "></div>
+                  </div>
+
+                  <div class="col-sm-4">
+
+                    <div class="list-group">
+
+                      <a href="#" class="list-group-item reg_search" data-reg="5">
+                        <h4 class="list-group-item-heading">Ile de France</h4>
+                        <p class="list-group-item-text " >
+                          Nbre d'offres : {{IDF_offers_count}}.  &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                        </p>
+                      </a>
+
+                      <a href="#" class="list-group-item reg_search" data-reg='16'>
+                        <h4 class="list-group-item-heading">Midi-Pyrénées</h4>
+                        <p class="list-group-item-text ">
+                          Nbre d'offres : {{MIDI_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                        </p>
+                      </a>
+
+                      <a href="#" class="list-group-item reg_search" data-reg="14">
+                        <h4 class="list-group-item-heading">PACA</h4>
+                        <p class="list-group-item-text ">
+                          Nbre d'offres : {{PACA_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                        </p>
+                      </a>
+
+                      <a href="#" class="list-group-item reg_search" data-reg='1'>
+                        <h4 class="list-group-item-heading">Nord-Pas-de-Calais.</h4>
+                        <p class="list-group-item-text ">
+                          Nbre d'offres : {{CALAIS_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                        </p>
+                      </a>
+
+                      <a href="#" class="list-group-item reg_search" data-reg="6">
+                        <h4 class="list-group-item-heading">Bretagne.</h4>
+                        <p class="list-group-item-text ">
+                          Nbre d'offres : {{BRETAGNE_offers_count}}. &nbsp;<span style='float:right'>Voir &nbsp; <i class="fa fa-search black-ns"></i></span>
+                        </p>
+                      </a>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-3" style='padding-top:0px; padding-bottom:0px'>
+                    <p style='text-align:center;font-weight: bold; color: #333;'>Nous avons 12456 offres</p>
+                    <p style='text-align:center; margin-top:2px' class="register-helptext"> 
+
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x blue-ns"></i>
+                          <i class="fa fa-inbox fa-stack-1x fa-inverse"></i>
+                        </span> 
+                    </p>
+
+                    <p style='text-align:center;font-weight: bold; color: #333;'> Déposés par 6456 recruteurs </p>
+                    <p style='text-align:center; margin-top:2px' class="register-helptext"> 
+
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x blue-ns"></i>
+                          <i class="fa fa-gears fa-stack-1x fa-inverse"></i>
+                        </span> 
+                    </p>
+
+                    <p style='text-align:center;font-weight: bold; color: #333;'> Et 30945 candidats inscrits </p>
+                    <p style='text-align:center; margin-top:2px' class="register-helptext"> 
+
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x blue-ns"></i>
+                          <i class="fa fa-users fa-stack-1x fa-inverse"></i>
+                        </span> 
+                    </p>
+
+                  </div>
+
+                </div>
+
+        {% endif %}
+
+      </div>
+      <!-- test ineractive map ends -->
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+                <span class="fa-stack ">
+                  <i class="fa fa-square-o fa-stack-2x "></i>
+                  <i class="fa fa-search fa-stack-1x "></i>
+                </span>
+
+            Recherche par type d'offre
+          </div>
+
+        <div class="panel-body">
+
+          <link href='http://fonts.googleapis.com/css?family=Lato:100,400,700,900' rel='stylesheet' type='text/css'>
+            <ul class='carted_result'>
+                <li><a class="blue" href="#" data-offer="2">     CDD     <span class="number">{{cdd_count}}</span></a></li>
+                <li><a class="blue" href="#" data-offer="3">     CDI     <span class="number">{{cdi_count}}</span></a></li>
+                <li><a class="blue" href="#" data-offer="4">   Stage   <span class="number">{{stage_count}}</span></a></li>
+                <li><a class="blue" href="#" data-offer="5"> Intérim <span class="number">{{interim_count}}</span></a></li>
+            </ul>
+
+        </div>
+      </div>
+
+      <!-- last im offers -->
+
+ {% if last_im_offers %}
+        <div class="panel panel-default">
+     <div class="panel-heading">
+
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-list-ul fa-stack-1x"></i>
+      </span>
+
+      Les offres immédiates </div>
+     <div class="panel-body-mod">
+
+        {% if last_im_offers %}
+            <br>
+
+            {% for i in last_im_offers %}
+
+               <div class="panel panel-default event effect2">
+                  <div class="panel-body">
+
+                    <div class="author col-xs-2 col-sm-5">
+                        <div class="profile-image">
+                            <img src="http://placehold.it/100x100&text=logo"/>
+                        </div>
+                        <div class="profile hidden-xs">
+                            <strong>{{ i.get_company }} </strong>
+                            <article><i class="fa fa-eye min-size"></i> {{i.views}} </article>
+                        </div>
+                        
+                    </div>
+
+                    <div class="info col-xs-7 col-sm-5">
+                      <article> {{ i.title }} </article>
+                      <br/>
+                      
+                        <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_category_display }} </span><br/>
+                        <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_region_display }} </span><br/>
+                        <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                      
+                      <div class="visible-xs">&nbsp;</div>
+                      <div class="hidden-xs">
+                          
+                        </div>
+                    </div>
+
+                    <div class="rsvp col-xs-3 col-sm-2">
+
+                      <i> {{i.get_offerType_display}} </i> <br/> 
+
+                      {{i|args:empo|args:i.get_company|call:'is_marked'|safe}} &nbsp; 
+
+                      <div class="hidden-xs">
+                        <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x"></span></a>
+                        <a href="{{i.get_absolute_url}}/mark/"><span class="fa fa-heart fa-2x"></span></a>  
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              {% endfor %}
+
+        {% else %}
+
+            <p> Pas d'offres disponibles pour le moment </p>
+
+        {% endif %}
+
+     </div>
+   </div>
+      {% endif %}
+
+<!-- last offers -->
+
+ <div class="panel panel-default">
+     <div class="panel-heading">
+
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-list-ul fa-stack-1x"></i>
+      </span>
+
+      Les Dernieres offres </div>
+     <div class="panel-body-mod">
+
+        {% if offers %}
+
+        <br/>
+
+          {% for i in offers %}
+
+           <div class="panel panel-default event effect2">
+              <div class="panel-body">
+
+                <div class="author col-xs-2 col-sm-5">
+                    <div class="profile-image">
+                        <img src="http://placehold.it/100x100&text=logo"/>
+                    </div>
+                    <div class="profile hidden-xs">
+                        <strong>{{ i.get_company }} </strong>
+                        <article><i class="fa fa-eye min-size"></i> {{i.views}} </article>
+                    </div>
+                    
+                </div>
+                
+                <div class="info col-xs-7 col-sm-5">
+                  <article> {{ i.title }} </article>
+                  <br/>
+                  
+                    <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_category_display }} </span><br/>
+                    <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_region_display }} </span><br/>
+                    <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                  
+                  <div class="visible-xs">&nbsp;</div>
+                  <div class="hidden-xs">
+                      
+                    </div>
+                </div>
+
+                <div class="rsvp col-xs-3 col-sm-2">
+
+                  <i> {{i.get_offerType_display}} </i> <br/> 
+
+                  {{i|args:empo|args:i.get_company|call:'is_marked'|safe}} &nbsp; 
+
+                  <div class="hidden-xs">
+                    <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x"></span></a>
+                    <a href="/offer/{{i.id}}/mark/"><span class="fa fa-heart fa-2x"></span></a>  
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+          {% endfor %}
+
+        {% else %}
+
+            <p> Pas d'offres disponibles pour le moment </p>
+
+        {% endif %}
+
+     </div>
+   </div>
+
+<!-- last offers ends -->
+
+{% if offers %}
+
+<!-- find more last nearby candidates  -->
+<div class="panel panel-default">
+  <nav>
+
+    <ul class="pager">
+      <li>
+          <a href="/map_search/?region=all&category=all&offer=all&low_salary=all&high_salary=all&csrfToken=no_token">
+            <i class="fa fa-search-plus"></i>
+            Trouvez toutes les offres
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+</div>
+<!-- find more last nearby candidates ends  -->
+
+{% endif %}

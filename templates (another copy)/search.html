@@ -1,0 +1,171 @@
+{% extends "sitebase.html" %}
+{% load i18n cache seen_by_emp %}
+
+
+{% block title %} Résultats de la recherche d'offres {% endblock title %}
+
+{% block extra_style %}
+  <link rel="stylesheet" type="text/css" href="/static/social_bis.css"> 
+  <link href="/static/style/blog-style.css" rel="stylesheet">
+  <style>
+  
+  </style>
+{% endblock extra_style %}
+
+{% block middlecontent %}
+
+<div class="col-sm-8">
+  <br/>
+    
+    <div id="respo">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <span class="fa-stack ">
+                  <i class="fa fa-square-o fa-stack-2x "></i>
+                  <i class="fa fa-list-ul fa-stack-1x "></i>
+          </span> 
+          {% trans "Résultats de la recherche d'offres" %} 
+        </div>
+
+         {% if contacts %}
+
+         <!-- injected code --> 
+
+         <br>
+
+          {% for i in contacts %}
+           <div class="panel panel-default event effect2">
+              <div class="panel-body">
+
+                <div class="author col-xs-2 col-sm-5">
+                    <div class="profile-image">
+                        <img src="http://placehold.it/100x100&text=logo"/>
+                    </div>
+                    <div class="profile hidden-xs">
+                        <strong>{{ i.get_company }} </strong>
+                        <article><i class="fa fa-eye min-size"></i> {{i.views}} </article>
+                    </div>
+                    
+                </div>
+
+                
+                <div class="info col-xs-7 col-sm-5">
+                  <article> {{ i.title }} </article>
+                  <br/>
+                  
+                    <i class="fa fa-tag sml-size dark-green"></i> &nbsp;              <span class='result-icon'> {{ i.get_category_display }} </span><br/>
+                    <i class="fa fa-map-marker sml-size rose"></i> &nbsp;&nbsp;&nbsp; <span class='result-icon'> {{ i.get_region_display }} </span><br/>
+                    <i class="fa fa-calendar sml-size mark-blue"></i> &nbsp;          <span class='result-icon'> {{ i.created|date:"SHORT_DATE_FORMAT" }} </span><br/>
+                  
+                  <div class="visible-xs">&nbsp;</div>
+                  <div class="hidden-xs">
+                      
+                    </div>
+                </div>
+
+                <div class="rsvp col-xs-3 col-sm-2">
+
+                  
+                  <i> {{i.get_offerType_display}} </i> <br/> 
+
+                  {{i|args:empo|args:i.get_company|call:'is_marked'|safe}} &nbsp; 
+                  
+
+                  <div class="hidden-xs">
+                    <a href="{{i.get_absolute_url}}"><span class="fa fa-search fa-2x"></span></a>
+                    <a href="{{i.get_absolute_url}}/mark/"><span class="fa fa-heart fa-2x"></span></a>  
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+          {% endfor %}
+
+         <!-- injected code ends --> 
+
+
+      <div class="page-numbers" style='background:#fff; text-align:center'>
+
+        <br/>
+        <ul>
+
+          {% if contacts.has_previous %}
+          <li>
+            <a class="prev" href="?page={{ contacts.previous_page_number }}">
+              <i class="prev"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          <li>
+            <a href="javascript:void(0)"> {% trans "page" %} &nbsp;{{ contacts.number }} / {{ contacts.paginator.num_pages }} </a>
+          </li>
+          
+          {% if contacts.has_next %}
+          <li>
+            <a class="next" href="?page={{ contacts.next_page_number }} ">
+              <i class="next"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          <div class="clear"></div>
+
+
+        </ul>
+
+        <br/>
+      </div>
+
+      {% else %}
+
+      <br/>
+
+        <div class="well">
+          <p class="lead">
+            <br/>
+            Aucune offre correspondante à votre recherche
+            <br/>
+            
+          </p>
+        </div>
+
+      {% endif %} 
+        
+
+    </div>
+    </div>
+
+    <!-- google ads -->
+    
+    <div class="panel panel-default">
+      <div class="panel-body" style='padding-left: 0px;'>
+        <div class="col-sm-12" style='padding-left: 0px;'>
+          <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <!-- footer_annonces -->
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:670px;height:90px"
+               data-ad-client="ca-pub-7389849661114491"
+               data-ad-slot="7527859765"></ins>
+          <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+<!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+{% block sidecontent %}
+  {% cache 3600 search_sidecontent_html %}
+        {% include "./parts/search_sidecontent.html" %}
+  {% endcache %}
+{% endblock sidecontent %}

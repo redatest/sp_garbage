@@ -1,0 +1,175 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block title %} search results {% endblock title %}
+
+{% block extra_style %}
+    <link href="/static/style/blog-style.css" rel="stylesheet">
+    <style>
+    .lower_img{
+      position: relative;
+      top: 9px;
+    }
+    </style>
+{% endblock extra_style %}
+
+
+{% block middlecontent %}
+
+
+
+  <div class="col-sm-8 big-content">
+  <br/>
+
+  <div id="respo">
+  <div class="panel panel-default">
+    <div class="panel-heading"> 
+      <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-group fa-stack-1x "></i>
+       </span>
+      {% trans "Liste des candidats disponible" %} 
+    </div>
+    
+    <div class="panel-body big-content">
+
+      <br/>
+      <br/>
+
+      <span class="fa-stack fa-lg">
+          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+          <i class="fa fa-exclamation fa-stack-1x fa-inverse white-ns"></i>
+      </span>
+      <strong> Clickez sur le nom de chaque profile pour voir sa page  </strong>
+      <hr>
+
+      <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Position</th>
+                <th>Région</th>
+                <th>Niveau</th>
+                <th>Poste recherché</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Position</th>
+                <th>Région</th>
+                <th>Niveau</th>
+                <th>Poste recherché</th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+            {% for i in contacts %}
+
+            <tr>
+                <td><img src="/static/img/candidate_avatar.png" height='40px' width='40px' alt="User Photo" class='img-thumbnail lower_img'></td>
+                <td> <strong><a href="{{ i.get_absolute_url }}">{{i.user.username}}</a></strong> </td> <!-- <i class="glyph-fa fa fa fa-search"></i> &nbsp;  --> 
+                <td>{{i.get_sector1_display}}</td>
+                <td>{{i.get_mobility1_display}}</td>
+                <td>{{i.get_study_level_display}}</td>
+                <td>{{i.wanted_job}}</td>
+            </tr>
+              
+            {% endfor %}
+        </tbody>
+    </table>
+      
+    </div>
+    <!-- end panel body -->
+
+    
+
+    <div class="panel-footer">
+      <div class="page-numbers">
+        <ul>
+
+          {% if contacts.has_previous %}
+          <li>
+            <a class="prev" href="?page={{ contacts.previous_page_number }}">
+              <i class="prev"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          <li>
+            <a href="javascript:void(0)"> 
+              {% trans "page" %} &nbsp;{{ contacts.number }} / {{ contacts.paginator.num_pages }} 
+            </a>
+          </li>
+          
+          {% if contacts.has_next %}
+          <li>
+            <a class="next" href="?page={{ contacts.next_page_number }} ">
+              <i class="next"></i>
+            </a>
+          </li>
+          {% endif %}
+
+          <div class="clear"></div>
+
+
+        </ul>
+      </div>
+    </div>
+
+    <br/> 
+
+    
+    
+  </div>
+  
+  </div>
+
+<!-- google ads -->       
+<div class="panel panel-default">
+ <div class="panel-body" style='padding-left: 0px;'>
+   <div class="col-sm-12" style='padding-left: 0px;'>
+     <!-- <img src="http://placehold.it/670x70&text=espace de publicité" alt="placeholder image" class='img-responsive'> -->
+     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+   </div>
+ </div>
+</div>
+  
+</div> <!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+
+{% block sidecontent %}
+  {% include "./parts/sidepage/search_sidecontent.html" %}
+{% endblock sidecontent %}
+
+
+{% block extra_js %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>     
+
+  <script>
+
+        $(document).ready(function() {
+            $('#example').dataTable({
+              "paging":   false,
+              "ordering": false,
+              "info":     false
+            });
+
+        } );
+    </script>
+{% endblock extra_js %}

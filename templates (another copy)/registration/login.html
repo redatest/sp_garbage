@@ -1,0 +1,180 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+    <link rel="stylesheet" href="/static/test.css">     
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block middlecontent %}
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+
+                          <br/>
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading"> Speedjob </div>
+                                
+                                <div class="panel-body" style='background:#fff; border: 1px solid #eee;'>
+
+                                      <!-- second form to hold -->  
+
+                                      <div class="col-sm-12 transp">
+                                      <form class="form-horizontal niceform" action="." method="post" enctype="multipart/form-data" role="form" id="do_auth">
+                                      {% csrf_token %}
+
+                                      <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-home fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong>{% trans "S'authentifier" %}</strong>
+                                      </p>
+                                      <hr/>
+
+                                        {{ form.non_field_errors }}
+                                        <div class="clearfix"></div>
+
+                                        <form action="{% url django.contrib.auth.views.login %}" method="post" class="login_form">{% csrf_token %}
+                                          <p>
+                                            <label for="id_username">Nom d'utilisateur</label> 
+                                            <input type="text" name="username" id="id_username">
+                                          </p>
+
+                                            <input name="next" type="hidden" value="{{next}}">
+                                            {% if form.username.errors %}  <span class="help-inline">{{ form.username.errors }}</span> {% endif %}
+
+                                            <!-- css class for form error  .niceform ul.errorlist --> 
+
+                                          <p>
+                                            <label for="id_password">Mot de passe</label> 
+                                            <input type="password" name="password" id="id_password">
+                                          </p>
+                                            {% if form.password1.errors %}  <span class="help-inline">{{ form.password1.errors }}</span> {% endif %}
+
+                                          <br/>
+
+
+                                          
+                                          <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary" id="do_login">
+                                              <i class="fa fa-sign-in white-ns"></i>
+                                              Valider
+                                            </button><br/>
+                                            <button type="button" class="btn btn-danger" onclick='javascrpt:window.location.href="/"'>Page d'acceuil</button>
+                                          </div>
+                                          
+                                        </form>
+                                     
+                                      </form>
+                                    </div>
+                                      
+                                    
+
+                                </div>
+
+                                <div class="panel-footer">
+                                    <b>Vous ne possedez pas de compte ?</b> <br/>
+                                    <i class="fa fa-hand-o-right gray-ns"></i>&nbsp;
+                                    
+                                    <span> 
+                                      Devenez membre : &nbsp;
+                                      <a href="/accounts/register"  class="account-reg"> Candidat</a>  &nbsp; / &nbsp;
+                                      <a href="/accounts/register_emp"  class="account-reg"> Employeur</a>  
+                                    </span> <br/>    
+
+                                    <b>Vous avez oublié votre mot de passe ?</b> <br/>
+                                    <i class="fa fa-reply-all gray-ns"></i>&nbsp;
+                                    <a href="/accounts/password/reset/" class="account-log">Récupérez le .</a><br/>
+                                </div>
+
+                                
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+{% block extra_js %}
+  {{ block.super }}
+
+  <!-- angularjs part --> 
+  <script src="/static/js/angular/libs/angular/angular.min.js"></script>
+  <script src="/static/js/angular/libs/angular/angular-resource.min.js"></script>
+  <script src="/static/js/angular/libs/angular/angular-cookies.min.js"></script>
+  <script src="/static/js/angular/libs/ui-bootstrap-tpls-0.3.0.min.js"></script>
+  <script src="/static/js/angular/app/app.js"></script>
+
+  <!-- 
+  <script src="/static/js/angular/app/controllers/app-controller.js"></script>
+  <script src="/static/js/angular/app/controllers/feed-controller.js"></script>
+  <script src="/static/js/angular/app/controllers/posts-controller.js"></script>
+  <script src="/static/js/angular/app/controllers/new-controller.js"></script>
+  <script src="/static/js/angular/app/services/app-service.js"></script>
+  <script src="/static/js/angular/app/services/posts-service.js"></script>
+  <script src="/static/js/angular/app/services/tags-service.js"></script>
+  <script src="/static/js/angular/app/directives/directives.js"></script>
+   --> 
+
+
+  <script>
+  $(document).ready(function(){
+
+    $('div.form-actions button#do_login').click(function(event) {
+
+          event.preventDefault();
+          $(this).unbind('click');
+          $(this).attr("disabled", "disabled");
+          $(this).css('background', '#fff') ;
+          $(this).css('color', '#000') ;
+          $(this).text(' Authentification en cours...');
+          $(this).prepend('<i class="fa fa-spinner fa-spin sml-size "></i>');
+          $(this).css('cursor', 'default');
+
+          $('form#do_auth').submit();
+          
+          
+        });
+
+    });  
+  
+  </script>
+
+
+{% endblock extra_js %}
+
+{% block footer %} {% endblock footer %}

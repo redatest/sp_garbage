@@ -1,0 +1,96 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+    <link rel="stylesheet" href="/static/test.css">     
+{% endblock extra_style %}
+
+{% block topheader %} {% endblock topheader %}
+
+{% block middlecontent %}
+
+<div class="main2 desktop chrome right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <br/>
+                <div class="panel panel-default">
+                  
+                    <div class="panel-body">
+
+                        <div class="col-sm-3">&nbsp;</div>
+                        <div class="col-sm-6" id='loginform'>
+                            <div class="panel panel-default">
+
+                                 <br/>
+
+                                 <div class="panel-heading">Speedjob</div>
+                                
+                                <div class="panel-body" style='background:#fff; box-shadow:none; border:1px solid #eee'>
+
+                                    <div class="col-sm-12 transp">
+                                      
+                                      <br/> 
+
+                                      <p class='register-helptext'>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                          <i class="fa fa-info-circle fa-stack-1x fa-inverse white-ns"></i>
+                                        </span>
+
+                                        <strong>{% trans "Vous avez été déconnecté avec succés." %}</strong>
+                                      </p>
+
+                                      <br>
+
+                                      <blockquote>
+                                        <hr>
+                                        <a class="btn btn-lg " href="/" style='text-align:center;'>
+                                          <i class="fa fa-home fa-3x pull-left blue mid-size"></i> &nbsp; 
+                                          <span style='font-family: Oswald'>Retour vers la page principale</span>
+                                        </a>
+                                        <hr>
+
+                                        <a class="btn btn-lg " href="/accounts/login">
+                                          <i class="fa fa-sign-in fa-2x pull-left red"></i> &nbsp; 
+                                          <span style='font-family: Oswald'>Se connecter une autre fois</span>
+                                        </a>
+                                        <hr>
+                                      </blockquote>
+                                        
+                                      <br/> <br/> 
+
+                                    </div>
+
+                                </div>
+
+                          </div> <!-- end panel-default -->
+
+                      </div> <!-- end col-sm-6 -->
+
+                      <div class="col-sm-3">&nbsp;</div>
+                      <div class="clearfix"></div>
+                      <br/>
+
+                      </div>
+                </div> <!-- end panel panel-default --> 
+
+                <div class="clear"></div>
+                
+
+          </div> <!-- end col-sm-12 --> 
+
+    </div> <!-- end row --> 
+  
+  <div class="clear"></div>
+
+</div> <!-- end container -->
+</div> <!-- end main2 -->
+{% endblock middlecontent %}
+
+{% block sidecontent %} {% endblock sidecontent %}
+
+
+
+{% block footer %} {% endblock footer %}

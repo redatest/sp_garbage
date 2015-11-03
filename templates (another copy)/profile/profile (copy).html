@@ -1,0 +1,200 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+        Mon profile
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-11">
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-street-view gray "></i> Coordonnées</a>
+                <div class="social-box">
+                  <div class="body">
+                    <br>
+
+                    <div class="col-sm-5">
+
+                      <div class="list-group">
+                        <a class="list-group-item" href="#"><i class="fa fa-envelope fa-fw"></i>&nbsp;Mes Candidatures <span class="badge">8</span> </a>
+                        <a class="list-group-item" href="#"><i class="fa fa-heart fa-fw"></i>&nbsp;Mes Offres favories <span class="badge">12</span> </a> 
+                        <a class="list-group-item" href="#"><i class="fa fa-exclamation-triangle fa-fw"></i>&nbsp;Mes Alertes <span class="badge">42</span> </a>
+                        <!-- <a class="list-group-item" href="#"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings <span class="badge">20</span> </a> -->
+                      </div>
+
+                    </div>
+                    <div class="col-sm-7">
+
+                      <div class="col-sm-12">
+
+                       <dl class="dl-horizontal">
+                            
+                            <dt>Date d'enregistrement:</dt>
+                            <dd>{{ userinfo.user.date_joined|date:"SHORT_DATE_FORMAT" }}</dd>
+                            <br>
+                            <dt>Dernier accés:</dt>
+                            <dd>{{ userinfo.user.last_login|date:"SHORT_DATE_FORMAT" }}</dd>
+                            <br>
+                            <dt>Nombre de visites:</dt>
+                            <dd>{{ userinfo.views }}</dd>
+                            <br>
+                      </dl>      
+
+                    </div>
+
+                    </div>
+
+
+                    <div class="col-sm-11">
+                      <div class="social-box">
+                        <div class="header"> Mes CV: </div>
+                        <div class="body">
+
+                          <span class="label dark label-default"> <i class="fa fa-file-pdf-o fa-2x"></i> &nbsp; CV en format PDF </span>
+                          <span class="label dark label-default"> <i class="fa fa-file-word-o fa-2x"></i> &nbsp; CV en format Word</span>
+                          <span class="label dark label-default nope"> <i class="fa fa-file-text-o fa-2x"></i> &nbsp; CV en format OpenOffice</span>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>                    
+
+                  </div>
+                </div>
+            </div>    
+
+
+            <div class="list-group">
+              <a class="list-group-item no-hover" href="#"><i class="fa fa-map-marker gray "></i>&nbsp; Secteur de recherche</a>
+
+
+              <div class="social-box">
+                <div class="body">
+                  <dl class="dl-horizontal">
+                      <br>
+                      
+                      <dt>Secteur 1:</dt>
+                      <dd>{{userinfo.get_sector1_display}}</dd>
+                      <br>
+                      <dt>Secteur 2:</dt>
+                      <dd>{{userinfo.get_sector2_display}}</dd>
+                      <br>
+                      <dt>Secteur 3:</dt>
+                      <dd>{{userinfo.get_sector3_display}}</dd>
+                      <br>
+                      <dt>Mobilité 1:</dt>
+                      <dd>{{userinfo.get_mobility1_display}}</dd>
+                      <br>
+                      <dt>Mobilité 2:</dt>
+                      <dd>{{userinfo.get_mobility2_display}}</dd>
+                      <br>
+                      <dt>Mobilité 3:</dt>
+                      <dd>{{userinfo.get_mobility3_display}}</dd>
+                </dl>  
+                </div>
+              </div>  
+            </div>
+
+        <div class="clearfix"></div>
+
+        <div class="list-group">
+          <a class="list-group-item no-hover" href="#"><i class="fa fa-mortar-board gray "></i>&nbsp; Autres infos</a>
+
+          <div class="social-box">
+          <div class="header">
+            
+          </div>
+          <div class="body">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#home" data-toggle="tab"><i class="icon-home"></i> Expérience professionnelles</a></li>
+              <li><a href="#profile" data-toggle="tab"><i class="icon-user"></i> Formations</a></li>
+              <li><a href="#competence" data-toggle="tab"><i class="icon-user"></i> Compétences</a></li>
+              <li><a href="#motivation" data-toggle="tab"><i class="icon-user"></i> Motivations</a></li>
+              
+            </ul>
+            <div id="myTabContent" class="tab-content">
+
+              <div class="tab-pane active" id="home">
+                <p><strong>&nbsp;</strong></p>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, accusamus, odio consequatur facere tempore rem sed sequi facilis quae doloremque voluptates non delectus quaerat error deleniti nam placeat ratione quisquam.
+                </p>
+              </div>
+
+              <div class="tab-pane fade" id="profile">
+                <p><strong>&nbsp;</strong></p>
+                <p> Fugiat, accusamus, odio consequatur facere tempore rem sed sequi facilis quae doloremque voluptates non delectus quaerat error deleniti nam placeat ratione quisquam.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, distinctio!</p>
+                </div>
+
+                <div class="tab-pane fade" id="competence">
+                <p><strong>&nbsp;</strong></p>
+                <p> Fugiat, accusamus, odio consequatur facere tempore rem sed sequi facilis quae doloremque voluptates non delectus quaerat error deleniti nam placeat ratione quisquam.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, distinctio!</p>
+                </div>
+
+                <div class="tab-pane fade" id="motivation">
+                <p><strong>&nbsp;</strong></p>
+                <p> Fugiat, accusamus, odio consequatur facere tempore rem sed sequi facilis quae doloremque voluptates non delectus quaerat error deleniti nam placeat ratione quisquam.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel, distinctio!</p>
+                </div>
+                  
+                </div>
+              </div>  
+
+        </div>
+
+
+        </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style='padding-left: 0px;'> 
+    <div class="col-sm-12" style='padding-left: 0px;'>
+      <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+      
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}

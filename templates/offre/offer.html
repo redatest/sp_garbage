@@ -1,0 +1,303 @@
+{% extends "sitebase.html" %}
+{% load i18n group_check %}
+{% load seen_by_emp %}
+
+{% block title %} {{ offer.title }} {% endblock title %}
+
+
+{% block bottom-header %} {% endblock bottom-header %}
+
+{% block middlecontent %}
+
+<div class="col-sm-8">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        
+        <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-newspaper-o fa-stack-1x "></i>
+          </span>
+        {{offer.title}} 
+        
+      
+      </div>
+
+        <div class="panel-body big-content">
+        <br/>
+
+        <div class="col-sm-4">
+
+          
+          <div id="people-you-may-know" class="social-nav-list" style="max-width: 340px; padding: 0;">
+            <ul class="nav nav-list dividers">
+              <li class="nav-header">&nbsp; </li>
+          
+              <li class="nav-header">
+                  <div class="avatar">
+                        <a href="/{{ offer.user.profile_emp.get_absolute_url }}">
+                            {% if offer.get_company.logo %}
+                                <img src="{{offer.get_company.get_thumbnail_picture_url}}" class='img-thumbnail' width='100' height='100'>
+                            {% else %}  
+                                <img src="/static/img/pro_avatar.jpg" alt="avatar" class="img-thumbnail" > 
+                            {% endif %}
+                        </a>
+                    
+                  </div>
+              </li>
+              <br>
+          
+            </ul>
+          </div> <!-- end avatar -->   
+
+          <hr/>
+
+          <div class="list-group">
+            <a class="list-group-item no-hover" href="#"><i class="fa fa-signal fa-fw gray"></i>&nbsp; Etat de l'offre</a>
+            <a class="list-group-item" href="#">
+
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                <i class="fa fa-bell fa-stack-1x fa-inverse white-ns"></i>
+              </span>
+              &nbsp; {{ offer.is_available|yesno:'Active, Inactive' }} 
+
+            </a>
+
+          </div>
+
+          <hr/>
+
+          <div class="list-group">
+            <a class="list-group-item no-hover" href="#"><i class="fa fa-wrench gray "></i> Opérations</a>
+            {% if request.user.is_authenticated %}
+
+                {% if user|in_group:"candidate" %}
+
+                    {% if already_applied %}
+                      <a class="list-group-item" href="javascript:void(0)" id="btn-postulate_off">
+                        
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-square fa-stack-2x red-ns"></i>
+                          <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse white-ns"></i>
+                        </span>
+                        &nbsp; Vous avez déja postulé a l'offre
+                      </a>
+                    {% else %}   
+                      <a class="list-group-item" href="/offer/{{offer.id}}/postulate" id="btn-postulate">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                          <i class="fa fa-paper-plane-o fa-stack-1x fa-inverse white-ns"></i>
+                        </span>
+                        &nbsp; Postuler
+                      </a>
+                      
+                    {% endif %}
+
+                {% else %} 
+
+                    {% if can_edit %}
+                    <a class="list-group-item" href="{{ offer.get_edition_url }}">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                        <i class="fa fa-cogs fa-stack-1x fa-inverse white-ns"></i>
+                      </span>
+                      Editer
+                    </a>
+                    {% else %}  
+                    <a class="list-group-item" href="/emp_profile_offres">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                          <i class="fa fa-sitemap fa-stack-1x fa-inverse white-ns"></i>
+                        </span>
+                      &nbsp; Voir mes offres
+                    </a>
+                    {% endif %}
+                    
+                {% endif %}
+
+            {% else %}
+                <a class="list-group-item" href="/accounts/login?next={{ offer.get_absolute_url }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-paper-plane-o fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Postuler
+                </a>     
+            {% endif %}
+
+            <hr>
+
+            {% if request.user.is_authenticated %}
+
+                  {% if user|in_group:"candidate" %}
+
+                        {% if offer|args:empo|args:offer.get_company|call:'is_marked' %}
+
+                          <a class="list-group-item" href="#">
+                              <span class="fa-stack fa-lg">
+                                <i class="fa fa-square fa-stack-2x red-ns"></i>
+                                <i class="fa fa-heart  fa-stack-1x fa-inverse white-ns"></i>
+                              </span>
+                              &nbsp; Deja Marquée
+                            </a>
+
+
+                           {% else %}
+
+
+                           <a class="list-group-item" href="/offer/{{offer.id}}/mark/">
+                              <span class="fa-stack fa-lg">
+                                <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                                <i class="fa fa-heart fa-stack-1x fa-inverse white-ns"></i>
+                              </span>
+                              &nbsp; Marquer
+                            </a>   
+                           
+                          {% endif %}    
+                    
+                  {% endif %}
+              
+            {% endif %}
+            
+
+          </div>
+
+
+          <hr>
+
+        </div>
+
+        <div class="col-sm-8">
+
+          <div class="social-box">
+
+            <div class="header">
+              <i class="fa fa-bullseye gray-ns"></i>
+              <strong>Description de l'offre :</strong>
+            </div>
+
+            <div class="body">
+              {{ offer.description|safe }}
+            </div>
+          </div>
+
+          <hr>
+
+
+        <div class="social-box">
+
+          <div class="header">
+            <i class="fa fa-bullseye gray-ns"></i>
+            <strong>Info sur l'offre :</strong>
+
+          </div>
+            
+            <div class="body">
+              
+              <br>
+              <dl class="dl-horizontal">
+                <dt>Société:</dt>
+                <dd>{{offer.user.username|default:"<strong> Pas encore déposée </strong>"}}</dd>
+                <br>
+                <dt>Titre:</dt>
+                <dd>{{offer.title|default:"<strong> Pas encore déposée </strong>"}}</dd>
+                <br>
+                <dt>Type de l'offre</dt>
+                <dd>{{offer.get_offerType_display|default:"<strong> Pas encore déposée </strong>"}}</dd>
+                <br>
+                <dt>Categorie:</dt>
+                <dd>{{offer.get_category_display|default:"<strong> Pas encore déposée </strong>"}}</dd>
+                <br>
+                <dt>Ville:</dt>
+                <dd>{{ offer.town|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Code postal:</dt>
+                <dd>{{ offer.postal_code|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Département:</dt>
+                <dd>{{offer.get_city_display|default:"<strong> Pas encore déposée </strong>"}}</dd>
+                <br>
+                <dt>Region:</dt>
+                <dd>{{offer.get_region_display|default:"<strong> Pas encore déposée </strong>"}}</dd>
+                <br>
+                
+                <br>
+                <dt>Salaire proposé:</dt>
+                <dd>{{ offer.get_salary_display|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Temps de travail:</dt>
+                <dd>{{ offer.work_time|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Niveau d'experience:</dt>
+                <dd>{{ offer.get_experience_display|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Niveau d'etudes:</dt>
+                <dd>{{ offer.get_study_level_display|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Date d'embauche':</dt>
+                <dd>{{ offer.hiring_date|date:"SHORT_DATE_FORMAT"|default:"<strong> Pas encore déposée </strong>" }}</dd>
+                <br>
+                <dt>Date de dépôt:</dt>
+                <dd>{{ offer.created|date:"SHORT_DATE_FORMAT"}}</dd>
+                <br>
+                <dt>Date de d'éxpiration:</dt>
+                <dd>{{ offer.expired|date:"SHORT_DATE_FORMAT"}}    </dd>
+                <br>
+                <dt></dt>
+                <dd><strong> {{ offer.remaining_days }} jour{{ offer.remaining_days|pluralize }} restant{{ offer.remaining_days|pluralize }} </strong> </dd>
+              </dl>
+            </div>
+           </div>  
+
+        </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+
+{% block sidecontent %}
+  {% include "./parts/sidepage/simple_sidecontent.html" %}
+{% endblock sidecontent %}
+
+
+{% block extra_js %}
+
+  {{ block.super }}
+
+  <script type='text/javascript'>
+  $(document).ready(function(){
+    
+    $('#btn-postulate').click(function(event) {
+      // event.preventDefault();
+      $(this).unbind('click');
+
+      $('#btn-postulate i').removeClass('fa-paper-plane-o'); 
+      $(this).text(' Envoie en cours...');
+      $(this).prepend('<i class="fa fa-spinner fa-spin sml-size "></i>');
+
+      $(this).css('background', '#fff') ;
+      $(this).css('cursor', 'default');
+      window.location.href("/offer/{{ offer.id }}");
+      // $(this).attr("href", "/");
+    });
+
+  });
+  </script>
+{% endblock extra_js %}

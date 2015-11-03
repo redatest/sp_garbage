@@ -1,0 +1,218 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_style %}
+  <link rel="stylesheet" type="text/css" href="/static/jqueryui/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="/static/social_bis.css"> 
+{% endblock extra_style %}
+
+  {% block middlecontent %}
+
+    <div class="col-sm-8">
+    <br/>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"> 
+        <span class="fa-stack ">
+            <i class="fa fa-square-o fa-stack-2x "></i>
+            <i class="fa fa-newspaper-o fa-stack-1x "></i>
+          </span>
+        {{car.title}} 
+        
+      </div>
+      <div class="panel-body big-content">
+       <!-- car slider --> 
+      <br/>
+
+      <div class="car-desc">
+
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-square fa-stack-2x blue-ns"></i>
+          <i class="fa fa-pencil fa-stack-1x fa-inverse white-ns"></i>
+        </span>
+
+        <strong>{% trans "Editer l'offre " %}</strong>
+
+        <br><br>
+
+        <form method="post" enctype="multipart/form-data" class="uploadform form-horizontal">
+
+            {% csrf_token %}
+
+             {{ form.non_field_errors }}
+
+            <div class="wells">
+              <div class="form-group halfsize">
+                {{ form.title.errors }}
+                <label class="col-sm-3 control-label" for="id_title">Title:</label>
+
+                <div class="col-sm-8">
+                  {{ form.title }}
+                </div>
+            </div> 
+
+            <div class="form-group halfsize">
+                {{ form.category.errors }}
+                
+                <label class="col-sm-3 control-label" for="id_category">Categorie:</label>
+                <div class="col-sm-4">
+                  {{ form.category }}
+                </div>
+            </div> 
+            
+            <div class="form-group halfsize">
+                {{ form.offerType.errors }}
+                <label class="col-sm-3 control-label" for="id_offerType">Offre:</label>
+
+                <div class="col-sm-4">
+                  {{ form.offer }}
+                </div>
+            </div> 
+            
+            <div class="form-group halfsize">
+
+                {{ form.salary.errors }}
+                <label class="col-sm-3 control-label" for="id_salary">Salaire:</label>
+
+                <div class="col-sm-4">
+                  {{ form.salary }}
+                </div>
+                
+            </div> 
+
+            <div class="form-group halfsize">
+
+                {{ form.city.errors }}
+                <label class="col-sm-3 control-label" for="id_city">Département:</label>
+
+                <div class="col-sm-4">
+                  {{ form.city }}
+                </div>
+            </div>
+
+            <div class="form-group halfsize">
+
+                {{ form.region.errors }}
+                <label class="col-sm-3 control-label" for="id_region">Region:</label>
+
+                <div class="col-sm-4">
+                  {{ form.region }}
+                </div>
+            </div>
+
+            <div class="form-group halfsize">
+
+                {{ form.immediate.errors }}
+                <label class="col-sm-3 control-label" for="id_immediate">{% trans "immediat" %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.immediate }}
+                </div>
+            </div>
+
+            <div class="form-group halfsize">
+
+                {{ form.expired.errors }}
+                <label class="col-sm-3 control-label" for="id_expired">{% trans " date d'expiration " %}:</label>
+
+                <div class="col-sm-4">
+                  {{ form.expired }}
+                </div>
+            </div>
+
+            <div class="form-group halfsize">
+
+                {{ form.description.errors }}
+                <label class="col-sm-3 control-label" for="id_description">{% trans "description" %}:</label>
+
+                <div class="col-sm-8">
+                  {{ form.description }}
+                </div>
+            </div>
+
+            </div>
+
+              <p style='text-align: center'>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+              </p>  
+          </form>
+
+      </div> <!-- car desc ends --> 
+
+      <br/><br/><br/><br/>
+
+        <!-- car slider ends --> 
+        
+      </div> <!-- end panel body -->
+      
+    </div>
+
+<!-- google ads -->       
+ <div class="panel panel-default">
+   <div class="panel-body" style='padding-left: 0px;'>
+     <div class="col-sm-12" style='padding-left: 0px;'>
+       <!-- <img src="http://placehold.it/670x70&amp;text=Google_ads" alt="placeholder image" class='img-responsive'> -->
+       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <!-- footer_annonces -->
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:670px;height:90px"
+               data-ad-client="ca-pub-7389849661114491"
+               data-ad-slot="7527859765"></ins>
+          <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+     </div>
+   </div>
+ </div>
+    
+  </div> <!-- end span8 -->
+
+  {% endblock middlecontent %}
+  <br/>
+
+{% block sidecontent %}
+  {% include "./parts/simple_sidecontent.html" %}
+{% endblock sidecontent %}
+
+
+{% block js %}
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+        <script src="/static/jqueryui/jquery-ui.min.js"></script>
+        
+
+        <script type="text/javascript" src="/static/js/jquery.infinitescroll.min.js"></script>
+        <script type="text/javascript" src="/static/js/custom.js"></script>
+
+        <script src="/static/jasny-bootstrap/js/jasny-bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+        <!-- vmap --> 
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.js" ></script>         
+        <script type='text/javascript' src="/static/vmap/jquery.vmap.france.js" ></script>
+
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>         
+        <script type="text/javascript" src="/static/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js"></script>         
+
+        <script type='text/javascript'>
+          jQuery(document).ready(function($) {
+            $('#id_description').wysihtml5({
+              // "font-styles": false,
+              "color":false,
+              "link":false,
+              "lists": false,
+              "emphasis": false,
+              "image":false
+            });
+
+            $("#id_expired").datepicker({ dateFormat: "dd-mm-yy" }).val();
+
+             
+          });
+        </script>
+
+
+{% endblock js %}
+
+
+  
+

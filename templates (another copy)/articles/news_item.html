@@ -1,0 +1,96 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block title %} {{ article.title }} {% endblock title %}
+
+{% block middlecontent %}
+
+  <div class="col-sm-8">
+
+  <br/>
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading"> 
+
+      <span class="fa-stack ">
+        <i class="fa fa-square-o fa-stack-2x "></i>
+        <i class="fa fa-newspaper-o fa-stack-1x "></i>
+      </span>
+
+      Article : {{ article.id }}
+    </div>
+    <div class="panel-body">
+
+      <!-- article 1 --> 
+      <br>
+
+        <div class="container">
+          
+           <div class="well">
+              <div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" src="{{ article.img.url }}" width='220px' height='180px'>
+              </a>
+              <div class="media-body">
+
+                <h4 class="media-heading">{{ article.title }}</h4><br>
+
+                  <p> {{ article.body|safe }}.</p>
+                  <br/>
+                  <ul class="list-inline list-unstyled">
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> {{article.created|date:"Y-m-d" }} </span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> 2 commentaires </span>
+                    <li>|</li>
+                    <li>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star"></span>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                    </li>
+                    <br>
+                    <br>
+
+                  </ul>
+
+               </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- article separation --> 
+      <br/>
+
+    </div>
+    <!-- end panel body --> 
+    
+  </div>
+
+<!-- google ads -->       
+<div class="panel panel-default">
+ <div class="panel-body" style='padding-left: 0px;'>
+   <div class="col-sm-12" style='padding-left: 0px;'>
+     <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      
+   </div>
+ </div>
+</div>
+  
+</div> <!-- end span8 -->
+{% endblock middlecontent %}
+
+<br/>
+
+{% block sidecontent %}
+  {% include "./parts/simple_sidecontent.html" %}
+{% endblock sidecontent %}

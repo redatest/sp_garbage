@@ -1,0 +1,198 @@
+{% load i18n %}
+
+{% block extra_css %}
+
+
+
+    <script src="/static/js/dependant_regions.js"></script>
+    <style type="text/css">
+      select#id_region, select#id_city{
+        width:100% !important;
+    }
+
+    .select-style {
+          padding: 0;
+          margin: 0;
+          border: 2px solid #7AB3CF;
+          width: 100%;
+          border-radius: 3px;
+          overflow: hidden;
+          background-color: #fff;
+
+          background: #fff url("/static/img/arrowdown.gif") no-repeat 90% 50%;
+      }
+
+  .select-style select {
+      padding: 5px 8px;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+         -moz-appearance: none;
+              appearance: none;
+  }
+
+  .select-style select:focus {
+      outline: none;
+  }
+
+   </style>
+{% endblock %}
+
+
+
+
+<div class="main2 desktop chrome right-sidebar"> <!-- test ineractive map -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+      <div class="panel panel-default">
+        
+
+        <div class="panel-body" style="border: 6px solid rgba(0, 136, 204, 0.14)">
+
+          <br>
+                  <div class="col-md-6">
+                    <div class="panel panel-default">
+
+                      <div class="panel-heading center">
+                        <span class="fa-stack ">
+                          <i class="fa fa-square-o fa-stack-2x "></i>
+                          <i class="fa fa-map-marker fa-stack-1x "></i>
+                        </span>
+                        Recherche par region <span style='font-size:.7em !important'> Clickez sur une région pour chercher</span>
+                      </div>
+
+                      <div class="panel-body">
+                        <div id="francemap" style="width: 380px; height: 340px;"></div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-6" style='padding-top:0px; padding-bottom:0px'>
+
+                      <div class="panel panel-default">
+                        <div class="panel-heading center">
+                          <span class="fa-stack ">
+                            <i class="fa fa-square-o fa-stack-2x "></i>
+                            <i class="fa fa-sliders fa-stack-1x "></i>
+                          </span>
+                          Lancer une recherche combinée
+                        </div>
+
+                        <div class="panel-body">
+
+                        <div class="col-md-8 col-md-offset-2">
+
+                          <form action="/map_search" method="GET" id="search_form" accept-charset="utf-8" class="form-label">
+
+                              {% csrf_token %}
+
+                               {{ form.non_field_errors }}
+
+                              <div class="form-group">
+                                  {{ form.offer.errors }}
+                                  <label for="id_offer">{% trans "Type de contrat" %}:</label>
+                                  <div class="controls select-style">
+                                    {{ form.offer }}
+                                  </div>
+                              </div>
+
+                              <div class="form-group" style="clear:both;">
+                                  {{ form.category.errors }}
+                                  <label for="id_category">{% trans "Categorie" %}:</label>
+                                  <div class="controls select-style">
+                                    {{ form.category }}
+                                  </div>
+                              </div>
+                              
+                               <div class="region-dep">
+
+                                 <div class="control-group">
+
+                                  <label class="control-label mod mod" for="parent_selection">&nbsp; Région :</label>
+
+                                  <div class="controls select-style">
+
+                                       <select name="region" class="span12" id="parent_selection" style='width: 100% !important;'>
+                                          
+                                                    <option value="">-- Séléctionnez --</option>
+                                                    <option value="8">Alsace</option>
+                                                    <option value="13">Aquitaine</option>
+                                                    <option value="21">Auvergne</option>
+                                                    <option value="4">Basse Normandie</option>
+                                                    <option value="11">Bourgogne</option>
+                                                    <option value="6">Bretagne</option>
+                                                    <option value="7">Champagne Ardenne</option>
+                                                    <option value="15">Corse</option>
+                                                    <option value="10">Centre</option>
+                                                    <option value="5">Ile de France</option>
+                                                    <option value="22">Franche Comte</option>
+                                                    <option value="3">Haute Normandie</option>
+                                                    <option value="17">Languedoc Roussillon</option>
+                                                    <option value="20">Limousin</option>
+                                                    <option value="18">Lorraine</option>
+                                                    <option value="16">Midi Pyrenees</option>
+                                                    <option value="1">Nord Pas de Calais</option>
+                                                    <option value="2">Picardie</option>
+                                                    <option value="14">PACA</option>
+                                                    <option value="9">Pays de la Loire</option>
+                                                    <option value="12">Rhone Alpes</option>
+                                                    <option value="19">Poitou Charentes</option>
+
+                                          </select>
+                                          
+                                    </div>
+                                 
+                                </div>
+
+                            <div class="control-group">
+
+                                <label class="control-label mod mod" for="child_selection">&nbsp; Départements :</label>
+
+                                <div class="controls select-style">
+
+                                    <select id="child_selection" name="city" class="span6" style='width: 100% !important;'>
+
+                                        <option value=""> ----------------- </option>
+                                        
+                                    </select>  
+                                  
+                                </div>
+                             
+                           </div>
+
+
+
+                               </div>  <!-- end div region-dep --> 
+
+                                <br/>
+
+                                <p style="text-align: center;"> <input type="submit" class="btn btn-primary" value="Valider"> </p>
+
+                            </form>
+
+
+                        </div>    
+                          
+                        </div>
+
+                      </div>
+
+                  </div>
+
+                </div>
+
+        
+
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</div><!-- test ineractive map ends -->
+

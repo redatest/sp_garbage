@@ -1,0 +1,144 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+  
+{% block bottom-header %} {% endblock bottom-header %}
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Mes annnonces favorites
+      </div>
+
+        <div class="panel-body">
+
+        <ol class="breadcrumb breadcrumb-arrows breadcrumb-default">
+          <li> <a href="#"><i class="fa fa-home fa-lg"></i> </a> </li>
+          <li> <a href="/">               Accueil</a> </li>
+          <li> <a href="/candid_profile/">Profil</a> </li>
+        </ol>
+
+        <div class="col-sm-12">
+
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                <i class="fa fa-tasks fa-stack-1x fa-inverse white-ns"></i>
+              </span>
+              <strong> Vous avez {{marks.count}} annonce{{marks|pluralize}} favorite{{marks|pluralize}}  </strong>
+
+              <ol>
+                <li>
+                    <strong>- Pensez à retirer les annonces qui ne vous intéréssent plus </strong>
+                </li>
+              </ol>
+              
+                <br>
+
+                {% if marks %}
+                  <!-- BEGIN TABLE DATA -->
+                <div id="editable_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                  <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover " id="editable" aria-describedby="editable_info">
+                    <!-- BEGIN -->
+                    <thead>
+                        <tr role="row">
+
+                          <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="ID" style="width: 50px;text-align: center;">
+                            Voir
+                          </th>
+
+                          <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="ID" style="width: 130px;text-align: center;">
+                            Marquée le
+                          </th>
+
+                          <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 186px;text-align: center;">Société
+                          </th>
+
+
+                          <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-label="Password: activate to sort column ascending" style="width: 122px;text-align: center;">Annonces
+                          </th>
+
+
+                          <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-label="Delete: activate to sort column ascending" style="width: 71px;text-align: center;">Retirer</th>
+
+                        </tr>
+                    </thead>
+                    <!-- END -->
+                    <!-- BEGIN -->
+                    
+                    <!-- END -->
+                      <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                        {% for i in marks %}
+                          
+                           <tr id="data1" class="gradeX odd">
+
+                              <td class=" "><a class="edit" href="{{ i.offer.get_absolute_url }}">&nbsp;&nbsp;<i class="fa fa-search min-size gray"></i></a></td>
+
+                              <td class=" ">{{ i.created|date:'SHORT_DATE_FORMAT' }}</td>
+                              <td class=" sorting_1">{{i.company}}</td>
+                              <td class=" "> {{ i.offer }} </td>
+
+                              
+                              <td class=" ">
+                                <a class="" href="/offer/{{i.offer.id}}/{{ i.company.id }}/unmark ">&nbsp;&nbsp;
+
+                                  <span class="fa-stack fa-lg">
+                                    <i class="fa fa-square fa-stack-2x red-ns"></i>
+                                    <i class="fa fa-remove fa-stack-1x fa-inverse white-ns"></i>
+                                  </span>
+
+                                </a>
+                              </td>
+
+                          </tr>
+
+                        {% endfor %}
+                          
+                      </tbody>
+                    </table>
+
+                      
+                    </div>
+                <!-- END TABLE DATA -->
+                {% else %}
+
+                  <div class="info">
+                    <p class="lead">
+                      <br>
+                      Aucune annonce marquée pour le moment
+                      &nbsp;
+                      <br>
+                    </p>
+                  </div>
+
+                {% endif %}
+
+
+          <br/>
+        </div>
+
+        
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}
+

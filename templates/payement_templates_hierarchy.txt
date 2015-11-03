@@ -1,0 +1,8 @@
+
+first of all it loades the home page situated in :
+/templates/main/home.html
+
+home.html inherits from /templates/app_base.html
+app_base.html inherits from /templates/site_base.html
+
+site_base.html inherits from /templates/sitebase.html ( it redifine it in fact  )

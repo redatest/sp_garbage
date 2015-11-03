@@ -1,0 +1,195 @@
+{% extends "sitebase.html" %}
+s
+{% load i18n %}
+{% block middlecontent %}
+
+{% block extra_style %}
+   <link rel="stylesheet" type="text/css" href="/static/social.css">
+ {% endblock extra_style %}
+
+<div class="col-sm-8">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+        Profile de l'employeur
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-4">
+
+          <div class="list-group">
+            <a class="list-group-item no-hover" href="#"><i class="fa fa-file-image-o gray "></i>&nbsp; Avatar</a>
+            <div id="people-you-may-know" class="social-nav-list" style="max-width: 340px; padding: 0;">
+            <ul class="nav nav-list dividers">
+              <li class="nav-header">&nbsp;</li>
+
+              <li class="nav-header">
+                  <div class="avatar">
+                    <img src="/static/img/user2.png" alt="avatar" class="img-thumbnail" width='100' height='100'>
+                  </div>
+              </li>
+              <br>
+
+            </ul>
+          </div> <!-- end avatar -->
+          </div>
+
+          <hr>
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-edit gray "></i> Opérations</a>
+
+                {% if has_alerted %}
+
+                <a class="list-group-item" href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x red-ns"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Vous avez déja envoyé une alerte a cet employeur 
+                </a>
+
+                {% else %}
+
+                <a class="list-group-item" href="/send_alert/{{ userinfo.user_id }}">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x blue-ns"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse white-ns"></i>
+                  </span>
+                  &nbsp; Envoyer une alerte  
+                </a>
+                  
+                {% endif %}
+
+          </div>
+
+          <hr/>
+
+        </div>
+
+        <div class="col-sm-8">
+
+
+        <div class="social-box">
+
+            <div class="header">
+              <i class="fa fa-bullseye gray-ns"></i>
+              <strong>Informations générales :</strong>
+
+            </div>
+
+            <div class="body">
+              <dl class="dl-horizontal">
+                <dt>Societé</dt>
+                <dd>{{userinfo.user.username}}</dd>
+                <br>
+                <dt>Représentant</dt>
+                <dd>{{userinfo.representant}}</dd>
+                <br>
+                <dt>N° Siret</dt>
+                <dd>{{userinfo.siret}}</dd>
+                <br>
+                <dt>Code postal</dt>
+                <dd>{{userinfo.postal_code}}</dd>
+                <br>
+                <dt>Ville</dt>
+                <dd>{{userinfo.get_town_display}}</dd>
+                <br>
+                <dt>Région</dt>
+                <dd>{{userinfo.get_region_display}}</dd>
+                <br>
+                <dt>Telephone:</dt>
+                <dd>{{userinfo.phone}}</dd>
+                <br>
+                <dt>Site web:</dt>
+                <dd>{{userinfo.website}}</dd>
+                <br>
+                <br>
+                <dt>Date d'enrregistrement:</dt>
+                <dd>{{ userinfo.user.date_joined }}</dd>
+                <br>
+                <br>
+                <dt>Dernier acces:</dt>
+                <dd>{{ userinfo.user.last_login }}</dd>
+                <br>
+              </dl>
+            </div>
+           </div>
+
+
+
+            <div class="social-box span6">
+
+            <div class="header">
+              <h4 class="hidden-phone">&nbsp;</h4>
+              <div class="tools">
+                <ul id="myTab2" class="nav nav-tabs">
+                  <li class="active"><a class="active" href="#profile2" data-toggle="tab"><i class="fa fa-user"></i> Presentation</a></li>
+                </ul>
+              </div>
+
+            </div>
+            <div class="body">
+              <div id="myTabContent2" class="tab-content" style="min-height: 280px;">
+                <div class="tab-pane fade active in" id="profile2">
+                  <p><strong>A propos de l'entreprise:</strong></p>
+                  <p>
+                    {{ userinfo.presentation|safe }}
+
+                  </p>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+    </div> <!-- end panel body -->
+
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" style='padding-left: 0px;'>
+    <div class="col-sm-12" style='padding-left: 0px;'>
+      <!-- <img src="http://placehold.it/670x70" alt="placeholder image" class='img-responsive'> -->
+
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- footer_annonces -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:670px;height:90px"
+           data-ad-client="ca-pub-7389849661114491"
+           data-ad-slot="7527859765"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+
+{% block sidecontent %}
+  {% include "./parts/simple_sidecontent.html" %}
+{% endblock sidecontent %}
+

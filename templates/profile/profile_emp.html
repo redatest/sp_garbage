@@ -1,0 +1,233 @@
+{% extends "sitebase.html" %}
+{% load i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="/static/sweetalert/dist/sweetalert.css">
+    <style type="text/css">
+    div.sweet-alert fieldset{
+      display: none !important;
+    }
+    </style>
+{% endblock extra_css %}
+
+{% block js %}
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/style/bootstrap/js/bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script> 
+        <script src="/static/sweetalert/dist/sweetalert.min.js"></script>
+{% endblock js %}
+
+{% block bottom-header %} {% endblock bottom-header %}
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="fa-stack ">
+          <i class="fa fa-square-o fa-stack-2x "></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+        Mon profil
+      </div>
+
+        <div class="panel-body">
+        <br/>
+
+        <div class="col-sm-4">
+
+          <div class="list-group">
+
+              <div class="body">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-list-alt gray "></i>&nbsp;&nbsp; {{userinfo}}</a>
+                 <br> 
+                <div class="col-sm-5">
+
+                  <img src="{{userinfo.get_thumbnail_picture_url}}" class='img-polaroid avatar'>
+                </div>
+                <div class="col-sm-7">
+                  <span class="label dark label-default"> <i class="fa fa-edit fa-lg gray"></i> 
+                    &nbsp; <a href="/emp_profile_edit/{{ userinfo.user_id }}">Éditer mon profil</a> </span>
+                  <br/>
+                  <hr/>
+                  <span class="label dark label-default"><i class="fa fa-times fa-lg gray"></i>
+                    <a href="/delete_emp_page" id="del_profile_emp">&nbsp; Supprimer mon compte</a> 
+                  </span>
+                  <br>
+                  
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            
+          </div> <!-- end avatar -->
+
+          <hr>
+
+          <hr/>
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-map-marker gray "></i>&nbsp; Coordonnées</a>
+                  <br/>
+                  <dl class="dl-horizontal">
+                    <dt>Societé:</dt>
+                    <dd>{{userinfo.user.username}}</dd>
+                    <br>
+                    <dt>Représentant:</dt>
+                    <dd>{{userinfo.representant}}</dd>
+                    <br>
+                    <dt>N° Siret:</dt>
+                    <dd>{{userinfo.siret}}</dd>
+                    <br>
+                    <dt>Adresse:</dt>
+                    <dd>{{userinfo.address}}</dd>
+                    <br>
+                    <dt>Code postal:</dt>
+                    <dd>{{userinfo.postal_code}}</dd>
+                    <br>
+                    <dt>Ville:</dt>
+                    <dd>{{userinfo.city}}</dd>
+                    <br>
+                    <dt>Département:</dt>
+                    <dd>{{userinfo.get_town_display}}</dd>
+                    <br>
+                    <dt>Région:</dt>
+                    <dd>{{userinfo.get_region_display}}</dd>
+                    <br>
+                    <dt>Telephone:</dt>
+                    <dd>{{userinfo.phone}}</dd>
+                    <br>
+                    <dt>Site web:</dt>
+                    <dd>{{userinfo.website}}</dd>
+                    <br>
+                  </dl>
+
+          </div>
+
+        </div>
+
+        <div class="col-sm-8">
+
+          <div class="list-group">
+                <a class="list-group-item no-hover" href="#"><i class="fa fa-dashboard gray "></i>&nbsp; Mon compte</a>
+                <div class="social-box">
+                  <div class="body">
+                    <br>
+
+                    <div class="col-sm-5">
+
+                      <div class="list-group">
+                        <a class="list-group-item" href="/emp_profile_offres"><i class="fa fa-envelope fa-fw blue"> </i>
+                          &nbsp;Mes Annonces <span class="badge">{{offers_count}}</span>
+                        </a>
+                        <a class="list-group-item" href="/applications"><i class="fa fa-users fa-fw blue"></i>
+                          &nbsp;Mes Demandes <span class="badge">{{application_count}}</span> 
+                        </a> 
+                        <a class="list-group-item" href="/emp_profile_alerts"><i class="fa fa-exclamation-triangle fa-fw blue"></i>
+                          &nbsp;Mes Alertes <span class="badge">{{alerts_count}}</span> 
+                        </a>
+                      </div>
+
+                    </div>
+                    <div class="col-sm-7">
+
+                      <div class="col-sm-12">
+
+                         <dl class="dl-horizontal">
+
+                              <br/>
+                              
+                              <dt>Date d'enregistrement:</dt>
+                              <dd>{{ userinfo.user.date_joined|date:"SHORT_DATE_FORMAT" }}</dd>
+                              <br>
+                              <dt>Dernier accès:</dt>
+                              <dd>{{ userinfo.user.last_login|date:"SHORT_DATE_FORMAT" }}</dd>
+                              <br>
+                              
+                          </dl>      
+
+                      </div>
+
+                    </div>
+                    
+                    <div class="clearfix"></div>
+
+                  </div>
+                </div>
+            </div>    
+
+
+        <div class="clearfix"></div>
+
+        <div class="list-group">
+          <a class="list-group-item no-hover" href="#"><i class="fa fa-institution gray "></i>&nbsp; Présentation</a>
+
+          <div class="social-box">
+          <div class="header">
+            
+          </div>
+          <div class="body">
+
+              
+            <p>
+              {{ userinfo.presentation|safe|default:'<h3> pas encore déposée </h3>' }}
+            </p>
+              
+
+          </div>  
+
+          </div>
+
+
+        </div>
+
+    </div> <!-- end panel body -->  
+      
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.download_file').tooltip();
+    //override defaults
+      // dialogs default title
+
+    $("#del_profile_emp").click(function(e){
+       e.preventDefault();
+
+       swal({   title: "Etes vous sûr ?",   
+                text: "Votre compte ainsi que vos sauvegardes seront perdus !",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#08C",   
+                animation: "slide-from-top",   
+                confirmButtonText: "Qui",
+                cancelButtonText: "Non",   
+                closeOnConfirm: false }, function(){ 
+                  javascrpt:window.location.href="/delete_emp_page";
+                 });
+       
+         // return false;
+      }); // end clidk edit profile
+
+    });
+
+</script>
+
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}

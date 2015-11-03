@@ -1,0 +1,163 @@
+{% extends "sitebase.html" %}
+
+{% load i18n %}
+
+<br/>
+
+{% block bottom-header %} {% endblock bottom-header %}
+
+{% block middlecontent %}
+
+<div class="col-sm-12">
+  <br/>
+  <div id="respo">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Liste des postulants
+      </div>
+
+        <div class="panel-body">
+
+        <ol class="breadcrumb breadcrumb-arrows breadcrumb-default">
+          <li> <a href="#"><i class="fa fa-home fa-lg"></i> </a> </li>
+          <li> <a href="/">               Accueil</a> </li>
+          <li> <a href="/emp_profile/">Profil</a> </li>
+        </ol>
+
+        <div class="col-sm-12">
+
+    <!-- BEGIN TABLE BODY -->
+      <ol>
+        <li>
+          <strong>
+            - Cliquez sur l'icone <i class="fa fa-power-off min-size red"></i> pour valider les demandes non confirmées
+          </strong>
+        </li>
+
+        <li>
+            <strong>- Cela vous évite de voir les notification sur le menu </strong>
+        </li>
+      </ol>
+
+      <br>
+
+        {% if apps %}
+          <!-- BEGIN TABLE DATA -->
+        <div id="editable_wrapper" class="dataTables_wrapper form-inline" role="grid">
+          <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover" id="editable" aria-describedby="editable_info">
+            <!-- BEGIN -->
+            <thead>
+                <tr role="row">
+
+
+                  <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="ID" style="width: 150px;text-align: center;">
+                    Voir
+                  </th>
+
+                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 186px;text-align: center;">Annonce
+                  </th>
+
+                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 186px;text-align: center;">Nom d'utilisateur
+                  </th>
+
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-label="Password: activate to sort column ascending" style="width: 122px;text-align: center;">Déposée le:
+                  </th>
+
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 150px;text-align: center;">Poste recherché
+                  </th>
+
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-label="Last Login: activate to sort column ascending" style="width: 110px;text-align: center;">Expérience
+                  </th>
+
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable" rowspan="1" colspan="1" aria-label="Password: activate to sort column ascending" style="width: 160px;text-align: center;"> Confirmer
+                  </th>
+
+                </tr>
+            </thead>
+            <!-- END -->
+
+              <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                {% for i in apps %}
+
+                   <tr id="data1" class="gradeX odd">
+
+                      <td class=" "><a class="edit" href="{{ i.person.get_absolute_url }}">&nbsp;&nbsp;<i class="fa fa-search min-size gray"></i></a></td>
+
+                      <td class=" sorting_1"> {{ i.offer }} </td>
+                      <td class=" sorting_1"> {{ i.person.get_full_name }} </td>
+                      
+                      <td class=" ">          {{ i.created|date:'SHORT_DATE_FORMAT' }} </td>
+                      <td class=" "> {{i.person.wanted_job }} </td>
+                      <td class=" "> {{i.person.get_study_level_display}} </td>
+                      <td class="">
+                        {% if i.is_seen %}
+                          <a href="/application/{{ i.offer.id }}/reject/{{ i.person.user_id }}/set/{{ i.id }}">
+
+                              <span class="fa-stack fa-lg">
+                                <i class="fa fa-square fa-stack-2x green-ns"></i>
+                                <i class="fa fa-power-off fa-stack-1x fa-inverse "></i>
+                              </span>
+
+                          </a>
+                        {% else %}
+                          <a href="/application/{{ i.offer.id }}/confirm/{{ i.person.user_id }}/set/{{ i.id }}">
+
+                              <span class="fa-stack fa-lg">
+                                <i class="fa fa-square fa-stack-2x red-ns"></i>
+                                <i class="fa fa-power-off fa-stack-1x fa-inverse "></i>
+                              </span>
+
+                          </a>
+                        {% endif %}
+                      </td>
+
+                  </tr>
+
+                {% endfor %}
+
+              </tbody>
+            </table>
+
+            </div>
+        <!-- END TABLE DATA -->
+        {% else %}
+
+          <div class="info">
+            <p class="lead">
+              <br>
+              Aucun demande pour vos annonces pour le moment.
+              &nbsp;
+              <br>
+            </p>
+          </div>
+
+        {% endif %}
+    
+    
+    <!-- END TABLE BODY -->
+
+          <br/>
+        </div>
+
+    </div> <!-- end panel body -->
+
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+<!-- Authors word -->
+
+<div class="clear"></div>
+
+
+</div>
+<!-- end span8 -->
+{% endblock middlecontent %}
+<br/>
+
+
+{% block sidecontent %}
+
+{% endblock sidecontent %}

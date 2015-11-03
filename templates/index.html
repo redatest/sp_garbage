@@ -1,0 +1,44 @@
+{% extends "sitebase.html" %}
+
+
+{% load i18n group_check cache %}
+
+    {% block middlecontent %}
+
+    <div class="col-sm-8">
+
+      
+      <br/>
+    
+    <div id="respo">
+
+      {% if request.user.is_authenticated %}
+
+          <!-- candidate user --> 
+          {% if user|in_group:"candidate" %}
+            {% include "index_candidate.html" %}
+
+          <!-- employer user --> 
+          {% else %}
+            {% include "index_employer.html" %}
+          {% endif %}
+
+      <!-- non authenticated user --> 
+      {% else %}
+        {% include "index_candidate.html" %}
+      {% endif %}
+      
+    </div> <!-- end respo --> 
+    
+    <div class="clearfix"></div>  
+   
+   
+    </div> <!-- end span8 -->
+      
+    {% endblock middlecontent %}
+
+    <br/>
+
+
+
+

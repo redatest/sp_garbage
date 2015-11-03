@@ -1,0 +1,1 @@
+le module de paiement herite du fichier app_base.html  which inherits from sitebase.html

@@ -1,0 +1,97 @@
+{% extends "app_base.html" %}
+
+{% block main_header %}
+	<div class='page-header text-center'>
+		<h1>Annulation de l'abonnement</h1>
+	</div>
+{% endblock main_header %}
+{% block main_content %}
+
+	<div class='text-center'>
+		<p class='lead'>Si vous souhaitez annuler votre abonnement , cliquez sur le bouton ci-dessous.</p>
+		<br>
+
+		<a id='cancel' class="btn btn-danger btn-large"href="#">Annuler Abonnement</a>
+
+		<br>
+		<br>
+		
+	</div>
+
+	<div id="confirmModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-header text-center">
+			<h3>Confirmez l'annulation</h3>
+		</div>
+		<div class="modal-body">
+			<br>
+			<div class="row-fluid">
+				<div class="span8 offset2 text-center">
+					Voulez-vous vraiment annuler votre abonnement?
+				</div>
+				<form id="cancelSubscriptionForm" action="{% url cancel_ajax %}" method="POST">
+					{% csrf_token %}
+				</form>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class='text-center'>
+				<a id="confirm-yes" class="btn btn-danger" href="#">Oui</a>
+				<a id="confirm-no" class="btn btn-default" href="#">Non</a>
+			</div>
+		</div>
+	</div>
+
+	{% include "main/modals/progress.html" with header="Annulation de l'abonnement" sub_header="Attente de la réponse de la passerelle du paiement" %}
+
+	{% include "main/modals/error.html" with sub_header="Veillez contacter notre équipe technique." %}
+
+	{% include "main/modals/success.html" with header="Votre abonnement a été annulé." success_message="Désolé pour votre départ..."%}
+{% endblock main_content %}
+
+{% block extra_js %}
+
+<script type="text/javascript">
+$(function(){
+
+	var redirectURL = '{% url home %}'
+	$form = $('#cancelSubscriptionForm');
+	$confirmModal = $('#confirmModal');
+
+	$progressModal = $('#progressModal');
+	$errorModal = $('#errorModal');
+	$successModal = $('#successModal');
+
+	$('#cancel').click(function(){
+		$confirmModal.modal('show');
+	});
+
+	$('#confirm-no').click(function(){
+		$confirmModal.modal('hide');
+	});
+
+	$('#confirm-yes').click(function(){
+		$confirmModal.modal('hide');
+		$progressModal.modal('show');
+
+		$.ajax({
+			type: "POST",
+			url: $form.attr('action'),
+			data: $form.serialize(),
+			success: function(data){
+				$progressModal.modal('hide');
+				$successModal.modal('show');
+				setTimeout(function(){
+					window.location = redirectURL;
+				}, 2000);
+			},
+			error:function(data){
+				var str = JSON.parse(data.responseText);
+				$progressModal.modal('hide');
+				$errorModal.modal('show');
+				$('#errorMsg').text(str);
+			}
+		});
+	});
+});
+</script>
+{% endblock extra_js %}
