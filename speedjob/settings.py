@@ -17,11 +17,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db573765033',
-        'USER': 'dbo573765033',
-        'PASSWORD': 'm@ch1ne$',
-        'HOST': 'db573765033.db.1and1.com',
-        'PORT': '3306',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -212,15 +212,13 @@ ACCOUNT_ACTIVATION_DAYS = 14
 # email configuration
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = "auth.smtp.1and1.fr"
-EMAIL_HOST_USER = "leon.benard@speedjob.fr"
-EMAIL_HOST_PASSWORD = 'guigui22'
+EMAIL_HOST = ""
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 
 # Stripe payments
-STRIPE_SECRET_KEY    = "sk_test_mopWUvH81IrewEKfXKN9e6rq"
-STRIPE_PUBLIC_KEY    = "pk_test_v9t1PMYuYgsUM5Zsoj3uFn2b"
 
 PAYMENTS_INVOICE_FROM_EMAIL = 'redatest7@gmail.com'
 
